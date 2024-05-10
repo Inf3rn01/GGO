@@ -1,0 +1,25 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#101010"
+
+  # Logo for light theme
+  image: assets\logos\GGO-black.png
+
+  # Logo for dark theme
+  image_dark: assets\logos\GGO-white.png
+
+  android: true
+  ios: true
+
+
+  android_12:
+    color: "#FFFFFF"
+    color_dark: "#101010"
+
+    # Logo for light theme
+    image: assets\logos\GGO-black.png
+
+    # Logo for dark theme
+    image_dark: assets\logos\GGO-white.png
+
+  web: true
