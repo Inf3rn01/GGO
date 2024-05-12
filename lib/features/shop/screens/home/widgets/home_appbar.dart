@@ -11,7 +11,7 @@ class GHomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GAppBar(
+    return AuthAppBar(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

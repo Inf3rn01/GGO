@@ -13,13 +13,11 @@ class GPromoSlider extends StatelessWidget {
     required this.banners,
     this.applyImageRadius = true,
     this.onPressed,
-    this.viewportFraction = 1.1
   });
 
   final List<String> banners;
   final bool applyImageRadius;
   final Function(int)? onPressed;
-  final double viewportFraction;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class GPromoSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-            viewportFraction: viewportFraction,
+            viewportFraction: 1.1,
             onPageChanged: (index, _) => controller.updatePageIndicator(index)
           ),
           items: banners.map((url) => GestureDetector(

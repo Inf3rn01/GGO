@@ -15,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GAppBar(showBackArrow: true, title: Text('Profile')),
+      appBar: const AuthAppBar(showBackArrow: true, title: Text('Profile')),
       /// Body
       body: SingleChildScrollView(
         child: Padding(

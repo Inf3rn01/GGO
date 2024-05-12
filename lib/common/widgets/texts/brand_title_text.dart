@@ -23,7 +23,7 @@ class BrandTitleText extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
-      style: brandTextSizeSmall ? TextStyle(fontSize: 15.7, color: color) : TextStyle(fontSize: 20, color: color)
+      style: brandTextSizeSmall ? TextStyle(fontSize: 15.7, color: color) : TextStyle(fontSize: 20, color: color),
     );
   }
 }

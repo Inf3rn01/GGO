@@ -12,7 +12,7 @@ class MarketAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   final String title;
-  final String imageAssetPath; // Путь к файлу изображения
+  final String imageAssetPath;
 
   @override
   Widget build(BuildContext context) {
