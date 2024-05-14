@@ -22,7 +22,7 @@ class GProductPriceText extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       style: isLarge
         ? TextStyle(fontSize: 24, fontWeight: FontWeight.w600, decoration: lineThrough ? TextDecoration.lineThrough : null)
-        : TextStyle(fontSize: 19, fontWeight: FontWeight.w600, decoration: lineThrough ? TextDecoration.lineThrough : null) 
+        : TextStyle(fontSize: 21, fontWeight: FontWeight.w600, decoration: lineThrough ? TextDecoration.lineThrough : null) 
     );
   }
 }

@@ -12,15 +12,11 @@ class GTabBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final darkTheme = GHelperFunctions.isDarkMode(context);
-    return GRoundedContainer(
-      borderColor: GColors.borderPrimary.withOpacity(0.1),
-      backgroundColor: darkTheme ? GColors.black : GColors.grey,
-      child: TabBar(
-        tabs: tabs,
-        indicatorColor: GColors.primary,
-        labelColor:darkTheme ? GColors.white : GColors.dark,
-        unselectedLabelColor: GColors.darkGrey,
-      ),
+    return TabBar(
+      tabs: tabs,
+      indicatorColor: GColors.primary,
+      labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w400, color: darkTheme ? GColors.white : GColors.dark),
+      unselectedLabelColor: GColors.darkGrey,
     );
   }
   

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ggo/utils/constants/colors.dart';
 
-import '../../../../utils/constants/sizes.dart';
 
 class GRoundedContainer extends StatelessWidget {
   const GRoundedContainer({

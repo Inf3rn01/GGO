@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ggo/features/shop/controlers/product_detail_controller.dart';
-import 'package:ggo/common/widgets/custom_shapes/containers/circular_container.dart';
 import 'package:ggo/common/widgets/images/rounded_image.dart';
 import 'package:ggo/utils/constants/colors.dart';
-import 'package:ggo/utils/constants/sizes.dart';
 
 class GProductSlider extends StatelessWidget {
   const GProductSlider({
@@ -45,40 +43,33 @@ class GProductSlider extends StatelessWidget {
                 ),
               )).toList(),
             ),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 6, right: 315),
-                  child: GRoundedContainer(
-                    height: 20,
-                    width: 33,
-                    backgroundColor: GColors.grey.withOpacity(0.6),
-                    radius: 6,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Obx(
-                        () => RichText(
-                          text: TextSpan(
-                            style: const TextStyle(
-                              color: GColors.dark,
-                              fontSize: 13,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: '${controller.carouselCurrentIndex.value + 1}',
-                                style: const TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                              TextSpan(text: '/${banners.length}'),
-                            ],
+            Positioned(
+                bottom: 8.0,
+                left: 8.0,
+                child: GRoundedContainer(
+                  height: 21,
+                  width: 34,
+                  backgroundColor: GColors.grey.withOpacity(0.55),
+                  radius: 10,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Obx(
+                      () => RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            color: GColors.dark.withOpacity(0.9),
+                            fontSize: 15,
                           ),
+                          children: [
+                            TextSpan(text: '${controller.carouselCurrentIndex.value + 1}'),
+                            TextSpan(text: '/${banners.length}'),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ],
