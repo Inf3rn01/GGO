@@ -46,7 +46,7 @@ class GLoginForm extends StatelessWidget {
                   ),
 
                   /// Forget Password
-                  TextButton(onPressed: () => Get.to(() => const ForgetPassword()), child: const Text('Forget Password?', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 13.5)),)
+                  TextButton(onPressed: () => Get.to(() => const ForgetPassword()), child: const Text('Forget Password?', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 14)),)
                 ],
               ),
               const SizedBox(height: 8),
@@ -59,7 +59,7 @@ class GLoginForm extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Not a member?', style: TextStyle(fontWeight: FontWeight.w400)),
+                  const Text('Not a member?', style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w400)),
                   TextButton(onPressed: () => Get.to(() => const SignupScreen()), child: const Text('Register now', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 15))),
                 ],
               )

@@ -20,7 +20,7 @@ class SignupScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Iconsax.arrow_left_outline, color: darkTheme ? GColors.white : GColors.dark),
+          icon: Icon(FontAwesome.arrow_left_solid, color: darkTheme ? GColors.white : GColors.dark, size: 22),
           onPressed: () => Get.back(),
         ),
       ),

@@ -11,7 +11,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../common/widgets/app_bar/product_appbar.dart';
 import 'widgets/product_slider.dart';
-import 'widgets/rating_widget.dart';
+import 'widgets/rating_reviews_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
@@ -51,7 +51,7 @@ class ProductDetailScreen extends StatelessWidget {
                   children: [
                     ProductMetaData(),
                     SizedBox(height: 4),
-                    Rating(),
+                    RatingAndReviews(rating: 4, reviewCount: 199,),
                     SizedBox(height: 9),
                   ],
                 ),
@@ -92,7 +92,7 @@ class ProductDetailScreen extends StatelessWidget {
                                     child:
                                       Text(
                                         'Автомат АК-47, официально известный как Автомат Калашникова, представляет собой газовую штурмовую винтовку под патрон 7,62×39 мм. Популярность этой модели и ее модификаций во всем мире объясняется их надежностью в суровых условиях эксплуатации, низкой стоимостью производства, доступностью практически в любом географическом регионе и простотой использования.',
-                                        style: TextStyle(fontSize: 17),
+                                        style: TextStyle(fontSize: 16),
                                       ),
                                   ),
                                 ),
@@ -129,8 +129,6 @@ class ProductDetailScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 10),
-            
-            ///Reviews
             
           ],
         ),

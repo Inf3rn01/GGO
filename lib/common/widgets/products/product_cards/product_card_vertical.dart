@@ -50,7 +50,7 @@ class GProductCardVertical extends StatelessWidget {
                   children: [
                     GProductPriceText(price: '1000'),
                     GProductTitleText(title: 'AK-47', smallSize: true),
-                    BrandTitleWithVerifiedIcon(title: 'Kalashnikov', brandTextSizeSmall: true),
+                    BrandTitleWithVerifiedIcon(brandImageAsset: GImages.lightAppLogo, isNetworkImage: false, title: 'Kalashnikov', brandTextSizeSmall: true),
                   ],
                 ),
               ),

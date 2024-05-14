@@ -34,7 +34,7 @@ class ResetPassword extends StatelessWidget {
             /// Title & SubTitle
             Text(GTexts.changeYourPasswordTitle, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
             const SizedBox(height: GSizes.spaceBtwItems),
-            Text(GTexts.changeYourPasswordSubTitle, style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
+            const Text(GTexts.changeYourPasswordSubTitle, style: TextStyle(fontSize: 13, color: GColors.darkGrey), textAlign: TextAlign.center),
             const SizedBox(height: 27),
             
             /// Buttons
@@ -45,7 +45,7 @@ class ResetPassword extends StatelessWidget {
           
             SizedBox(
               width: double.infinity,
-              child: TextButton(onPressed: (){},child: const Text(GTexts.resendEmail, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 14)))
+              child: TextButton(onPressed: (){},child: const Text(GTexts.resendEmail, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 14.5)))
             ),
           ],
         ),

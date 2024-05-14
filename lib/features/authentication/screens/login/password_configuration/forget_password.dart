@@ -17,20 +17,21 @@ class ForgetPassword extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Iconsax.arrow_left_outline, color: darkTheme ? GColors.white : GColors.dark),
+          icon: Icon(
+          FontAwesome.arrow_left_solid, color: darkTheme ? GColors.white : GColors.dark, size: 22),
           onPressed: () => Get.back(),
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(GSizes.defaultSpace),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ///Headings
-            Text(GTexts.forgetPasswordTitle, style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: GSizes.spaceBtwItems),
-            Text(GTexts.forgetPasswordSubTitle, style: Theme.of(context).textTheme.labelMedium),
-            const SizedBox(height: 35),
+            Text(GTexts.forgetPasswordTitle, style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500, color: darkTheme ? GColors.white : GColors.dark)),
+            const SizedBox(height: GSizes.spaceBtwItems/1.5),
+            const Text(GTexts.forgetPasswordSubTitle, style: TextStyle(fontSize: 13, color: GColors.darkGrey), textAlign: TextAlign.center),
+            const SizedBox(height: 25),
 
             /// Text Field
             TextFormField(

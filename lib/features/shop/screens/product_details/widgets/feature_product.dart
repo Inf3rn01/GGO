@@ -16,11 +16,11 @@ class FeaturesProduct extends StatelessWidget {
               children: [
                 Text(
                   '${feature['title']}:',
-                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
+                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                 ),
                 Text(
                   feature['value']!,
-                  style: const TextStyle(fontSize: 17),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ],
             ),
