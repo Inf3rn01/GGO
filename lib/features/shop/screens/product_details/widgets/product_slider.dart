@@ -56,8 +56,8 @@ class GProductSlider extends StatelessWidget {
                     child: Obx(
                       () => RichText(
                         text: TextSpan(
-                          style: TextStyle(
-                            color: GColors.black.withOpacity(0.7),
+                          style: const TextStyle(
+                            color: GColors.black,
                             fontSize: 15,
                           ),
                           children: [

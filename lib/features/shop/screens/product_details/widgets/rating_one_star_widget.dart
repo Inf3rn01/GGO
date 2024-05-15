@@ -3,15 +3,17 @@ import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.da
 import 'package:ggo/utils/constants/colors.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-class RatingAndReviews extends StatelessWidget {
-  final double rating; // The rating value to display
-  final int reviewCount; // The number of reviews
-
-  const RatingAndReviews({
+class RatingWithAllStars extends StatelessWidget {
+  const RatingWithAllStars({
     super.key,
     required this.rating,
     required this.reviewCount,
+    this.showRatingNumber = false,
   });
+
+  final double rating;
+  final int reviewCount;
+  final bool showRatingNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +23,14 @@ class RatingAndReviews extends StatelessWidget {
         GestureDetector(
           onTap: () {},
           child: GRoundedContainer(
-            height: 33,
-            width: 170,
+            height: 35,
+            width: 165,
             backgroundColor: Colors.black.withOpacity(0.2),
             showBorder: true,
             borderColor: GColors.borderPrimary.withOpacity(0.1),
             radius: 12,
             child: Padding(
-              padding: const EdgeInsets.only(top: 4, right: 4, left: 6, bottom: 4),
+              padding: const EdgeInsets.only(top: 4, right: 4.5, left: 6.5, bottom: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -43,7 +45,10 @@ class RatingAndReviews extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 4),
-                      // Text(rating.toStringAsFixed(1), style: const TextStyle(fontSize: 16)),
+                      Visibility(
+                        visible: showRatingNumber,
+                        child: Text(rating.toStringAsFixed(1), style: const TextStyle(fontSize: 16)),
+                      ),
                       // const SizedBox(width: 4),
                       Text('$reviewCount', style: const TextStyle(fontSize: 15, color: GColors.grey)),
                     ],

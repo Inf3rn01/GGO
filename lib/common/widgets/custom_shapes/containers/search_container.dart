@@ -28,10 +28,10 @@ class GSearchContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal:  25.0, vertical: 34),
+        padding: const EdgeInsets.only(left:  25.0, right:  25.0, top: 34, bottom: 28),
         child: Container(
           width: GDeviceUtils.getScreenWidth(context),
-          padding: const EdgeInsets.all(12.5),
+          padding: const EdgeInsets.all(13),
           decoration: BoxDecoration(
             color: showBackground ? dark? GColors.dark : GColors.light : Colors.transparent,
             borderRadius: BorderRadius.circular(GSizes.cardRadiusLg),
@@ -40,8 +40,8 @@ class GSearchContainer extends StatelessWidget {
           child: Row(
             children: [
               Icon(icon, color: GColors.darkGrey),
-              const SizedBox(width: GSizes.spaceBtwItems),
-              Text(text, style: Theme.of(context).textTheme.bodySmall),
+              const SizedBox(width: 14),
+              Text(text, style: const TextStyle(fontSize: 15, color: GColors.darkGrey, fontWeight: FontWeight.w500)),
             ],
           ),
         ),

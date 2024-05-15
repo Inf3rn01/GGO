@@ -5,7 +5,7 @@ class GProductTitleText extends StatelessWidget {
     super.key,
     required this.title,
     this.smallSize = false,
-    this.maxLines = 2,
+    this.maxLines = 1,
     this.textAlign = TextAlign.left,
     });
 
@@ -18,7 +18,7 @@ class GProductTitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: smallSize ? const TextStyle(fontSize: 17, fontWeight: FontWeight.w500) : const TextStyle(fontSize: 21, fontWeight: FontWeight.w500) ,
+      style: smallSize ? const TextStyle(fontSize: 17.2, fontWeight: FontWeight.w500) :  TextStyle(fontSize: 21, fontWeight: FontWeight.w500) ,
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
       textAlign: textAlign,

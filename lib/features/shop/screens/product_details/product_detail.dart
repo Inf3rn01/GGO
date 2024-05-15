@@ -11,7 +11,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../common/widgets/app_bar/product_appbar.dart';
 import 'widgets/product_slider.dart';
-import 'widgets/rating_reviews_widget.dart';
+import 'widgets/rating_all_stars_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
@@ -49,9 +49,12 @@ class ProductDetailScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
                 child: Column(
                   children: [
+                    SizedBox(height: 10),
+                    
                     ProductMetaData(),
                     SizedBox(height: 4),
-                    RatingAndReviews(rating: 4, reviewCount: 199,),
+                    
+                    RatingWithAllStars(rating: 4, reviewCount: 199),
                     SizedBox(height: 9),
                   ],
                 ),
@@ -79,47 +82,45 @@ class ProductDetailScreen extends StatelessWidget {
                             ],
                           ),
                           Expanded(
-                          child: TabBarView(
-                            children: [
-
-                              ///Description
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: GRoundedContainer(
-                                  backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
-                                  padding: const EdgeInsets.only(left: 11, right: 11, top: 6, bottom: 6),
-                                  child: const SingleChildScrollView(
-                                    child:
-                                      Text(
+                            child: TabBarView(
+                              children: [
+                                ///Description
+                                Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: GRoundedContainer(
+                                    backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
+                                    padding: const EdgeInsets.only(left: 11, right: 11, top: 6, bottom: 6),
+                                    child: const SingleChildScrollView(
+                                      child: Text(
                                         'Автомат АК-47, официально известный как Автомат Калашникова, представляет собой газовую штурмовую винтовку под патрон 7,62×39 мм. Популярность этой модели и ее модификаций во всем мире объясняется их надежностью в суровых условиях эксплуатации, низкой стоимостью производства, доступностью практически в любом географическом регионе и простотой использования.',
                                         style: TextStyle(fontSize: 16),
                                       ),
-                                  ),
-                                ),
-                              ),
-                              
-                              // Feature
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: GRoundedContainer(
-                                  backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
-                                  padding: const EdgeInsets.all(13.0),
-                                  child: const SingleChildScrollView(
-                                    child: FeaturesProduct(
-                                      features: [
-                                        {'title': 'Weight', 'value': '5 kg'},
-                                        {'title': 'length', 'value': '870 mm'},
-                                        {'title': 'cartridge', 'value': '7,62x39 mm'},
-                                        {'title': 'departure speed', 'value': '715 m/s'},
-                                        {'title': 'firing range', 'value': '800 m'},
-                                      ],
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                                // Feature
+                                Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: GRoundedContainer(
+                                    backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
+                                    padding: const EdgeInsets.all(13.0),
+                                    child: const SingleChildScrollView(
+                                      child: FeaturesProduct(
+                                        features: [
+                                          {'title': 'Country of manufacture', 'value': 'Russia'},
+                                          {'title': 'Weight', 'value': '5 kg'},
+                                          {'title': 'length', 'value': '870 mm'},
+                                          {'title': 'cartridge', 'value': '7,62x39 mm'},
+                                          {'title': 'departure speed', 'value': '715 m/s'},
+                                          {'title': 'firing range', 'value': '800 m'},
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
                         ],
                       ),
                     ),
@@ -129,7 +130,6 @@ class ProductDetailScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 10),
-            
           ],
         ),
       ),
