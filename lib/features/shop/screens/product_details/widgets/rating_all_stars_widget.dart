@@ -3,7 +3,6 @@ import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.da
 import 'package:ggo/utils/constants/colors.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../../../../utils/constants/sizes.dart';
 
 class RatingWithAllStars extends StatelessWidget {
   const RatingWithAllStars({
@@ -25,7 +24,7 @@ class RatingWithAllStars extends StatelessWidget {
         GestureDetector(
           onTap: () {},
           child: GRoundedContainer(
-            height: 35,
+            height: 33,
             width: 156,
             backgroundColor: Colors.black.withOpacity(0.2),
             showBorder: true,
@@ -43,17 +42,17 @@ class RatingWithAllStars extends StatelessWidget {
                         (index) => Icon(
                           HeroIcons.star,
                           color: index < rating ? Colors.amber : Colors.grey,
-                          size: 18,
+                          size: 17.5,
                         ),
                       ),
                       const SizedBox(width: 5),
-                      Text('$reviewCount', style: const TextStyle(fontSize: 15, color: GColors.grey)),
+                      Text('$reviewCount', style: TextStyle(fontSize: 14.5, color: GColors.grey.withOpacity(0.9))),
                     ],
                   ),
                   const Icon(
                     Iconsax.arrow_right_3_outline,
-                    color: GColors.grey,
-                    size: 16,
+                    color: GColors.darkGrey,
+                    size: 15,
                   ),
                 ],
               ),

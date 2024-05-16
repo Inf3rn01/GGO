@@ -12,11 +12,13 @@ class GProductSlider extends StatelessWidget {
     required this.banners,
     this.applyImageRadius = true,
     this.onPressed,
+    //required this.initialPage,
   });
 
   final List<String> banners;
   final bool applyImageRadius;
-  final Function(int)? onPressed;
+  final Future<void> Function(int)? onPressed;
+  //final int initialPage;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,14 @@ class GProductSlider extends StatelessWidget {
               options: CarouselOptions(
                 aspectRatio: 1,
                 viewportFraction: 1.03,
+                //initialPage: initialPage,
                 onPageChanged: (index, _) => controller.updatePageIndicator(index)
               ),
               items: banners.map((url) => GestureDetector(
-                onTap: () {
-                  onPressed?.call(banners.indexOf(url));
+                onTap: () async {
+                  if (onPressed != null) {
+                    await onPressed!(banners.indexOf(url));
+                  }
                 },
                 child: GRoundedImage(
                   imageUrl: url,
@@ -49,7 +54,7 @@ class GProductSlider extends StatelessWidget {
                 child: GRoundedContainer(
                   height: 21,
                   width: 34,
-                  backgroundColor: GColors.grey.withOpacity(0.55),
+                  backgroundColor: GColors.white.withOpacity(0.55),
                   radius: 10,
                   child: Align(
                     alignment: Alignment.center,

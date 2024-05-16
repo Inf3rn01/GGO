@@ -36,10 +36,12 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         /// Heading
                         GSectionsHeading(title: 'Categories', showActionButton: false),
-                        SizedBox(height: 11),
+                        
+                        SizedBox(height: 10),
 
                         /// Categories
                         GHomeCategories(),
+                        
                       ],
                     ),
                 ),

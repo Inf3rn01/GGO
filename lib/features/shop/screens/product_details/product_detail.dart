@@ -10,29 +10,31 @@ import 'package:ggo/utils/constants/images_strings.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../common/widgets/app_bar/product_appbar.dart';
+import 'widgets/bottom_add_to_cart.dart';
+import 'widgets/look_image.dart';
 import 'widgets/product_slider.dart';
 import 'widgets/rating_all_stars_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
 
-  void onSlidePressed(int index) {
-    print('Изображение $index было нажато');
-  }
 
   @override
   Widget build(BuildContext context) {
     final darkTheme = GHelperFunctions.isDarkMode(context);
     return Scaffold(
+      bottomNavigationBar: const BottomAddToCart(),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
-                GProductSlider(
-                  banners: const [GImages.productImageAssault1, GImages.productImage2],
+                const GProductSlider(
+                  banners: [GImages.productImageAssault1, GImages.productImage2],
                   applyImageRadius: true,
-                  onPressed: onSlidePressed,
+                  // onPressed: (index) async { // Добавил async для возможности использования await
+                  //   Get.to(() => LookMoreImage(index: 1,));
+                  // }, initialPage: 2, 
                 ),
                 ProductAppBar(
                   leadingIcon: OctIcons.arrow_left,
@@ -50,10 +52,8 @@ class ProductDetailScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 10),
-                    
                     ProductMetaData(),
                     SizedBox(height: 4),
-                    
                     RatingWithAllStars(rating: 4, reviewCount: 199),
                     SizedBox(height: 9),
                   ],

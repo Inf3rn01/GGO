@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/common/widgets/images/rounded_image.dart';
@@ -6,6 +7,7 @@ import 'package:ggo/utils/constants/colors.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
 
 import '../../../../features/shop/screens/product_details/product_detail.dart';
+import '../../../../features/shop/screens/product_details/widgets/rating_one_star_widget.dart';
 import '../../../../utils/constants/images_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../custom_shapes/containers/rounded_container.dart';
@@ -42,15 +44,31 @@ class GProductCardVertical extends StatelessWidget {
               left: 0,
               right: 0,
               child: Container(
-                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                width: double.infinity,
+                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 7.5),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(height: 10),
-                    GProductPriceText(price: '1000'),
-                    GProductTitleText(title: 'AK-47', smallSize: true),
-                    
+                    Flexible(
+                      child: ProductPriceText(
+                        price: '1000',
+                        maxLines: 1,
+                      ),
+                    ),
+                    Flexible(
+                      child: GProductTitleText(
+                        title: 'AK-47',
+                        smallSize: true,
+                        maxLines: 1,
+                      ),
+                    ),
+                    Flexible(
+                      child:
+                      RatingWithOneStar(rating: 4.7, reviewCount: 199)
+                    ),
                     //BrandTitleWithVerifiedIcon(title: 'Kalashnikov', brandTextSizeSmall: true),
                   ],
                 ),

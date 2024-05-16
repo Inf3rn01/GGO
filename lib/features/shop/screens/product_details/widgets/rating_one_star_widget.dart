@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:ggo/utils/constants/colors.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-class RatingWithAllStars extends StatelessWidget {
-  const RatingWithAllStars({
+import 'package:ggo/utils/constants/colors.dart';
+
+class RatingWithOneStar extends StatelessWidget {
+  const RatingWithOneStar({
     super.key,
     required this.rating,
     required this.reviewCount,
@@ -20,48 +20,37 @@ class RatingWithAllStars extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        GestureDetector(
-          onTap: () {},
-          child: GRoundedContainer(
-            height: 35,
-            width: 165,
-            backgroundColor: Colors.black.withOpacity(0.2),
-            showBorder: true,
-            borderColor: GColors.borderPrimary.withOpacity(0.1),
-            radius: 12,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 4, right: 4.5, left: 6.5, bottom: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      ...List.generate(
-                        5,
-                        (index) => Icon(
-                          HeroIcons.star,
-                          color: index < rating ? Colors.amber : Colors.grey,
-                          size: 18,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Visibility(
-                        visible: showRatingNumber,
-                        child: Text(rating.toStringAsFixed(1), style: const TextStyle(fontSize: 16)),
-                      ),
-                      // const SizedBox(width: 4),
-                      Text('$reviewCount', style: const TextStyle(fontSize: 15, color: GColors.grey)),
-                    ],
-                  ),
-                  const Icon(
-                    Iconsax.arrow_right_3_outline,
-                    color: GColors.grey,
-                    size: 16.5,
-                  ),
-                ],
-              ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  HeroIcons.star,
+                  color: Colors.amber,
+                  size: 14,
+                ),
+                const SizedBox(width: 2),
+                Text(
+                  rating.toStringAsFixed(1),
+                  style: const TextStyle(fontSize: 14),
+                ),
+                const SizedBox(width: 3),
+                Icon(
+                  Iconsax.more_circle_bulk,
+                  color: GColors.darkGrey.withOpacity(0.6),
+                  size: 6,
+                ),
+                const SizedBox(width: 3),
+                Text(
+                  '$reviewCount reviews',
+                  style: TextStyle(fontSize: 14, color: GColors.grey.withOpacity(0.6)),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
-          ),
+          ],
         ),
       ],
     );

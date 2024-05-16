@@ -42,7 +42,7 @@ class GVerticalImagesTexts extends StatelessWidget {
               width: 50,
               child: Text(
                 title,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: darkTheme ? GColors.white : GColors.dark),
+                style: TextStyle(fontSize: 13.4, fontWeight: FontWeight.w600, color: darkTheme ? GColors.white : GColors.dark),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               )

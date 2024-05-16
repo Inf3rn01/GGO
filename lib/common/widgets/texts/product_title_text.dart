@@ -18,7 +18,7 @@ class GProductTitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: smallSize ? const TextStyle(fontSize: 17.2, fontWeight: FontWeight.w500) :  TextStyle(fontSize: 21, fontWeight: FontWeight.w500) ,
+      style: smallSize ? const TextStyle(fontSize: 17.2, fontWeight: FontWeight.w500) :  const TextStyle(fontSize: 19.3, fontWeight: FontWeight.w400) ,
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
       textAlign: textAlign,
