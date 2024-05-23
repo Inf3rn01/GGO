@@ -7,11 +7,9 @@ import 'package:ggo/utils/constants/colors.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
 
 import '../../../../features/shop/screens/product_details/product_detail.dart';
-import '../../../../features/shop/screens/product_details/widgets/rating_one_star_widget.dart';
+import '../../../../features/shop/screens/product_reviews/widgets/raiting/rating_one_star_widget.dart';
 import '../../../../utils/constants/images_strings.dart';
-import '../../../../utils/constants/sizes.dart';
 import '../../custom_shapes/containers/rounded_container.dart';
-import '../../texts/brand_title_text_with_verify_icon.dart';
 import '../../texts/product_price_text.dart';
 
 class GProductCardVertical extends StatelessWidget {
@@ -55,11 +53,12 @@ class GProductCardVertical extends StatelessWidget {
                     Flexible(
                       child: ProductPriceText(
                         price: '1000',
+                        size: 19.5,
                         maxLines: 1,
                       ),
                     ),
                     Flexible(
-                      child: GProductTitleText(
+                      child: ProductTitleText(
                         title: 'AK-47',
                         smallSize: true,
                         maxLines: 1,
@@ -67,7 +66,7 @@ class GProductCardVertical extends StatelessWidget {
                     ),
                     Flexible(
                       child:
-                      RatingWithOneStar(rating: 4.7, reviewCount: 199)
+                      RatingWithOneStar(rating: 4.5, reviewCount: 199)
                     ),
                     //BrandTitleWithVerifiedIcon(title: 'Kalashnikov', brandTextSizeSmall: true),
                   ],

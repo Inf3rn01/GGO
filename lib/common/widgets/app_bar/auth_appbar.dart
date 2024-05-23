@@ -30,7 +30,7 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget{
       child: AppBar(
         automaticallyImplyLeading: false,
         leading: showBackArrow
-          ? IconButton(onPressed: () => Get.back(), icon: Icon(Iconsax.arrow_left_outline, color: darkTheme ? GColors.white : GColors.black)) 
+          ? IconButton(onPressed: () => Get.back(), icon: Icon(OctIcons.arrow_left, color: darkTheme ? GColors.white : GColors.black, size: 24,)) 
           : leadingIcon != null ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon)) : null,
         title: title,
         actions: actions,

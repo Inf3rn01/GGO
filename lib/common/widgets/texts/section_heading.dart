@@ -9,10 +9,12 @@ class GSectionsHeading extends StatelessWidget {
     this.textColor,
     this.showActionButton = true,
     required this.title,
+    this.textSize = 23,
     this.buttonTitle = 'View all',
     this.onPressed,
   });
 
+  final double textSize;
   final Color? textColor;
   final bool showActionButton;
   final String title, buttonTitle;
@@ -22,9 +24,10 @@ class GSectionsHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     final darkTheme = GHelperFunctions.isDarkMode(context);
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: TextStyle(fontSize: 23,fontWeight: FontWeight.w700, color: darkTheme ? GColors.white : GColors.dark), maxLines: 1, overflow: TextOverflow.ellipsis),
-        if(showActionButton) TextButton(onPressed: (){}, child: Text(buttonTitle))
+        Text(title, style: TextStyle(fontSize: textSize, fontWeight: FontWeight.w700, color: darkTheme ? GColors.white : GColors.dark), maxLines: 1, overflow: TextOverflow.ellipsis),
+        if(showActionButton) TextButton(onPressed: (){}, child: Text(buttonTitle, style: const TextStyle(color: GColors.primary)))
       ],
     );
   }

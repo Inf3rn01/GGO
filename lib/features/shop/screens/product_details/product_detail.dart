@@ -11,9 +11,8 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../common/widgets/app_bar/product_appbar.dart';
 import 'widgets/bottom_add_to_cart.dart';
-import 'widgets/look_image.dart';
 import 'widgets/product_slider.dart';
-import 'widgets/rating_all_stars_widget.dart';
+import '../product_reviews/widgets/raiting/rating_all_stars_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
@@ -54,7 +53,7 @@ class ProductDetailScreen extends StatelessWidget {
                     SizedBox(height: 10),
                     ProductMetaData(),
                     SizedBox(height: 4),
-                    RatingWithAllStars(rating: 4, reviewCount: 199),
+                    RatingWithAllStars(rating: 4.5, reviewCount: 199, showRating: false),
                     SizedBox(height: 9),
                   ],
                 ),

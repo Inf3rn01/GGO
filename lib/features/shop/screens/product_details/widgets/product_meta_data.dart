@@ -16,13 +16,13 @@ class ProductMetaData extends StatelessWidget {
         /// Price
         Align(
           alignment: Alignment.centerLeft,
-          child: ProductPriceText(price: '1000', size: 22),
+          child: ProductPriceText(price: '1000', size: 21.5),
         ),
-        SizedBox(height: 3),
+        
         /// Title
         Align(
           alignment: Alignment.centerLeft,
-          child: GProductTitleText(title: 'Aвтомат Калашникова-47', smallSize: false, maxLines: 2),
+          child: ProductTitleText(title: 'AK-47', smallSize: false, maxLines: 2),
         ),
         //SizedBox(height: GSizes.spaceBtwItems / 2),
         // /// Brand

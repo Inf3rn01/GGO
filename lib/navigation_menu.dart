@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:ggo/features/shop/screens/home/home.dart';
 import 'package:ggo/features/personalization/screens/settings/settings.dart';
 import 'package:ggo/utils/constants/colors.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
+import 'package:badges/badges.dart' as badges;
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -22,7 +24,7 @@ class NavigationMenu extends StatelessWidget {
           elevation: 0,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          selectedItemColor: darkMode ? Colors.white : Colors.black,
+          selectedItemColor: GColors.primary,
           unselectedItemColor: darkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
           backgroundColor: darkMode ? GColors.black : Colors.white,
           currentIndex: controller.selectedIndex.value,
@@ -30,19 +32,41 @@ class NavigationMenu extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
               icon: controller.selectedIndex.value == 0
-                  ? const Icon(Iconsax.home_2_outline, color: GColors.primary)
+                  ? const Icon(Iconsax.home_2_outline)
                   : const Icon(Iconsax.home_outline),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: controller.selectedIndex.value == 1
-                  ? const Icon(CupertinoIcons.shopping_cart, color: GColors.primary)
-                  : const Icon(CupertinoIcons.shopping_cart),
+              icon: Stack(
+                children: [
+                  controller.selectedIndex.value == 1
+                      ? const Icon(CupertinoIcons.shopping_cart)
+                      : Icon(CupertinoIcons.shopping_cart, color: Colors.white.withOpacity(0)),
+                  if (controller.cartItemCount.value > 0)
+                    Positioned(
+                      right: 0,
+                      top: 0,
+                      child: badges.Badge(
+                        position: BadgePosition.topEnd(top: -11, end: -7),
+                        badgeContent: Text(
+                          controller.cartItemCount.value.toString(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        badgeStyle: const badges.BadgeStyle(
+                          badgeColor: GColors.primary,
+                        ),
+                        child: const Icon(CupertinoIcons.shopping_cart),
+                      ),
+                    ),
+                  if (controller.cartItemCount.value == 0)
+                    const Icon(CupertinoIcons.shopping_cart),
+                ],
+              ),
               label: 'Cart',
             ),
             BottomNavigationBarItem(
               icon: controller.selectedIndex.value == 2
-                  ? const Icon(Iconsax.more_2_outline, color: GColors.primary)
+                  ? const Icon(Iconsax.more_2_outline)
                   : const Icon(Iconsax.more_outline),
               label: 'Account',
             ),
@@ -60,6 +84,6 @@ class NavigationController extends GetxController {
   final screens = [const HomeScreen(), const CartScreen(), const SettingsScreen()];
 
   void updateCartItemCount(int count) {
-    cartItemCount.value = count; // Обновляем количество товаров в корзине
+    cartItemCount.value = count;
   }
 }

@@ -8,12 +8,14 @@ class ProductPriceText extends StatelessWidget {
     this.size = 20,
     this.maxLines = 1,
     this.lineThrough = false,
-    });
+    this.fontWeight = FontWeight.w500,
+  });
 
   final String currencySign, price;
   final int maxLines;
   final double size;
   final bool lineThrough;
+  final FontWeight fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,11 @@ class ProductPriceText extends StatelessWidget {
       currencySign + price,
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: size, fontWeight: FontWeight.w600, decoration: lineThrough ? TextDecoration.lineThrough : null)
+      style: TextStyle(
+        fontSize: size,
+        fontWeight: fontWeight,
+        decoration: lineThrough ? TextDecoration.lineThrough : null,
+      ),
     );
   }
 }

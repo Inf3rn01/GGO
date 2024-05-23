@@ -4,6 +4,7 @@ import 'package:ggo/common/styles/spacing_styles.dart';
 
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/constants/text_strings.dart';
+import '../../../utils/helpers/helper_functions.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key, required this.image, required this.title, required this.subTitle, required this.onPressed});
@@ -20,7 +21,7 @@ class SuccessScreen extends StatelessWidget {
           child: Column(
             children: [
               /// Image
-              //Image(image: AssetImage(image), width: GHelperFunctions.screenWidth() * 0.6),
+              Image(image: AssetImage(image), width: GHelperFunctions.screenWidth() * 0.35),
               const SizedBox(height: GSizes.spaceBtwSections),
 
               /// Title & SubTitle

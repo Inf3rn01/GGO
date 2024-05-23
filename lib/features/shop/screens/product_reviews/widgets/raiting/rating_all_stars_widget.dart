@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ggo/utils/constants/colors.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../../product_reviews.dart';
+import 'raitng_bar_indicator.dart';
 
 class RatingWithAllStars extends StatelessWidget {
   const RatingWithAllStars({
     super.key,
     required this.rating,
     required this.reviewCount,
-    this.showRatingNumber = false,
+    this.showRating = true,
+    this.showStars = true,
+    this.showReviewCount = true,
   });
 
   final double rating;
   final int reviewCount;
-  final bool showRatingNumber;
+  final bool showRating;
+  final bool showStars;
+  final bool showReviewCount;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class RatingWithAllStars extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () => Get.to(() => const ProductReviewsScreen()),
           child: GRoundedContainer(
             height: 33,
             width: 156,
@@ -35,20 +42,28 @@ class RatingWithAllStars extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      ...List.generate(
-                        5,
-                        (index) => Icon(
-                          HeroIcons.star,
-                          color: index < rating ? Colors.amber : Colors.grey,
-                          size: 17.5,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Text('$reviewCount', style: TextStyle(fontSize: 14.5, color: GColors.grey.withOpacity(0.9))),
-                    ],
-                  ),
+                  if (showStars)
+                    Row(
+                      children: [
+                        const GRaitingBarIndicator(raiting: 4.5),
+                        if (showRating)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              rating.toStringAsFixed(1),
+                              style: TextStyle(fontSize: 14.5, color: GColors.grey.withOpacity(0.9)),
+                            ),
+                          ),
+                        if (showReviewCount)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              '$reviewCount',
+                              style: TextStyle(fontSize: 14.5, color: GColors.grey.withOpacity(0.9)),
+                            ),
+                          ),
+                      ],
+                    ),
                   const Icon(
                     Iconsax.arrow_right_3_outline,
                     color: GColors.darkGrey,

@@ -10,7 +10,7 @@ class ProfileMenu extends StatelessWidget {
     required this.onPressed,
     required this.title,
     required this.value,
-    this.icon = Iconsax.arrow_right_1_outline,
+    this.icon = Iconsax.arrow_right_3_outline,
   });
 
   final IconData icon;
@@ -27,7 +27,7 @@ class ProfileMenu extends StatelessWidget {
           children: [
             Expanded(flex: 3, child: Text(title, style: Theme.of(context).textTheme.bodySmall, overflow: TextOverflow.ellipsis)),
             Expanded(flex: 5, child: Text(value, style: Theme.of(context).textTheme.bodyMedium, overflow: TextOverflow.ellipsis)),
-            const Expanded(child: Icon(Iconsax.arrow_right_1_outline, size: 18)),
+            const Expanded(child: Icon(Iconsax.arrow_right_3_outline, size: 16)),
           ],
         ),
       ),

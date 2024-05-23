@@ -5,6 +5,7 @@ import 'package:ggo/common/widgets/images/circular_image.dart';
 import 'package:ggo/common/widgets/texts/section_heading.dart';
 import 'package:ggo/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:icons_plus/icons_plus.dart';
+import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/images_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../authentication/screens/login/login.dart';
@@ -28,8 +29,8 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    const GCircularImage(image: GImages.userImage, width: 80, height: 80),
-                    TextButton(onPressed: () {}, child: const Text('Change profile picture')),
+                    const GCircularImage(image: GImages.userImage1, width: 80, height: 80),
+                    TextButton(onPressed: () {}, child: const Text('Change profile picture', style: TextStyle(fontSize: 14, color: GColors.grey))),
                   ],
                 ),
               ),
@@ -42,8 +43,8 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: GSizes.spaceBtwItems),
 
               ProfileMenu(title: 'Name', value: 'Danil', onPressed: (){}),
-              ProfileMenu(title: 'E-mail;', value: 'PASS', onPressed: (){}),
-              ProfileMenu(title: 'Phone number', value: '+7682834638', onPressed: (){}),
+              ProfileMenu(title: 'E-mail', value: 'danilpugachev253@gmail.com', onPressed: (){}),
+              ProfileMenu(title: 'Phone', value: '+7682834638', onPressed: (){}),
               ProfileMenu(title: 'Date of Birth', value: '25.05.2004', onPressed: (){}),
               const Divider(),
               const SizedBox(height: GSizes.spaceBtwItems),
@@ -51,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: TextButton(
                   onPressed: (){},
-                  child: const Text('Exit from account', style: TextStyle(color: Colors.red)),
+                  child: const Text('Exit from account', style: TextStyle(fontSize: 14, color: Colors.red)),
                 ),
               ),
 
@@ -60,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: TextButton(
                   onPressed: () => Get.to(() => const LoginScreen()),
-                  child: const Text('Delete account', style: TextStyle(color: Colors.red)),
+                  child: const Text('Delete account', style: TextStyle(fontSize: 14, color: Colors.red)),
                 ),
               ),
             ],
