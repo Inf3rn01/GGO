@@ -32,4 +32,6 @@ class GImages {
   // Payment Methods
   static const String paypal = "assets/images/payment_methods/paypal.png";
   
+  // loader
+  static const String loading = "assets/gifs/loader.gif";
 }

@@ -27,7 +27,7 @@ class BillingPaymentSection extends StatelessWidget {
               child: const Image(image: AssetImage(GImages.paypal), fit: BoxFit.contain),
             ),
             const SizedBox(width: GSizes.spaceBtwItems / 2),
-            Text('Paypal', style: Theme.of(context).textTheme.bodyLarge),
+            const Text('Paypal', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
 
           ],
         )

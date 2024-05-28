@@ -97,7 +97,8 @@ class ProductDetailScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                // Feature
+                                
+                                /// Feature
                                 Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: GRoundedContainer(

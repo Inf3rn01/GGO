@@ -1,7 +1,8 @@
-import 'package:ggo/features/authentication/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:ggo/bindings/general_bindings.dart';
 import '/utils/theme/theme.dart';
+import 'utils/constants/colors.dart';
 
 
 class App extends StatelessWidget {
@@ -14,7 +15,8 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: const LoginScreen(),
+      initialBinding: GeneralBindings(),
+      home: const Scaffold(backgroundColor: GColors.dark, body: Center(child: CircularProgressIndicator(color: GColors.primary),),),
     );
   }
 }

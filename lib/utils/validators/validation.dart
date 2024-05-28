@@ -1,5 +1,14 @@
 
 class GValidator {
+
+  /// Empty text validation
+  static String? validateEmptyText(String? fieldName, String? value) {
+    if (value == null || value.isEmpty){
+      return '$fieldName is reguired.';
+    }
+    return null;
+  }
+
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required.';
@@ -37,7 +46,7 @@ class GValidator {
     return null;
   }
 
-  static String? vadateNumberPhone(String? value) {
+  static String? validateNumberPhone(String? value) {
     if (value == null || value.isEmpty){
       return 'Phone number is required';
     }

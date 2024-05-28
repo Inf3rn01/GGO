@@ -25,14 +25,16 @@ class ProductReviewsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Leave your feedback. We hope you like our product!', style: TextStyle(fontSize: 14.5)),
-              SizedBox(height: GSizes.spaceBtwItems),
+              SizedBox(height: GSizes.spaceBtwItems / 1.5),
 
               /// overall product ratings
               OverallProductRaiting(),
               GRaitingBarIndicator(raiting: 4.5),
               SizedBox(height: 2),
               RatingWithOneStar(showRating: false, showIcon: false, rating: 4.5, reviewCount: 199),
-              SizedBox(height: GSizes.spaceBtwSections),
+              SizedBox(height: GSizes.spaceBtwSections / 5),
+              Divider(thickness: 1.5),
+              SizedBox(height: GSizes.spaceBtwSections / 1.5),
 
               /// User reviews list
               UserReviewCard(),

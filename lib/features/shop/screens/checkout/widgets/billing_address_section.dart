@@ -29,7 +29,7 @@ class BillingAddressSection extends StatelessWidget {
 
         const Row(
           children: [
-            Icon(Icons.location_history, color: GColors.grey, size: 20),
+            Icon(Iconsax.truck_outline, color: GColors.grey, size: 20),
             SizedBox(width: GSizes.spaceBtwItems / 2),
             Expanded(child: Text('Russia, Volgograd, 64-Army, 63', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),))
           ],

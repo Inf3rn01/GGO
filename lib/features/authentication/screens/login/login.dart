@@ -15,14 +15,13 @@ class LoginScreen extends StatelessWidget {
           padding: GSpacingStyle.paddingWithAppBarHeigth,
           child: Column(
             children: [
+              
               /// Logo, Title & Sub-Title
               GLoginHeader(),
 
               /// Form
               GLoginForm(),
 
-              /// Divider
-              /// ...
             ],
           ),
         ),

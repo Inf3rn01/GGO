@@ -43,7 +43,7 @@ class CartItems extends StatelessWidget {
     return ListView.separated(
       shrinkWrap: true,
       separatorBuilder: (_, __) => const SizedBox(height: 8),
-      itemCount: 2,
+      itemCount: 5,
       itemBuilder: (_, index) => GRoundedContainer(
         backgroundColor: darkTheme ? GColors.dark : GColors.grey,
         child: Padding(
@@ -69,7 +69,6 @@ class CartItems extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (showAddRemoveButtons)
                           const Flexible(
                             child: Row(
                               children: [

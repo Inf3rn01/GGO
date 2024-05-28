@@ -27,7 +27,7 @@ class GSectionsHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(title, style: TextStyle(fontSize: textSize, fontWeight: FontWeight.w700, color: darkTheme ? GColors.white : GColors.dark), maxLines: 1, overflow: TextOverflow.ellipsis),
-        if(showActionButton) TextButton(onPressed: (){}, child: Text(buttonTitle, style: const TextStyle(color: GColors.primary)))
+        if(showActionButton) TextButton(onPressed: (){}, child: Text(buttonTitle, style: const TextStyle(fontSize: 14, color: GColors.primary)))
       ],
     );
   }

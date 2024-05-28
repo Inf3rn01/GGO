@@ -15,7 +15,7 @@ class CartScreen extends StatelessWidget {
       appBar: const MarketAppBar(),
       body: const Padding(
         padding: EdgeInsets.all(7),
-
+    
         /// Items in cart
         child: CartItems(),
       ),

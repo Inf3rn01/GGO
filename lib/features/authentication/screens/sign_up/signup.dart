@@ -1,9 +1,10 @@
-import 'package:ggo/features/authentication/screens/sign_up/widgets/verify_email.dart';
+import 'package:ggo/features/authentication/controlers/sign_up/signup_controller.dart';
 import 'package:ggo/utils/constants/sizes.dart';
 import 'package:ggo/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
+import 'package:ggo/utils/validators/validation.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../utils/constants/colors.dart';
@@ -14,10 +15,10 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final controller = Get.put(SignupController());
     final darkTheme = GHelperFunctions.isDarkMode(context);
-
     return Scaffold(
+      key: controller.signupFormKey,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(FontAwesome.arrow_left_solid, color: darkTheme ? GColors.white : GColors.dark, size: 22),
@@ -26,7 +27,7 @@ class SignupScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -36,45 +37,52 @@ class SignupScreen extends StatelessWidget {
 
               /// Name
               TextFormField(
+                controller: controller.name,
+                validator: (value) => GValidator.validateEmptyText('Name', value),
                 decoration: const InputDecoration(prefixIcon: Icon(Iconsax.user_outline), labelText: 'Name')),
               const SizedBox(height: GSizes.spaceBtwInputFields),
 
-              // /// Surname
-              // TextFormField(
-              //   decoration: const InputDecoration(prefixIcon: Icon(Iconsax.user_outline), labelText: 'Surname')),
-              // const SizedBox(height: GSizes.spaceBtwInputFields),
-
-              // /// Patronymic
-              // TextFormField(
-              //   decoration: const InputDecoration(prefixIcon: Icon(Iconsax.user_outline), labelText: 'Patronymic')),
-              // const SizedBox(height: GSizes.spaceBtwInputFields),
-
               ///Phone Number
               TextFormField(
+                controller: controller.phoneNumber,
+                validator: (value) => GValidator.validateNumberPhone(value),
                 decoration: const InputDecoration(prefixIcon: Icon(Iconsax.call_outline), labelText: GTexts.phoneNum)),
               const SizedBox(height: GSizes.spaceBtwInputFields),
 
               /// Email
               TextFormField(
+                controller: controller.email,
+                validator: (value) => GValidator.validateEmail(value),
                 decoration: const InputDecoration(prefixIcon: Icon(Iconsax.direct_outline), labelText: GTexts.email)),
               const SizedBox(height: GSizes.spaceBtwInputFields),
            
               /// Password
-              TextFormField(
-                decoration: const InputDecoration(prefixIcon: Icon(Iconsax.password_check_outline), labelText: GTexts.password, suffixIcon: Icon(Iconsax.eye_slash_outline))),
+              Obx(
+                () => TextFormField(
+                  controller: controller.password,
+                  obscureText: controller.hidePassword.value,
+                  validator: (value) => GValidator.validatePassword(value),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Iconsax.password_check_outline),
+                    labelText: GTexts.password,
+                    suffixIcon: IconButton(
+                      onPressed: () => controller.hidePassword.value = !controller.hidePassword.value,
+                      icon: Icon(controller.hidePassword.value ? Iconsax.eye_slash_outline : Iconsax.eye_outline)))),
+              ),
               const SizedBox(height: GSizes.spaceBtwInputFields),
 
-              // TODO: Birth of date
-
               /// Terms & Conditions
-              const GTermsAndConditions(),
+              const TermsConditionsCheckbox(),
               const SizedBox(height: 10),
                   
               /// Sign Up Button
-              SizedBox(width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => Get.to(() => const VerifyEmailScreens()),
-                child: const Text("Sign Up"))), 
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => controller.signup(),
+                  child: const Text("Sign Up")
+                )
+              ), 
             ],
           ),
         ),

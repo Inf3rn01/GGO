@@ -28,8 +28,13 @@ class CheckoutScreen extends StatelessWidget {
 
               /// Items in cart
               // ignore: prefer_const_constructors
-              CartItems(showAddRemoveButtons: false),
-              const SizedBox(height: GSizes.spaceBtwSections),
+              // ListView(
+              //   shrinkWrap: true,
+              //   children: const [
+              //     GRoundedContainer(child: CartItems(showAddRemoveButtons: false))
+              //   ]
+              // ),
+              // const SizedBox(height: GSizes.spaceBtwSections),
               
               /// Billing section
               GRoundedContainer(
@@ -37,45 +42,61 @@ class CheckoutScreen extends StatelessWidget {
                 borderColor: GColors.borderPrimary.withOpacity(0.2),
                 padding: const EdgeInsets.all(GSizes.md),
                 backgroundColor: darkTheme ? GColors.black : GColors.grey,
-                child: const Column(
+                child: Column(
                   children: [
 
                     /// Pricing
-                    BillingAmountSection(),
-                    SizedBox(height: 8),
+                    const BillingAmountSection(),
+                    const SizedBox(height: 8),
 
-                    Divider(),
-                    //SizedBox(height: GSizes.spaceBtwItems / 10),
+                    const Divider(),
 
                     /// Payment Methods
-                    BillingPaymentSection(),
-                    SizedBox(height: GSizes.spaceBtwItems),
+                    const BillingPaymentSection(),
+                    const SizedBox(height: GSizes.spaceBtwItems),
 
-                    Divider(),
+                    const Divider(),
 
                     /// Address Section
-                    BillingAddressSection(),
+                    const BillingAddressSection(),
 
+                    ///Checkout Button
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: GSizes.defaultSpace / 2, left: GSizes.defaultSpace / 2, bottom: GSizes.defaultSpace / 4.5, top: GSizes.defaultSpace * 1.2),
+                          child: ElevatedButton(
+                            onPressed: () => Get.to(
+                              () => SuccessScreen(
+                                image: 'assets/gifs/delivery_truck.gif',
+                                title: 'Payment Success!',
+                                subTitle: 'Your item will be shipped soon!',
+                                onPressed: () => Get.offAll(()=> const NavigationMenu())
+                              )
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: GColors.white,
+                              backgroundColor: GColors.primary,
+                              padding: const EdgeInsets.symmetric(horizontal: 43, vertical: 11),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            child: const Text(
+                              'Checkout',
+                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
 
             ],
           ),
-        ),
-      ),
-    
-      /// Checkout Button
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(GSizes.defaultSpace),
-        child: ElevatedButton(
-          onPressed: () => Get.to(
-            () => SuccessScreen(
-              image: 'assets/gifs/delivery_truck.gif',
-              title: 'Payment Success!',
-              subTitle: 'Your item will be shipped soon!',
-              onPressed: () => Get.offAll(()=> const NavigationMenu()))
-          ), child: const Text('Checkout', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500)),
         ),
       ),
     );
