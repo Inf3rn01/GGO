@@ -7,11 +7,6 @@ class GImages {
 
   // User profile
   static const String userImage1 = "assets/images/users/user.png";
-  
-
-  // Verify Email
-  static const String emailSend = "";
-  static const String successSticker = "";
 
   // Categories
   static const String assault = "assets/icons/categories/assault.png";
@@ -32,6 +27,10 @@ class GImages {
   // Payment Methods
   static const String paypal = "assets/images/payment_methods/paypal.png";
   
-  // loader
-  static const String loading = "assets/gifs/loader.gif";
+  // Animations
+  static const String loading = "assets/json/loader.json";
+  static const String emailSend = "assets/json/email_sent.json";
+  static const String checkRegister = "assets/json/check_register.json";
+  
+
 }

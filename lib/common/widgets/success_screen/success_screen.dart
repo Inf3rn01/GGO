@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ggo/common/styles/spacing_styles.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/constants/text_strings.dart';
@@ -17,12 +18,11 @@ class SuccessScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: GSpacingStyle.paddingWithAppBarHeigth * 2,
+          padding: GSpacingStyle.paddingWithAppBarHeigth,
           child: Column(
             children: [
               /// Image
-              Image(image: AssetImage(image), width: GHelperFunctions.screenWidth() * 0.35),
-              const SizedBox(height: GSizes.spaceBtwSections),
+              Lottie.asset(image, width: GHelperFunctions.screenWidth() * 0.8),
 
               /// Title & SubTitle
               Text(title, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),

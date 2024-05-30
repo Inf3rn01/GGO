@@ -8,8 +8,7 @@ class UserModel {
   final String email;
   String profilePicture;
 
-
-  ///Constructor for UserModel
+  /// Конструктор для UserModel
   UserModel({
     required this.id,
     required this.name,
@@ -18,25 +17,25 @@ class UserModel {
     required this.profilePicture,
   });
 
-  /// Helper function to get the phone number
+  /// Вспомогательная функция для получения номера телефона
   String get formattedPhoneNo => GFormatter.formatPhoneNumber(phoneNumber);
 
-  /// Static function to create empty user model
-  static UserModel empty() => UserModel(id: '', name: '', phoneNumber: '', email: '',  profilePicture: '');
+  /// Статический метод для создания пустой модели пользователя
+  static UserModel empty() => UserModel(id: '', name: '', phoneNumber: '', email: '', profilePicture: '');
 
-  /// Convert model to JSON structure for storing data in Firebase
+  /// Преобразование модели в структуру JSON для хранения данных в Firebase
   Map<String, dynamic> toJson() {
     return {
-      'Name' : name,
-      'PhoneNumber' : phoneNumber,
-      'Email' : email,
-      'ProfilePicture' : profilePicture,
+      'Name': name,
+      'PhoneNumber': phoneNumber,
+      'Email': email,
+      'ProfilePicture': profilePicture,
     };
   }
 
-  /// Factory method to create a UserModel from a Firebase document snapshot
+  /// Фабричный метод для создания UserModel из моментального снимка документа Firestore
   factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
-    if (document.data() != null){
+    if (document.data() != null) {
       final data = document.data()!;
       return UserModel(
         id: document.id,
@@ -46,8 +45,7 @@ class UserModel {
         profilePicture: data['ProfilePicture'] ?? '',
       );
     } else {
-      return UserModel.empty();
+      throw Exception('Document is not exists');
     }
   }
-
 }

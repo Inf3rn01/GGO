@@ -46,7 +46,7 @@ class GLoginForm extends StatelessWidget {
                   ),
 
                   /// Forget Password
-                  TextButton(onPressed: () => Get.to(() => const ForgetPassword()), child: const Text('Forget Password?', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 14)),)
+                  TextButton(onPressed: () => Get.to(() => const ForgetPassword()), child: const Text('Forget Password?', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 14.3)))
                 ],
               ),
               const SizedBox(height: 8),
