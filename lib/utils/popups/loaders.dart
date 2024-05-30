@@ -27,7 +27,7 @@ class Loaders {
     );
   }
 
-  static successSmackBar({required title, message = '', duration = 3}) {
+  static successSnackBar({required title, message = '', duration = 3}) {
     Get.snackbar(
       title,
       message,isDismissible: true,
@@ -37,7 +37,7 @@ class Loaders {
       snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: duration),
       margin: const EdgeInsets.all(10),
-      icon: const Icon(Iconsax.check_outline, color: GColors.white)
+      icon: const Icon(HeroIcons.check, color: GColors.white)
     );
   }
 

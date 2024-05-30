@@ -9,8 +9,8 @@ import 'package:ggo/utils/helpers/helper_functions.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 
-class VerifyEmailScreens extends StatelessWidget {
-  const VerifyEmailScreens({super.key});
+class VerifyEmailScreen extends StatelessWidget {
+  const VerifyEmailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -34,9 +34,9 @@ class GValidator {
     }
 
     // Check for uppercase letters
-    if (!value.contains(RegExp(r'[A-Z]')) || !value.contains(RegExp(r'[А-Я]'))) {
-      return 'Password must contain at least one uppercase letter.';
-    }
+    if (!value.contains(RegExp(r'[A-ZА-Я]'))) {
+  return 'Password must contain at least one uppercase letter.';
+}
 
     // Check for numbers
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){

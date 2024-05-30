@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:ggo/features/authentication/controlers/sign_up/signup_controller.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -30,19 +33,24 @@ class _TermsConditionsCheckboxState extends State<TermsConditionsCheckbox> {
       // Открываем файл на всех платформах с помощью OpenFile.open
       OpenFile.open(filePath);
     } else {
-      print('File does not exist: $filePath');
+      if (kDebugMode) {
+        print('File does not exist: $filePath');
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = SignupController.instance;
     return Row(
-      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Row(
             children: [
-              Checkbox(value: true, onChanged: (value) {}),
+              Obx(()=> Checkbox(
+                value: controller.hideCheckbox.value,
+                onChanged: (value) => controller.hideCheckbox.value = !controller.hideCheckbox.value)
+              ),
               const Text('I agree to', style: TextStyle(fontSize: 13)),
               Expanded(
                 child: GestureDetector(

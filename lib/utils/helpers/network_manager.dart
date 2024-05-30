@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -20,26 +21,38 @@ class NetworkManager extends GetxController {
   }
 
   void _updateConnectionStatus(List<ConnectivityResult> resultList) {
-    // Assuming the last result in the list is the most recent
-    final ConnectivityResult result = resultList.last;
-    _connectionStatus.value = result;
-    if (_connectionStatus.value == ConnectivityResult.none) {
-      Loaders.warningSnackBar(title: 'No internet connection');
-    }
+  final ConnectivityResult result = resultList.last;
+  _connectionStatus.value = result;
+  if (result == ConnectivityResult.none) {
+    Loaders.errorSnackBar(title: 'No Internet Connection', message: 'Please check your internet connection and try again.');
+  } else {
+    Loaders.successSnackBar(title: 'Alright, you have ethernet connection!');
   }
+}
 
   Future<bool> isConnected() async {
-    try {
-      final result = await _connectivity.checkConnectivity();
-      if (result == ConnectivityResult.none) {
-        return false;
-      } else {
-        return true;
-      }
-    } on PlatformException catch (_) {
+  try {
+    final result = await _connectivity.checkConnectivity();
+    
+    if (result == ConnectivityResult.none) {
       return false;
+    } else {
+      return true;
     }
+  } on PlatformException catch (e) {
+    // Обработка ошибки платформы
+    if (kDebugMode) {
+      print('PlatformException: ${e.message}');
+    }
+    return false;
+  } catch (e) {
+    // Обработка других ошибок
+    if (kDebugMode) {
+      print('Exception: ${e.toString()}');
+    }
+    return false;
   }
+}
 
   @override
   void onClose() {
