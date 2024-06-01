@@ -23,12 +23,18 @@
 		<key>CFBundleVersion</key>
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Предоставьте доступ к хранилищу данных</string>
 		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-		<string>Предоставьте доступ к вашей геолокации</string>
+		<string>This app require access to the Geolocation</string>
 		<key>NSQuickLookUsageDescription</key>
 		<string>This app requires QuickLook to preview files.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>This app requires access to the photo library.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>This app require access to the microphone.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>This app requires access to the camera.</string>
+
+
 		<true/>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>

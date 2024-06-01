@@ -43,15 +43,19 @@ class _TermsConditionsCheckboxState extends State<TermsConditionsCheckbox> {
   Widget build(BuildContext context) {
     final controller = SignupController.instance;
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           child: Row(
             children: [
-              Obx(()=> Checkbox(
-                value: controller.hideCheckbox.value,
-                onChanged: (value) => controller.hideCheckbox.value = !controller.hideCheckbox.value)
+              SizedBox(height: 20, width: 25,
+                child: Obx(()=> Checkbox(
+                  value: controller.hideCheckbox.value,
+                  onChanged: (value) => controller.hideCheckbox.value = !controller.hideCheckbox.value)
+                ),
               ),
-              const Text('I agree to', style: TextStyle(fontSize: 13)),
+              const Text('I agree to', style: TextStyle(fontSize: 14)),
               Expanded(
                 child: GestureDetector(
                   onTap: () {
@@ -61,13 +65,13 @@ class _TermsConditionsCheckboxState extends State<TermsConditionsCheckbox> {
                     padding: const EdgeInsets.all(4),
                     child: const Text(
                       'Privacy Policy',
-                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 13.5, decoration: TextDecoration.underline, decorationColor: Colors.blue),
+                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 14.5, decoration: TextDecoration.underline, decorationColor: Colors.blue),
                       textAlign: TextAlign.left,
                     ),
                   ),
                 ),
               ),
-              const Text('and', style: TextStyle(fontSize: 13)),
+              const Text('and', style: TextStyle(fontSize: 14)),
               Expanded(
                 child: GestureDetector(
                   onTap: () {
@@ -77,7 +81,7 @@ class _TermsConditionsCheckboxState extends State<TermsConditionsCheckbox> {
                     padding: const EdgeInsets.all(4),
                     child: const Text(
                       'Terms of use',
-                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 13.5, decoration: TextDecoration.underline, decorationColor: Colors.blue),
+                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 14.5, decoration: TextDecoration.underline, decorationColor: Colors.blue),
                       textAlign: TextAlign.left,
                     ),
                   ),

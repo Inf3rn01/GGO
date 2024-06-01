@@ -22,7 +22,7 @@ class SuccessScreen extends StatelessWidget {
           child: Column(
             children: [
               /// Image
-              Lottie.asset(image, width: GHelperFunctions.screenWidth() * 0.8),
+              Lottie.asset(image, width: GHelperFunctions.screenWidth() * 0.55),
 
               /// Title & SubTitle
               Text(title, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),

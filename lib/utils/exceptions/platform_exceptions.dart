@@ -12,7 +12,7 @@ class GPlatformException implements Exception{
       case 'ERROR_EMAIL_ALREADY_IN_USE':
         return 'The email address is already in use by another account.';
       case 'ERROR_WRONG_PASSWORD':
-        return 'The password is invalid or the user does not have a password.';
+        return 'The password is invalid.';
       case 'ERROR_USER_NOT_FOUND':
         return 'There is no user record corresponding to this identifier. The user may have been deleted.';
       case 'ERROR_USER_DISABLED':

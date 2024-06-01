@@ -26,7 +26,7 @@ class VerifyEmailController extends GetxController {
       await AuthenticationRepository.instance.sendEmailVerification();
       Loaders.successSnackBar(title: 'Email sent', message: 'Please check your inbox and verify your email.');
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!, message: e.toString()');
+      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 
@@ -41,7 +41,8 @@ class VerifyEmailController extends GetxController {
           image: GImages.checkRegister,
           title: GTexts.yourAccountCreatedTitle,
           subTitle: GTexts.yourAccountCreatedSubTitle,
-          onPressed: () => AuthenticationRepository.instance.screenRedirect()));
+          onPressed: () => AuthenticationRepository.instance.screenRedirect())
+        );
       }
     });
   }

@@ -45,7 +45,7 @@ class UserModel {
         profilePicture: data['ProfilePicture'] ?? '',
       );
     } else {
-      throw Exception('Document is not exists');
+      return UserModel.empty();
     }
   }
 }

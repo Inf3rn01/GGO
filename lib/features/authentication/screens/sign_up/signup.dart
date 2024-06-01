@@ -54,7 +54,8 @@ class SignupScreen extends StatelessWidget {
                 TextFormField(
                   controller: controller.email,
                   validator: (value) => GValidator.validateEmail(value),
-                  decoration: const InputDecoration(prefixIcon: Icon(Iconsax.direct_outline), labelText: GTexts.email)),
+                  decoration: const InputDecoration(prefixIcon: Icon(EvaIcons.email_outline), labelText: GTexts.email)
+                ),
                 const SizedBox(height: GSizes.spaceBtwInputFields),
              
                 /// Password

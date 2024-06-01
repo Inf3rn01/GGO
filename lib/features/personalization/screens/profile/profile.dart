@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/auth_appbar.dart';
 import 'package:ggo/common/widgets/images/circular_image.dart';
+import 'package:ggo/common/widgets/shimmer/shimmer.dart';
 import 'package:ggo/common/widgets/texts/section_heading.dart';
+import 'package:ggo/features/personalization/controlers/user_controller.dart';
+import 'package:ggo/features/personalization/screens/profile/widgets/change_name_widget.dart';
 import 'package:ggo/features/personalization/screens/profile/widgets/profile_menu.dart';
-import 'package:icons_plus/icons_plus.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/images_strings.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -15,6 +17,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       appBar: const AuthAppBar(showBackArrow: true, title: Text('Profile')),
       /// Body
@@ -29,8 +32,14 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    const GCircularImage(image: GImages.userImage1, width: 80, height: 80),
-                    TextButton(onPressed: () {}, child: const Text('Change profile picture', style: TextStyle(fontSize: 14, color: GColors.grey))),
+                    Obx(() {
+                      final networkImage = controller.user.value.profilePicture;
+                      final image = networkImage.isNotEmpty ? networkImage : GImages.userImage1;
+                      return controller.imageUploading.value
+                          ? const ShimmerEffect(width: 80, height: 80, radius: 80)
+                          : GCircularImage(image: image, width: 80, height: 80, isNetworkImage: networkImage.isNotEmpty);
+                    }),
+                    TextButton(onPressed: () => controller.uploadUserProfilePicture(), child: const Text('Change profile picture', style: TextStyle(fontSize: 14, color: GColors.grey))),
                   ],
                 ),
               ),
@@ -42,16 +51,15 @@ class ProfileScreen extends StatelessWidget {
               const GSectionsHeading(title: 'Profile information', showActionButton: false),
               const SizedBox(height: GSizes.spaceBtwItems),
 
-              ProfileMenu(title: 'Name', value: 'Danil', onPressed: (){}),
-              ProfileMenu(title: 'E-mail', value: 'danilpugachev253@gmail.com', onPressed: (){}),
-              ProfileMenu(title: 'Phone', value: '+7682834638', onPressed: (){}),
-              ProfileMenu(title: 'Date of Birth', value: '25.05.2004', onPressed: (){}),
+              ProfileMenu(title: 'Name', value: controller.user.value.name, onPressed: () => Get.to(() => const ChangeNameScreen())),
+              ProfileMenu(title: 'E-mail', value: controller.user.value.email, onPressed: (){}),
+              ProfileMenu(title: 'Phone', value: controller.user.value.phoneNumber, onPressed: (){}),
               const Divider(),
               const SizedBox(height: GSizes.spaceBtwItems),
 
               Center(
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: () => Get.to(() => const LoginScreen()),
                   child: const Text('Exit from account', style: TextStyle(fontSize: 14, color: Colors.red)),
                 ),
               ),
@@ -60,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
 
               Center(
                 child: TextButton(
-                  onPressed: () => Get.to(() => const LoginScreen()),
+                  onPressed: () => controller.deleteAccountWarningPopup(),
                   child: const Text('Delete account', style: TextStyle(fontSize: 14, color: Colors.red)),
                 ),
               ),

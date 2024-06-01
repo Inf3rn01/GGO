@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ggo/data/repositories/user/user_repository.dart';
 import 'package:ggo/features/authentication/screens/login/login.dart';
 import 'package:ggo/features/authentication/screens/sign_up/widgets/verify_email.dart';
 import 'package:ggo/navigation_menu.dart';
@@ -20,6 +21,10 @@ class AuthenticationRepository extends GetxController{
   final _auth = FirebaseAuth.instance;
   
 
+  /// Get authenticated user data
+  User? get authUser => _auth.currentUser;
+
+  /// Called from main.dart on app launch
   @override
   void onReady() {
     FlutterNativeSplash.remove();
@@ -47,7 +52,7 @@ class AuthenticationRepository extends GetxController{
   ///[EmailAuthentication] - SignIn
   Future<UserCredential> loginWithEmailAndPassword(String email, String password) async {
     try{
-      return await _auth.signInUserWithEmailAndPassword(email: email, password: password);
+      return await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       throw GFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
@@ -95,12 +100,43 @@ class AuthenticationRepository extends GetxController{
     }
   }
 
-  ///[ReAuthenticate] - ReAuthenticate yser
-
-
   ///[EmailAuthentication] - Forget password
+  Future<void> sendPasswordResetEmail(String email) async {
+    try{
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw GFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw GFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const GFormatException();
+    } on PlatformException catch (e) {
+      throw GPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Somethink went wrong. Please try again';
+    }
+  }
 
-
+  ///[ReAuthenticate] - ReAuthenticate yser
+  Future<void> reAuthenticateWithEmailAndPassword(String email, String password) async {
+    try {
+      // Create credential
+      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+      
+      // ReAuthenticate
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw GFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw GFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const GFormatException();
+    } on PlatformException catch (e) {
+      throw GPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Somethink went wrong. Please try again';
+    }
+  }
 
   ///[LogoutUser] - Valid for any authentication
   Future<void> logout() async {
@@ -121,6 +157,20 @@ class AuthenticationRepository extends GetxController{
   }
 
   ///[DeleteUser] - Remove user Auth and Firestore account
-
-
+  Future<void> deleteAccount() async {
+    try {
+      await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      throw GFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw GFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const GFormatException();
+    } on PlatformException catch (e) {
+      throw GPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Somethink went wrong. Please try again';
+    }
+  }
 }

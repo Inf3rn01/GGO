@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ggo/features/authentication/screens/login/password_configuration/reset_password.dart';
+import 'package:ggo/utils/constants/images_strings.dart';
+import 'package:ggo/utils/popups/full_screen_loader.dart';
+
+import '../../../../data/repositories/authentication/authentication_repository.dart';
+import '../../../../utils/helpers/network_manager.dart';
+import '../../../../utils/popups/loaders.dart';
+
+class ForgetPasswordController extends GetxController{
+  static ForgetPasswordController get instance => Get.find();
+
+  /// Variables
+  final email = TextEditingController();
+  GlobalKey<FormState> forgetPasswordFormKey = GlobalKey<FormState>();
+
+  /// Send reset password email
+  sendPasswordResetEmail() async {
+    try {
+      
+      // Start loading
+      FullScreenLoader.openLoadingDialog('Processing your request...', GImages.loading);
+
+      //Check internet connectivity
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected){
+        // Remove loader
+        FullScreenLoader.stopLoading();
+        return;
+      } 
+
+      // Form validation
+      if (forgetPasswordFormKey.currentState != null && !forgetPasswordFormKey.currentState!.validate()){
+        // Remove loader
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Send email to reset password
+      await AuthenticationRepository.instance.sendPasswordResetEmail(email.text.trim());
+
+      // Remove loader
+      FullScreenLoader.stopLoading();
+
+      // Show success screen
+      Loaders.successSnackBar(title: 'Email sent', message: 'Email link sent to reset your password'.tr);
+
+      // Redirect
+      Get.to(() => ResetPasswordScreen(email: email.text.trim() ));
+
+    } catch (e) {
+      // Remove loader
+      FullScreenLoader.stopLoading();
+
+      // Show some generic error to the user
+      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+
+  resendPasswordResetEmail(String email) async {
+    try {
+
+      // Start loading
+      FullScreenLoader.openLoadingDialog('Processing your request...', GImages.loading);
+
+      //Check internet connectivity
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected){
+        // Remove loader
+        FullScreenLoader.stopLoading();
+        return;
+      } 
+
+      // Send email to reset password
+      await AuthenticationRepository.instance.sendPasswordResetEmail(email);
+
+      // Remove loader
+      FullScreenLoader.stopLoading();
+
+      // Show success screen
+      Loaders.successSnackBar(title: 'Email sent', message: 'Email link sent to reset your password'.tr);
+
+    } catch (e) {
+      // Remove loader
+      FullScreenLoader.stopLoading();
+
+      // Show some generic error to the user
+      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+}

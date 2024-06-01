@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/market_appbar.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/primary_header_containers.dart';
 import 'package:ggo/common/widgets/layouts/grid_layout.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:ggo/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:ggo/common/widgets/texts/section_heading.dart';
+import 'package:ggo/features/personalization/controlers/user_controller.dart';
 import 'package:ggo/utils/constants/images_strings.dart';
 import 'package:ggo/utils/constants/sizes.dart';
 import 'widgets/home_categories.dart';
@@ -15,6 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
     return Scaffold(
       body: ListView(
         children: [

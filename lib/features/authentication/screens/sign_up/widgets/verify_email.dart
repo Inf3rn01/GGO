@@ -62,7 +62,8 @@ class VerifyEmailScreen extends StatelessWidget {
               
               SizedBox(
                 width: double.infinity,
-                child: TextButton(onPressed: () => controller.sendEmailVerification(), child: const Text(GTexts.resendEmail, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 13.5)))),
+                child: TextButton(onPressed: () => controller.sendEmailVerification(), child: const Text(GTexts.resendEmail, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 13.5)))
+              ),
             ],
           ),
       ),
