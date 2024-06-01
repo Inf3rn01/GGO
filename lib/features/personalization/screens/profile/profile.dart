@@ -36,8 +36,8 @@ class ProfileScreen extends StatelessWidget {
                       final networkImage = controller.user.value.profilePicture;
                       final image = networkImage.isNotEmpty ? networkImage : GImages.userImage1;
                       return controller.imageUploading.value
-                          ? const ShimmerEffect(width: 80, height: 80, radius: 80)
-                          : GCircularImage(image: image, width: 80, height: 80, isNetworkImage: networkImage.isNotEmpty);
+                          ? const ShimmerEffect(width: 90, height: 90, radius: 90)
+                          : GCircularImage(image: image, width: 90, height: 90, padding: 4.5, isNetworkImage: networkImage.isNotEmpty);
                     }),
                     TextButton(onPressed: () => controller.uploadUserProfilePicture(), child: const Text('Change profile picture', style: TextStyle(fontSize: 14, color: GColors.grey))),
                   ],
@@ -55,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenu(title: 'E-mail', value: controller.user.value.email, onPressed: (){}),
               ProfileMenu(title: 'Phone', value: controller.user.value.phoneNumber, onPressed: (){}),
               const Divider(),
-              const SizedBox(height: GSizes.spaceBtwItems),
+              const SizedBox(height: GSizes.spaceBtwItems + 3),
 
               Center(
                 child: TextButton(
@@ -64,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 8),
+              const SizedBox(height: 6),
 
               Center(
                 child: TextButton(

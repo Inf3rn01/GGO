@@ -55,7 +55,7 @@ class UserController extends GetxController {
 
       // if no record already stored
       if (user.value.id.isEmpty) {
-        if (userCredential != null){
+        if (userCredential != null && userCredential.user != null){
           // Map data
           final user = UserModel(
             id: userCredential.user!.uid,
@@ -150,7 +150,7 @@ class UserController extends GetxController {
   /// Upload profile image
   uploadUserProfilePicture() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70, maxHeight: 512, maxWidth: 512);
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if(image != null) {
         imageUploading.value = true;
 
@@ -158,7 +158,7 @@ class UserController extends GetxController {
         final imageUrl = await userRepository.uploadImage('Users/Images/Profile/', image);
       
         // Update user image record
-        Map<String, dynamic> json = {'/ProfilePicture': imageUrl};
+        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
         await userRepository.updateSingleField(json);
 
         user.value.profilePicture = imageUrl;

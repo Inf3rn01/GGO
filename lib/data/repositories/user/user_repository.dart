@@ -113,5 +113,4 @@ class UserRepository extends GetxController {
       throw 'Something went wrong. Please try again.';
     }
   }
-
 }
