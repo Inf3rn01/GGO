@@ -9,8 +9,8 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../../utils/helpers/helper_functions.dart';
 
-class ForgetPassword extends StatelessWidget {
-  ForgetPassword({super.key});
+class ForgetPasswordScreen extends StatelessWidget {
+  ForgetPasswordScreen({super.key});
 
   final controller = Get.put(ForgetPasswordController());
 

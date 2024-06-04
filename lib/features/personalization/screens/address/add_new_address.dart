@@ -31,7 +31,7 @@ class AddNewAddressScreen extends StatelessWidget {
                   children: [
                     Expanded(child: TextFormField(decoration: const InputDecoration(prefixIcon: Icon(Iconsax.building_outline), labelText: 'City'))), 
                     const SizedBox(width: GSizes.spaceBtwInputFields),
-                    Expanded(child: TextFormField(decoration: const InputDecoration(prefixIcon: Icon(BoxIcons.bx_mail_send), labelText: 'Postal Code'))),
+                    Expanded(child: TextFormField(decoration: const InputDecoration(prefixIcon: Icon(BoxIcons.bx_building), labelText: 'Street'))),
                   ],
                 ),
 

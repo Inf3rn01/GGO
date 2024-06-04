@@ -12,13 +12,13 @@ import '../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../utils/exceptions/format_exceptions.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
 
-/// Repository class for user-related operations.
+/// Класс репозитория для операций, связанных с пользователем.
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  /// Function to save user data to FireStore
+  /// Функция сохранения пользовательских данных в FireStore
   Future<void> saveUserRecord(UserModel user) async {
     try {
       await _db.collection("Users").doc(user.id).set(user.toJson());
@@ -33,7 +33,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  /// Function to fetch user details based on user ID
+  /// Функция для получения данных о пользователе на основе его идентификатора
   Future<UserModel> fetchUserDetails() async {
     try {
       final documentSnapshot = await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).get();
@@ -51,7 +51,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  /// Function to update user data in Firestore
+  /// Функция для обновления данных пользователя в Firestore
   Future<void> updateUserDetails(UserModel updatedUser) async {
     try {
       await _db.collection("Users").doc(updatedUser.id).update(updatedUser.toJson());
@@ -66,7 +66,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  /// Update any field in specific users collection
+  /// Обновление любого поля в коллекции определенных пользователей
   Future<void> updateSingleField(Map<String, dynamic> json) async {
     try {
       await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).update(json);
@@ -81,7 +81,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  /// Function to remove user data from Firestore
+  /// Функция удаления пользовательских данных из Firestore
   Future<void> removeUserRecord(String userId) async {
     try {
       await _db.collection("Users").doc(userId).delete();
@@ -96,7 +96,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  /// Upload any image
+  /// Функция загрузки любого изображения
   Future<String> uploadImage(String path, XFile image) async {
     try {
       final ref = FirebaseStorage.instance.ref(path).child(image.name);

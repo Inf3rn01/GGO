@@ -29,7 +29,7 @@ class ProductDetailScreen extends StatelessWidget {
             Stack(
               children: [
                 const GProductSlider(
-                  banners: [GImages.productImageAssault1, GImages.productImage2],
+                  banners: [GImages.productImageAssault1, GImages.productImageAssault2],
                   applyImageRadius: true,
                   // onPressed: (index) async { // Добавил async для возможности использования await
                   //   Get.to(() => LookMoreImage(index: 1,));
@@ -109,10 +109,10 @@ class ProductDetailScreen extends StatelessWidget {
                                         features: [
                                           {'title': 'Country of manufacture', 'value': 'Russia'},
                                           {'title': 'Weight', 'value': '5 kg'},
-                                          {'title': 'length', 'value': '870 mm'},
-                                          {'title': 'cartridge', 'value': '7,62x39 mm'},
-                                          {'title': 'departure speed', 'value': '715 m/s'},
-                                          {'title': 'firing range', 'value': '800 m'},
+                                          {'title': 'Length', 'value': '870 mm'},
+                                          {'title': 'Cartridge', 'value': '7,62x39 mm'},
+                                          {'title': 'Departure speed', 'value': '715 m/s'},
+                                          {'title': 'Firing range', 'value': '800 m'},
                                         ],
                                       ),
                                     ),

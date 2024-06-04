@@ -6,11 +6,12 @@ class GImages {
   static const String lightAppLogo = "assets/logos/GGO-white.png";
 
   // User profile
-  static const String userImage1 = "assets/images/users/user.png";
+  static const String user = "assets/images/users/user.png";
 
   // Categories
   static const String assault = "assets/icons/categories/assault.png";
   static const String sniper = "assets/icons/categories/sniper.png";
+ static const String shotgun = "assets/icons/categories/shotgun.png";
   static const String pistol = "assets/icons/categories/pistol.png";
   static const String other = "assets/icons/categories/other.png";
 
@@ -21,8 +22,8 @@ class GImages {
 
   // Products
   static const String productImageAssault1 = "https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_658534c5cf03b714f2d4f2ee_658667d45c108b68ea25d69e/scale_1200";
-  static const String productImage2 = "https://steamuserimages-a.akamaihd.net/ugc/947329247060824187/AC81D9315F83730639AB98DC6128032A90E42ABB/?imw=512&amp;imh=288&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true";
-  static const String productImage3 = "https://steamuserimages-a.akamaihd.net/ugc/273975558780747224/246D23A286A9288C71A178C945F3BEA991203B4A/";
+  static const String productImageAssault2 = "https://steamuserimages-a.akamaihd.net/ugc/947329247060824187/AC81D9315F83730639AB98DC6128032A90E42ABB/?imw=512&amp;imh=288&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true";
+  static const String productImageShotgun1 = "https://steamuserimages-a.akamaihd.net/ugc/273975558780747224/246D23A286A9288C71A178C945F3BEA991203B4A/";
 
   // Payment Methods
   static const String paypal = "assets/images/payment_methods/paypal.png";

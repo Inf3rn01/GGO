@@ -15,6 +15,7 @@ class GVerticalImagesTexts extends StatelessWidget {
     this.width = 58,
     this.height = 58,
     this.padding = 5.5,
+    this.isNetworkImage = true,
   });
 
   final String image, title;
@@ -22,6 +23,7 @@ class GVerticalImagesTexts extends StatelessWidget {
   final double width, height, padding;
   final Color? backgroundColor;
   final void Function()? onTap;
+  final bool isNetworkImage;
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +32,32 @@ class GVerticalImagesTexts extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(right: 16.5),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            /// Circular Icon
-            GCircularImage(image: image, overlayColor: darkTheme ? GColors.white : GColors.black),
-            /// Text
-            const SizedBox(height: 5),
-            SizedBox(
-              width: 50,
-              child: Text(
+        padding: const EdgeInsets.only(right: 15),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              /// Circular Icon
+              GCircularImage(
+                image: image,
+                overlayColor: darkTheme ? GColors.white : GColors.black,
+                isNetworkImage: isNetworkImage,
+              ),
+              const SizedBox(height: 3),
+              /// Text
+              Text(
                 title,
-                style: TextStyle(fontSize: 13.4, fontWeight: FontWeight.w600, color: darkTheme ? GColors.white : GColors.dark),
+                style: TextStyle(
+                  fontSize: 13.4,
+                  fontWeight: FontWeight.w600,
+                  color: darkTheme ? GColors.white : GColors.dark,
+                ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-              )
-            )
-          ],
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );

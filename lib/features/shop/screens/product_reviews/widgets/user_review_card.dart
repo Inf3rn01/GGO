@@ -25,7 +25,7 @@ class UserReviewCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(backgroundImage: AssetImage(GImages.userImage1), backgroundColor: GColors.grey),
+                    const CircleAvatar(backgroundImage: AssetImage(GImages.user), backgroundColor: GColors.grey),
                     const SizedBox(width: GSizes.spaceBtwItems),
                     Text('Dan', style: Theme.of(context).textTheme.titleMedium),         
                   ],

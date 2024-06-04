@@ -1,5 +1,3 @@
-
-
 import 'package:ggo/utils/constants/images_strings.dart';
 
 class CartItem {

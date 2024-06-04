@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ggo/common/widgets/shimmers/shimmer.dart';
 import '../../../utils/constants/colors.dart';
 
 class GRoundedImage extends StatelessWidget {
@@ -30,16 +31,50 @@ class GRoundedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrl.isEmpty) {
+      return Container(
+        width: width,
+        height: height,
+        padding: padding,
+        decoration: BoxDecoration(
+          border: border,
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: const Center(
+          child: Text('No data found!', style: TextStyle(color: Colors.black)),
+        ),
+      );
+    }
+
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         width: width,
         height: height,
         padding: padding,
-        decoration: BoxDecoration(border: border, color: backgroundColor, borderRadius: BorderRadius.circular(borderRadius)),
+        decoration: BoxDecoration(
+          border: border,
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
         child: ClipRRect(
           borderRadius: applyImageRadius ? BorderRadius.circular(borderRadius) : BorderRadius.zero,
-          child: Image(fit: fit, image: isNetworkImage ? NetworkImage(imageUrl) : AssetImage(imageUrl) as ImageProvider),
+          child: Image.network(
+            imageUrl,
+            fit: fit,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const Center(
+                child: ShimmerEffect(width: double.infinity, height: 190, radius: 13),
+              );
+            },
+            errorBuilder: (context, error, stackTrace) {
+              return Center(
+                child: Text('No data found!', style: TextStyle(color: Colors.black.withOpacity(0.65))),
+              );
+            },
+          ),
         ),
       ),
     );

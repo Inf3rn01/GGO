@@ -33,7 +33,7 @@ class UserModel {
     };
   }
 
-  /// Фабричный метод для создания UserModel из моментального снимка документа Firestore
+  /// Отображение снимка документа, ориентированного на Json, из Firebase в UserModel
   factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;

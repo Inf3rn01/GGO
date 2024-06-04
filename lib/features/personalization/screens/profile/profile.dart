@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/auth_appbar.dart';
 import 'package:ggo/common/widgets/images/circular_image.dart';
-import 'package:ggo/common/widgets/shimmer/shimmer.dart';
+import 'package:ggo/common/widgets/shimmers/shimmer.dart';
 import 'package:ggo/common/widgets/texts/section_heading.dart';
 import 'package:ggo/features/personalization/controlers/user_controller.dart';
 import 'package:ggo/features/personalization/screens/profile/widgets/change_name_widget.dart';
@@ -34,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     Obx(() {
                       final networkImage = controller.user.value.profilePicture;
-                      final image = networkImage.isNotEmpty ? networkImage : GImages.userImage1;
+                      final image = networkImage.isNotEmpty ? networkImage : GImages.user;
                       return controller.imageUploading.value
                           ? const ShimmerEffect(width: 90, height: 90, radius: 90)
                           : GCircularImage(image: image, width: 90, height: 90, padding: 4.5, isNetworkImage: networkImage.isNotEmpty);

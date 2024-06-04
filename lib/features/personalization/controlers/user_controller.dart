@@ -46,14 +46,14 @@ class UserController extends GetxController {
   }
 
 
-  /// Save user record from any Registration provider
+  /// Сохранение записи пользователя из любого поставщика регистрации
   Future<void> saveUserRecord(UserCredential? userCredential) async {
     try {
       
-      // First update Rx user and then check if user data is already stored. If not store new data
+      // Сначала обновляет пользователя Rx, а затем проверяет, сохранены ли уже данные пользователя. Если нет, сохраняет новые данные.
       await fetchUserRecord();
 
-      // if no record already stored
+      // Если записи ещё не сохранены
       if (user.value.id.isEmpty) {
         if (userCredential != null && userCredential.user != null){
           // Map data
@@ -65,7 +65,7 @@ class UserController extends GetxController {
             profilePicture: userCredential.user!.photoURL ?? '',
           );
 
-          // Save user data
+          // Сохранение данных пользователя
           await userRepository.saveUserRecord(user);
         }
       }
@@ -98,7 +98,7 @@ class UserController extends GetxController {
   );
 }
 
-  /// Delete user account
+  /// Удаление аккаунта пользователя
   void deleteUserAccount () async {
     try {
       FullScreenLoader.openLoadingDialog('Processing...', GImages.loading);

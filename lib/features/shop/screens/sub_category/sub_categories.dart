@@ -37,9 +37,9 @@ class SubCategoriesScreen extends StatelessWidget {
 
                 const SizedBox(height: 30),
 
-                /// Promo Slider
-                const GPromoSlider(banners: [GImages.promoBanner1, GImages.productImage2]),
-                const SizedBox(height: 15),
+                // /// Promo Slider
+                // const GPromoSlider(banners: [GImages.promoBanner1, GImages.productImageAssault2]),
+                // const SizedBox(height: 15),
 
                 /// Products
                 GGridLayout(itemCount: 6, mainAxisExtent: 248, itemBuiler: (_, index) => const GProductCardVertical())

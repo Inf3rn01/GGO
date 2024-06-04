@@ -37,9 +37,9 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         /// Heading
-                        GSectionsHeading(title: 'Popular categories', textSize: 20, showActionButton: false),
+                        GSectionsHeading(title: 'Popular categories', textSize: 20.5, showActionButton: false),
                         
-                        SizedBox(height: 10),
+                        SizedBox(height: 8),
 
                         /// Categories
                         GHomeCategories(),
@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                 ),
 
-                SizedBox(height: 55),
+                SizedBox(height: 65),
               
               ],
             ),
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
              child: Column(
               children: [
                 /// Promo Slider
-                const GPromoSlider(banners: [GImages.promoBanner1, GImages.promoBanner2, GImages.promoBanner3], ),
+                const GPromoSlider(),
                 const SizedBox(height: 30),
 
                 /// Heading

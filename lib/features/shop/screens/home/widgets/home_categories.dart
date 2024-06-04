@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ggo/common/widgets/shimmers/category_shimmer.dart';
+import 'package:ggo/features/shop/controlers/category_controller.dart';
 import 'package:ggo/features/shop/screens/sub_category/sub_categories.dart';
-import 'package:ggo/utils/constants/images_strings.dart';
-
 import '../../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
 
 class GHomeCategories extends StatelessWidget {
@@ -12,16 +12,29 @@ class GHomeCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 90,
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: 5,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (_, index) {
-         return GVerticalImagesTexts(image: GImages.assault, title: 'Assault', onTap: () => Get.to(() => const SubCategoriesScreen()));
-        },
-      ),
+    final categoryController = Get.put(CategoryController());
+    
+    return Obx(
+      () {
+        if(categoryController.isLoading.value) return const CategoryShimmer();
+
+        if(categoryController.featuredCategories.isEmpty){
+          return Center(child: Text('No data found!', style: Theme.of(context).textTheme.bodyLarge!.apply(color: Colors.white)));
+        }
+
+        return SizedBox(
+          height: 90,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: categoryController.featuredCategories.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (_, index) {
+              final category = categoryController.featuredCategories[index];
+              return GVerticalImagesTexts(image: category.image, title: category.name, onTap: () => Get.to(() => const SubCategoriesScreen()));
+            },
+          ),
+        );
+      }
     );
   }
 }

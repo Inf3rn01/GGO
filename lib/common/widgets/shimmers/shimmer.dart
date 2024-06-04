@@ -21,7 +21,7 @@ class ShimmerEffect extends StatelessWidget {
     final darkTheme = GHelperFunctions.isDarkMode(context);
     return Shimmer.fromColors(
       baseColor: darkTheme ? Colors.grey[850]! : Colors.grey[300]!,
-      highlightColor: darkTheme ? Colors.grey [700]! : Colors.grey[100]!,
+      highlightColor: darkTheme ? Colors.grey[800]! : Colors.grey[100]!,
       child: Container(
         width: width,
         height: height,
