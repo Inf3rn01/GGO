@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/product_features_model.dart';
+
 class FeaturesProduct extends StatelessWidget {
   const FeaturesProduct({super.key, required this.features});
 
-  final List<Map<String, String>> features;
+  final List<ProductFeaturesModel> features;
 
   @override
   Widget build(BuildContext context) {
+    print('Features: $features');
     return Column(
       children: features.map((feature) {
         return Column(
@@ -15,11 +18,11 @@ class FeaturesProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${feature['title']}:',
+                  '${feature.id}:', // id в качестве названия характеристики
                   style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                 ),
                 Text(
-                  feature['value']!,
+                  feature.features.values.first.toString(), // первое значение из Map в качестве значения характеристики
                   style: const TextStyle(fontSize: 16),
                 ),
               ],

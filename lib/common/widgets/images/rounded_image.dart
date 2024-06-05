@@ -66,7 +66,7 @@ class GRoundedImage extends StatelessWidget {
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
               return const Center(
-                child: ShimmerEffect(width: double.infinity, height: 190, radius: 13),
+                child: ShimmerEffect(width: double.infinity, height: double.infinity, radius: 13),
               );
             },
             errorBuilder: (context, error, stackTrace) {

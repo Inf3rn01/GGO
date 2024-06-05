@@ -33,7 +33,7 @@ class GHelperFunctions {
   }
 
 
-  static void  snowSnackBar(String message) {
+  static void snowSnackBar(String message) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(content: Text(message)),
     );

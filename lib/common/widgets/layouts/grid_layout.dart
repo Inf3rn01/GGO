@@ -7,7 +7,7 @@ class GGridLayout extends StatelessWidget {
     super.key,
     required this.itemCount,
     required this.itemBuiler,
-    required this.mainAxisExtent,
+    this.mainAxisExtent = 247.7,
   });
 
   final int itemCount;

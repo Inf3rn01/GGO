@@ -8,5 +8,4 @@ class ProductDetailController extends GetxController {
   void updatePageIndicator(index) {
     carouselCurrentIndex.value = index;
   }
-
 }

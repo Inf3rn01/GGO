@@ -7,8 +7,9 @@ import 'package:ggo/common/widgets/custom_shapes/containers/search_container.dar
 import 'package:ggo/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:ggo/common/widgets/texts/section_heading.dart';
 import 'package:ggo/features/personalization/controlers/user_controller.dart';
-import 'package:ggo/utils/constants/images_strings.dart';
 import 'package:ggo/utils/constants/sizes.dart';
+import 'package:ggo/utils/helpers/helper_functions.dart';
+import '../../controlers/product_controller.dart';
 import 'widgets/home_categories.dart';
 import 'package:ggo/features/shop/screens/home/widgets/promo_slider.dart';
 
@@ -17,7 +18,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UserController());
+    final Controller = Get.put(UserController());
+    final controller = Get.put(ProductController());
+    final dartkTheme = GHelperFunctions.isDarkMode(context);
     return Scaffold(
       body: ListView(
         children: [
@@ -67,7 +70,17 @@ class HomeScreen extends StatelessWidget {
                 const GSectionsHeading(title: 'Selected for you', textSize: 19, showActionButton: false),
 
                 /// Products
-                GGridLayout(itemCount: 6, mainAxisExtent: 248, itemBuiler: (_, index) => const GProductCardVertical())
+                Obx(
+                  (){
+                    if(controller.featuredProducts.isEmpty) {
+                      return Center(child: Text('No data found!', style: TextStyle(color: dartkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
+                    }
+                    return GGridLayout(
+                      itemCount: controller.featuredProducts.length,
+                      itemBuiler: (_, index) => GProductCardVertical(product: controller.featuredProducts[index])
+                    );
+                  }
+                )
               ],
              ),
           ),

@@ -9,16 +9,14 @@ import 'package:ggo/utils/constants/colors.dart';
 class GProductSlider extends StatelessWidget {
   const GProductSlider({
     super.key,
-    required this.banners,
+    required this.product,
     this.applyImageRadius = true,
-    this.onPressed,
-    //required this.initialPage,
+    this.showCounter = true,
   });
 
-  final List<String> banners;
+  final List<String> product;
   final bool applyImageRadius;
-  final Future<void> Function(int)? onPressed;
-  //final int initialPage;
+  final bool showCounter;
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +29,17 @@ class GProductSlider extends StatelessWidget {
               options: CarouselOptions(
                 aspectRatio: 1,
                 viewportFraction: 1.03,
-                //initialPage: initialPage,
                 onPageChanged: (index, _) => controller.updatePageIndicator(index)
               ),
-              items: banners.map((url) => GestureDetector(
-                onTap: () async {
-                  if (onPressed != null) {
-                    await onPressed!(banners.indexOf(url));
-                  }
-                },
-                child: GRoundedImage(
-                  imageUrl: url,
+              items: product.map((images) => GRoundedImage(
+                  imageUrl: images,
                   applyImageRadius: applyImageRadius,
                   isNetworkImage: true,
                   fit: BoxFit.cover,
-                ),
               )).toList(),
             ),
-            Positioned(
+            if (showCounter) // Проверка на видимость счётчика
+              Positioned(
                 bottom: 8.0,
                 left: 8.0,
                 child: GRoundedContainer(
@@ -67,7 +58,7 @@ class GProductSlider extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(text: '${controller.carouselCurrentIndex.value + 1}'),
-                            TextSpan(text: '/${banners.length}'),
+                            TextSpan(text: '/${product.length}'),
                           ],
                         ),
                       ),

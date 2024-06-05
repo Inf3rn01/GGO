@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                   GSettingsMenuTile(icon: Iconsax.location_bold, title: 'My Adresses', subTitle: 'Choose a location that is convenient for you where you want to pick up your order', onTap: () => Get.to(() => const UserAddressScreen())),
                   GSettingsMenuTile(icon: Iconsax.bag_happy_bold, title: 'My Orders', subTitle: 'In-progress and complited orders', onTap: () => Get.to(() => const OrderScreen())),
                   GSettingsMenuTile(icon: Iconsax.wallet_1_bold, title: 'Balance', subTitle: 'Withdraw balance to registered bank account', onTap: () {}),
-                  GSettingsMenuTile(icon: Iconsax.notification_bold, title: 'Notifications', subTitle: 'Set any kind of notification messages', onTap: () {}),
+                  //GSettingsMenuTile(icon: Iconsax.notification_bold, title: 'Notifications', subTitle: 'Set any kind of notification messages', onTap: () {}),
                   GSettingsMenuTile(icon: FontAwesome.gun_solid, size: 25, title: 'How can I get a gun?', subTitle: 'Read this to find out how you can get a gun', onTap: () => Get.to(()=> const GetGunScreen())),
                 ],
               ),

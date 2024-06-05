@@ -42,7 +42,7 @@ class SubCategoriesScreen extends StatelessWidget {
                 // const SizedBox(height: 15),
 
                 /// Products
-                GGridLayout(itemCount: 6, mainAxisExtent: 248, itemBuiler: (_, index) => const GProductCardVertical())
+                //GGridLayout(itemCount: 6, mainAxisExtent: 248, itemBuiler: (_, index) => const GProductCardVertical())
               ],
              ),
           ),
