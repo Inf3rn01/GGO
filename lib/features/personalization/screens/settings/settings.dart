@@ -25,12 +25,12 @@ class SettingsScreen extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: Column(
                 children: [
-                  GSettingsMenuTile(icon: Iconsax.profile_circle_bold, title: 'Profile', subTitle: 'Editing account settings', onTap: () => Get.to(() => const ProfileScreen())),
-                  GSettingsMenuTile(icon: Iconsax.location_bold, title: 'My Adresses', subTitle: 'Choose a location that is convenient for you where you want to pick up your order', onTap: () => Get.to(() => const UserAddressScreen())),
-                  GSettingsMenuTile(icon: Iconsax.bag_happy_bold, title: 'My Orders', subTitle: 'In-progress and complited orders', onTap: () => Get.to(() => const OrderScreen())),
-                  GSettingsMenuTile(icon: Iconsax.wallet_1_bold, title: 'Balance', subTitle: 'Withdraw balance to registered bank account', onTap: () {}),
+                  GSettingsMenuTile(icon: Iconsax.profile_circle_bold, title: 'Профиль', subTitle: 'Редактирование настроек учетной записи', onTap: () => Get.to(() => const ProfileScreen())),
+                  GSettingsMenuTile(icon: Iconsax.location_bold, title: 'Мои адреса', subTitle: 'Выберите удобное для вас место, где вы хотите забрать свой заказ', onTap: () => Get.to(() => const UserAddressScreen())),
+                  GSettingsMenuTile(icon: Iconsax.bag_happy_bold, title: 'Мои заказы', subTitle: 'Незавершенные и выполненные заказы', onTap: () => Get.to(() => const OrderScreen())),
+                  GSettingsMenuTile(icon: Iconsax.wallet_1_bold, title: 'Кошелёк', subTitle: 'Вывод средств на зарегистрированный банковский счет', onTap: () {}),
                   //GSettingsMenuTile(icon: Iconsax.notification_bold, title: 'Notifications', subTitle: 'Set any kind of notification messages', onTap: () {}),
-                  GSettingsMenuTile(icon: FontAwesome.gun_solid, size: 25, title: 'How can I get a gun?', subTitle: 'Read this to find out how you can get a gun', onTap: () => Get.to(()=> const GetGunScreen())),
+                  GSettingsMenuTile(icon: FontAwesome.gun_solid, size: 25, title: 'Как я могу получить оружие?', subTitle: 'Прочитайте это, чтобы узнать, как вы можете получить оружие', onTap: () => Get.to(()=> const GetGunScreen())),
                 ],
               ),
             ),

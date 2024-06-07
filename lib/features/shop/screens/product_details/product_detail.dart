@@ -1,34 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ggo/common/widgets/app_bar/tab_bar.dart';
-import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:ggo/features/shop/controlers/product_controller.dart';
 import 'package:ggo/features/shop/models/product_models.dart';
-import 'package:ggo/features/shop/screens/product_details/widgets/feature_product.dart';
-import 'package:ggo/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:ggo/utils/constants/colors.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../common/widgets/app_bar/product_appbar.dart';
+import '../../../../common/widgets/app_bar/tab_bar.dart';
+import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../common/widgets/products/product_cards/product_card_vertical.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
-import 'widgets/bottom_add_to_cart.dart';
-import 'widgets/product_slider.dart';
+import '../../controlers/cart_controller.dart';
+import '../../controlers/product_controller.dart';
 import '../product_reviews/widgets/raiting/rating_all_stars_widget.dart';
+import 'widgets/feature_product.dart';
+import 'widgets/product_meta_data.dart';
+import 'widgets/product_slider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key, required this.product});
-
   final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
-    final controller = ProductController.instance;
+    final ProductController productController = Get.put(ProductController());
+    final CartController cartController = Get.put(CartController());
     final darkTheme = GHelperFunctions.isDarkMode(context);
+
     return Scaffold(
-      bottomNavigationBar: const BottomAddToCart(),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: darkTheme ? GColors.dark : GColors.softGrey,
+          border: Border(
+            top: BorderSide(color: GColors.borderPrimary.withOpacity(0.3), width: 1),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 7),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(FontAwesome.minus_solid, size: 22, color: darkTheme ? GColors.softGrey : GColors.dark),
+                    onPressed: () {
+                      if (cartController.productQuantityCart.value > 1) {
+                        cartController.productQuantityCart.value--;
+                      }
+                    },
+                  ),
+                  Obx(() => Text(cartController.productQuantityCart.value.toString(), style: const TextStyle(fontSize: 18),)),
+                  IconButton(
+                    icon: Icon(FontAwesome.plus_solid, size: 21, color: darkTheme ? GColors.softGrey : GColors.dark),
+                    onPressed: () {
+                      cartController.productQuantityCart.value++;
+                    },
+                  ),
+                ],
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+                ),
+                onPressed: () {
+                  cartController.addToCart(product);
+                },
+                child: const Text('Добавить'),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -36,18 +80,14 @@ class ProductDetailScreen extends StatelessWidget {
               children: [
                 GProductSlider(
                   product: product.images!,
-                  applyImageRadius: true,
                 ),
                 ProductAppBar(
                   leadingIcon: OctIcons.arrow_left,
                   leadingOnPressed: () => Get.back(),
-                  onSharePressed: ,
                 ),
               ],
             ),
-
             const SizedBox(height: 8),
-
             GRoundedContainer(
               showBorder: true,
               borderColor: GColors.borderPrimary.withOpacity(0.1),
@@ -59,15 +99,13 @@ class ProductDetailScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     ProductMetaData(product: product),
                     const SizedBox(height: 4),
-                    const RatingWithAllStars(rating: 4.5, reviewCount: 199, showRating: false),
+                    const RatingWithAllStars(rating: 4.0, reviewCount: 1, showRating: false),
                     const SizedBox(height: 9),
                   ],
                 ),
               ),
             ),
-
             const SizedBox(height: 8),
-
             GRoundedContainer(
               showBorder: true,
               borderColor: GColors.borderPrimary.withOpacity(0.1),
@@ -89,7 +127,7 @@ class ProductDetailScreen extends StatelessWidget {
                           Expanded(
                             child: TabBarView(
                               children: [
-                                ///Description
+                                // Description
                                 Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: GRoundedContainer(
@@ -103,15 +141,14 @@ class ProductDetailScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                
-                                /// Feature
+                                // Features
                                 Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: GRoundedContainer(
                                     backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
                                     padding: const EdgeInsets.all(13.0),
                                     child: SingleChildScrollView(
-                                      child: FeaturesProduct(features: product.productFeatures ?? [])
+                                      child: FeaturesProduct(features: product.productFeatures ?? []),
                                     ),
                                   ),
                                 ),
@@ -125,7 +162,6 @@ class ProductDetailScreen extends StatelessWidget {
                 },
               ),
             ),
-            
             const SizedBox(height: 20),
             
             /// Body
@@ -135,25 +171,25 @@ class ProductDetailScreen extends StatelessWidget {
                 children: [
 
                   /// Heading
-                  const GSectionsHeading(title: 'Recomended for you', textSize: 20, showActionButton: false),
+                  const GSectionsHeading(title: 'Рекомендуем для вас', textSize: 20, showActionButton: false),
 
                   /// Products
                   Obx(
                     (){
-                      if(controller.featuredProducts.isEmpty) {
+                      if(productController.featuredProducts.isEmpty) {
                         return Center(child: Text('No data found!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
                       }
                       return GGridLayout(
-                        itemCount: controller.featuredProducts.length,
-                        itemBuiler: (_, index) => GProductCardVertical(product: controller.featuredProducts[index])
+                        itemCount: productController.featuredProducts.length,
+                        itemBuilder: (_, index) => GProductCardVertical(product: productController.featuredProducts[index])
                       );
                     }
                   )
                 ],
               ),
             ),
-          ]
-        )
+          ],
+        ),
       ),
     );
   }

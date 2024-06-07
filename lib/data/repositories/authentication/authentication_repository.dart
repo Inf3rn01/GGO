@@ -7,6 +7,7 @@ import 'package:ggo/data/repositories/user/user_repository.dart';
 import 'package:ggo/features/authentication/screens/login/login.dart';
 import 'package:ggo/features/authentication/screens/sign_up/widgets/verify_email.dart';
 import 'package:ggo/navigation_menu.dart';
+import 'package:ggo/utils/local_storage/storage_utility.dart';
 
 import '../../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../../utils/exceptions/firebase_exceptions.dart';
@@ -36,6 +37,7 @@ class AuthenticationRepository extends GetxController{
     final user = _auth.currentUser;
     if(user != null) {
       if(user.emailVerified){
+        await GLocalStorage.init(user.uid);
         Get.offAll(()=>const NavigationMenu());
       } else {
         Get.offAll(()=> VerifyEmailScreen(email: _auth.currentUser?.email));

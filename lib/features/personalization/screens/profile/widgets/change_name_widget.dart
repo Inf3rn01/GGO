@@ -17,21 +17,19 @@ class ChangeNameScreen extends StatelessWidget {
     return Scaffold(
       appBar: AuthAppBar(
         showBackArrow: true,
-        title: Text('Change name', style: Theme.of(context).textTheme.headlineSmall),
+        title: Text('Сменить имя', style: Theme.of(context).textTheme.headlineSmall),
       ),
       body: Padding(
         padding: const EdgeInsets.all(GSizes.defaultSpace),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Headings
             Text(
-              'Use real name for easy verification. This name will appear on several pages.',
+              'Используйте настоящее имя для облегчения проверки',
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: GSizes.spaceBtwSections),
 
-            /// Text field and button
             Form(
               key: controller.updateUserNameFormKey,
               child: Column(
@@ -51,7 +49,7 @@ class ChangeNameScreen extends StatelessWidget {
             /// Save button
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(onPressed: () => controller.updateUserName(), child: const Text('Save')),
+              child: ElevatedButton(onPressed: () => controller.updateUserName(), child: const Text('Сохранить')),
             )
           ],
         ),

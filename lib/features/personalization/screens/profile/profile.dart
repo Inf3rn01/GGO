@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                           ? const ShimmerEffect(width: 90, height: 90, radius: 90)
                           : GCircularImage(image: image, width: 90, height: 90, padding: 4.5, isNetworkImage: networkImage.isNotEmpty);
                     }),
-                    TextButton(onPressed: () => controller.uploadUserProfilePicture(), child: const Text('Change profile picture', style: TextStyle(fontSize: 14, color: GColors.grey))),
+                    TextButton(onPressed: () => controller.uploadUserProfilePicture(), child: const Text('Изменить фотографию', style: TextStyle(fontSize: 14, color: GColors.grey))),
                   ],
                 ),
               ),
@@ -48,12 +48,12 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: GSizes.spaceBtwItems / 2),
               const Divider(),
               const SizedBox(height: GSizes.spaceBtwItems),
-              const GSectionsHeading(title: 'Profile information', showActionButton: false),
+              const GSectionsHeading(title: 'Информация профиля', showActionButton: false),
               const SizedBox(height: GSizes.spaceBtwItems),
 
-              ProfileMenu(title: 'Name', value: controller.user.value.name, onPressed: () => Get.to(() => const ChangeNameScreen())),
-              ProfileMenu(title: 'E-mail', value: controller.user.value.email, onPressed: (){}),
-              ProfileMenu(title: 'Phone', value: controller.user.value.phoneNumber, onPressed: (){}),
+              ProfileMenu(title: 'Имя', value: controller.user.value.name, onPressed: () => Get.to(() => const ChangeNameScreen())),
+              ProfileMenu(title: 'Почта', value: controller.user.value.email, onPressed: (){}),
+              ProfileMenu(title: 'Телефон', value: controller.user.value.phoneNumber, onPressed: (){}),
               
               const Divider(),
               const SizedBox(height: GSizes.spaceBtwItems + 3),
@@ -61,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: TextButton(
                   onPressed: () => Get.to(() => const LoginScreen()),
-                  child: const Text('Exit from account', style: TextStyle(fontSize: 14, color: Colors.red)),
+                  child: const Text('Выйти из аккаунта', style: TextStyle(fontSize: 14, color: Colors.red)),
                 ),
               ),
 
@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: TextButton(
                   onPressed: () => controller.deleteAccountWarningPopup(),
-                  child: const Text('Delete account', style: TextStyle(fontSize: 14, color: Colors.red)),
+                  child: const Text('Удалить аккаунт', style: TextStyle(fontSize: 14, color: Colors.red)),
                 ),
               ),
             ],

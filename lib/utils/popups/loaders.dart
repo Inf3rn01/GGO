@@ -8,7 +8,7 @@ import '../constants/colors.dart';
 class Loaders {
   static hideSnackBar() => ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
 
-  static customToost({required message}) {
+  static customToast({required message}) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(
         elevation: 0,
@@ -21,7 +21,7 @@ class Loaders {
             borderRadius: BorderRadius.circular(30),
             color: GHelperFunctions.isDarkMode(Get.context!) ? GColors.darkerGrey.withOpacity(0.9) : GColors.grey.withOpacity(0.9),
           ),
-          child: Center(child: Text(message, style: Theme.of(Get.context!).textTheme.labelLarge)),
+          child: Center(child: Text(message, style: const TextStyle(fontSize: 15, color: GColors.light))),
         ),
       ),
     );

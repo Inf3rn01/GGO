@@ -24,4 +24,18 @@ class ProductRepository extends GetxController {
     }
   }
 
+  Future<List<ProductModel>> getProductsByCategory(String categoryId) async {
+    try {
+      final snapshot = await _db.collection('Products')
+          .where('CategoryId', isEqualTo: categoryId)
+          .get();
+      return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+    } on FirebaseException catch (e) {
+      throw GFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw GPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again. $e';
+    }
+  }
 }

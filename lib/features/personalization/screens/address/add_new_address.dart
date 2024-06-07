@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/auth_appbar.dart';
 import 'package:ggo/features/personalization/controlers/address_controller.dart';
 import 'package:ggo/utils/validators/validation.dart';

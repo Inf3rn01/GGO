@@ -26,6 +26,7 @@ class AppTheme {
     elevatedButtonTheme: GElevatedButtonTheme.lightElevatedButtonTheme,
     outlinedButtonTheme: GOutlinedButtonTheme.lightOutlinedButtonTheme,
     inputDecorationTheme: GTextFormFieldTheme.lightInputDecorationTheme,
+    
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,

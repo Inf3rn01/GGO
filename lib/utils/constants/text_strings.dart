@@ -1,47 +1,45 @@
-
 class GTexts {
 
   // Global Texts
-  static const String submit = "Submit";
+  static const String submit = "Отправить";
   static const String appHome = "GGO";
-  static const String gContinue = "Continue";
+  static const String gContinue = "Продолжить";
 
   // OnBoarding Texts
-  static const String onBoardingTitle1 = "Choose your item";
-  static const String onBoardingTitle2 = "Select payment method";
-  static const String onBoardingTitle3 = "Your item will be ready for pickup shortly";
+  static const String onBoardingTitle1 = "Выберите товар";
+  static const String onBoardingTitle2 = "Выберите способ оплаты";
+  static const String onBoardingTitle3 = "Ваш товар будет готов к получению в ближайшее время";
 
   // Home
-  static const String homeAppbarTitle = "Good day for shopping";
+  static const String homeAppbarTitle = "Отличный день для покупок";
 
   // Authentication Form Text
-  static const String name = "Name";
-  static const String email = "Email";
-  static const String password = "Password";
-  static const String newPassword = "New Password";
-  static const String username = "Username";
-  static const String phoneNum = "Phone Number";
-  static const String rememberMe = "Remember Me";
-  static const String forgetPassword = "Forget Password?";
-  static const String signIn = "Sign In";
-  static const String iAgreeTo = "I agree to";
-  static const String privacyPolicy = "Privacy Policy";
-  static const String termsOfUse = "Terms of use";
-  static const String verificationCode = "verification code";
-  static const String resendEmail = "Resend email";
-  static const String resendEmailIn = "Resend email in";
+  static const String name = "Имя";
+  static const String email = "Почта";
+  static const String password = "Пароль";
+  static const String newPassword = "Новый пароль";
+  static const String phoneNum = "Номер телефона";
+  static const String rememberMe = "Запомнить меня";
+  static const String forgetPassword = "Забыли пароль?";
+  static const String signIn = "Войти";
+  static const String iAgreeTo = "Я согласен на";
+  static const String privacyPolicy = "Политика конфиденциальности";
+  static const String termsOfUse = "Условия использования";
+  static const String verificationCode = "Проверочный код";
+  static const String resendEmail = "Отправить письмо повторно";
+  static const String resendEmailIn = "Повторная отправка сообщения в";
 
   // Authentication Headings Text
-  static const String loginTitle = "It's good to see you";
-  static const String loginSubTitle = "Discover limitless choices and convenience";
-  static const String singupTitle = "Let's create your account";
-  static const String forgetPasswordTitle = "Forget password";
-  static const String forgetPasswordSubTitle = "Don't worry sometimes people can forget too, enter your email and we will send you a password reset link.";
-  static const String changeYourPasswordTitle = "Password reset email sent";
-  static const String changeYourPasswordSubTitle = "The security of your account is our priority! We've sent you a link to securely change your password and protect your account.";
-  static const String confirmEmail = "Verify your email address!";
-  static const String confirmEmailSubTitle = "Congratulations! Your account is waiting: Confirm your email address to start shopping and begin exploring the world of guns.";
-  static const String emailNotReceivedMessage = "Didn't get the email? Check your junk/spam or resend it.";
-  static const String yourAccountCreatedTitle = "Your account successfully created!";
-  static const String yourAccountCreatedSubTitle = "Welcome to Gun Gale Online: discover the joy of online shopping!";
+  static const String loginTitle = "Рад вас видеть";
+  static const String loginSubTitle = "Откройте для себя безграничные возможности выбора и удобства покупок";
+  static const String singupTitle = "Давайте создадим вашу учетную запись";
+  static const String forgetPasswordTitle = "Забыли пароль";
+  static const String forgetPasswordSubTitle = "Не волнуйтесь, иногда люди тоже могут забыть, введите свою электронную почту, и мы вышлем вам ссылку для сброса пароля";
+  static const String changeYourPasswordTitle = "письмо для сброса пароля отправлено";
+  static const String changeYourPasswordSubTitle = "Безопасность вашего аккаунта - наш приоритет! Мы отправили вам ссылку для безопасной смены пароля и защиты вашего аккаунта";
+  static const String confirmEmail = "Проверьте вашу электронную почту!";
+  static const String confirmEmailSubTitle = "Поздравляем! Ваша учетная запись ждет: Подтвердите свой адрес электронной почты, чтобы начать покупки и познакомиться с миром оружия";
+  static const String emailNotReceivedMessage = "Не получили письмо? Проверьте вкладку спам или отправьте его повторно";
+  static const String yourAccountCreatedTitle = "Ваша учетная запись успешно создана!";
+  static const String yourAccountCreatedSubTitle = "Добро пожаловать в Gun Gale Online: откройте для себя радость онлайн-покупок!";
 }

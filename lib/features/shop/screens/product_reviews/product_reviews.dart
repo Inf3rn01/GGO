@@ -29,22 +29,15 @@ class ProductReviewsScreen extends StatelessWidget {
 
               /// overall product ratings
               OverallProductRaiting(),
-              GRaitingBarIndicator(raiting: 4.5),
+              GRaitingBarIndicator(raiting: 4),
               SizedBox(height: 2),
-              RatingWithOneStar(showRating: false, showIcon: false, rating: 4.5, reviewCount: 199),
+              RatingWithOneStar(showRating: false, showIcon: false, rating: 4, reviewCount: 1),
               SizedBox(height: GSizes.spaceBtwSections / 5),
               Divider(thickness: 1.5),
               SizedBox(height: GSizes.spaceBtwSections / 1.5),
 
               /// User reviews list
               UserReviewCard(),
-              SizedBox(height: 10),
-              UserReviewCard(),
-              SizedBox(height: 10),
-              UserReviewCard(),
-              SizedBox(height: 10),
-              UserReviewCard(),
-              SizedBox(height: 10),
               
             ],
           ),

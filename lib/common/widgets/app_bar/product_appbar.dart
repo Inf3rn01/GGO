@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ggo/utils/device/device_utility.dart';
 import '../../../utils/constants/colors.dart';
 
@@ -62,26 +61,26 @@ class ProductAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
 
                 /// Иконка "Поделиться" с тенью
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        offset: const Offset(2, 0),
-                        blurRadius: 20,
-                      ),
-                    ],
-                  ),
-                  child: IconButton(
-                    onPressed: onSharePressed,
-                    icon: const Icon(
-                      Icons.share,
-                      color: GColors.white,
-                      size: 23,
-                    ),
-                  ),
-                ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(100),
+                //     boxShadow: [
+                //       BoxShadow(
+                //         color: Colors.black.withOpacity(0.1),
+                //         offset: const Offset(2, 0),
+                //         blurRadius: 20,
+                //       ),
+                //     ],
+                //   ),
+                //   child: IconButton(
+                //     onPressed: onSharePressed,
+                //     icon: const Icon(
+                //       Icons.share,
+                //       color: GColors.white,
+                //       size: 23,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],

@@ -18,6 +18,7 @@ class App extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       initialBinding: GeneralBindings(),
       getPages: AppRoutes.pages,
+      
       home: const Scaffold(backgroundColor: GColors.dark, body: Center(child: CircularProgressIndicator(color: GColors.primary),),),
     );
   }

@@ -1,3 +1,4 @@
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/market_appbar.dart';
@@ -13,54 +14,67 @@ import '../../controlers/product_controller.dart';
 import 'widgets/home_categories.dart';
 import 'package:ggo/features/shop/screens/home/widgets/promo_slider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final user_controller = Get.put(UserController());
+  final controller = Get.put(ProductController());
+  String searchQuery = '';
+
+  @override
   Widget build(BuildContext context) {
-    final Controller = Get.put(UserController());
-    final controller = Get.put(ProductController());
     final darkTheme = GHelperFunctions.isDarkMode(context);
     return Scaffold(
       body: ListView(
         children: [
           /// Header
-          const GPrimaryHeaderContainer(
+          GPrimaryHeaderContainer(
             child: Column(
               children: [
                 /// Appbar
-                MarketAppBar(),
-                
+                const MarketAppBar(),
+
                 /// Seachbar
-                GSearchContainer(text: 'Seach in store'),
-
-                /// Categories
-                Padding(
-                  padding: EdgeInsets.only(left: GSizes.defaultSpace),
-                    child: Column(
-                      children: [
-                        /// Heading
-                        GSectionsHeading(title: 'Popular categories', textSize: 20.5, showActionButton: false),
-                        
-                        SizedBox(height: 8),
-
-                        /// Categories
-                        GHomeCategories(),
-                        
-                      ],
-                    ),
+                SearchContainer(
+                  text: 'Search in store',
+                  onChanged: (value) {
+                    setState(() {
+                      searchQuery = value;
+                      controller.filterProducts(searchQuery);
+                    });
+                  },
                 ),
 
-                SizedBox(height: 65),
-              
+                /// Categories
+                const Padding(
+                  padding: EdgeInsets.only(left: GSizes.defaultSpace),
+                  child: Column(
+                    children: [
+                      /// Heading
+                      GSectionsHeading(title: 'Popular categories', textSize: 20.5, showActionButton: false),
+
+                      SizedBox(height: 8),
+
+                      /// Categories
+                      GHomeCategories(),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 65),
               ],
             ),
           ),
 
           /// Body
-           Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 10),
-             child: Column(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
               children: [
                 /// Promo Slider
                 const GPromoSlider(),
@@ -71,18 +85,18 @@ class HomeScreen extends StatelessWidget {
 
                 /// Products
                 Obx(
-                  (){
-                    if(controller.featuredProducts.isEmpty) {
+                  () {
+                    if (controller.featuredProducts.isEmpty) {
                       return Center(child: Text('No data found!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
                     }
                     return GGridLayout(
                       itemCount: controller.featuredProducts.length,
-                      itemBuiler: (_, index) => GProductCardVertical(product: controller.featuredProducts[index])
+                      itemBuilder: (_, index) => GProductCardVertical(product: controller.featuredProducts[index]),
                     );
-                  }
+                  },
                 )
               ],
-             ),
+            ),
           ),
         ],
       ),

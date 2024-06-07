@@ -45,7 +45,7 @@ class RatingWithAllStars extends StatelessWidget {
                   if (showStars)
                     Row(
                       children: [
-                        const GRaitingBarIndicator(raiting: 4.5),
+                        GRaitingBarIndicator(raiting: rating),
                         if (showRating)
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),

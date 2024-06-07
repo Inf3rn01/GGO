@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/images_strings.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -34,9 +33,6 @@ class ResetPasswordScreen extends StatelessWidget {
         padding: const EdgeInsets.all(GSizes.defaultSpace),
         child: Column(
           children: [
-            /// Image
-            //Image(image: const AssetImage(GImages.emailSend), width: GHelperFunctions.screenWidth() * 0.6),
-            const SizedBox(height: GSizes.spaceBtwSections),
 
             /// Title & SubTitle
             Text(GTexts.changeYourPasswordTitle, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),

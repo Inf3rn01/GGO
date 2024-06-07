@@ -15,7 +15,7 @@ class VerticalProductShimmer extends StatelessWidget {
     final controller = ProductController.instance;
     return GGridLayout(
       itemCount: controller.featuredProducts.length,
-      itemBuiler: (_, __) => const SizedBox(
+      itemBuilder: (_, __) => const SizedBox(
         width: 180,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

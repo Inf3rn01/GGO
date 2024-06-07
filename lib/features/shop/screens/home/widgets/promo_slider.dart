@@ -26,7 +26,7 @@ class GPromoSlider extends StatelessWidget {
             children: [
               CarouselSlider(
                 options: CarouselOptions(viewportFraction: 1.05, onPageChanged: (index, _) => controller.updatePageIndicator(index)),
-                items: controller.banners.map((banner) => GRoundedImage(imageUrl: banner.imageUrl, isNetworkImage: true, onPressed: () => Get.toNamed(banner.targetScreen))).toList(),
+                items: controller.banners.map((banner) => GRoundedImage(imageUrl: banner.imageUrl, isNetworkImage: true, onPressed: () {})).toList(),
               ),
               const SizedBox(height: 10),
               Center(

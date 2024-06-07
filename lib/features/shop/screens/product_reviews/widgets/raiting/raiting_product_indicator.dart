@@ -13,18 +13,18 @@ class OverallProductRaiting extends StatelessWidget {
     return Row(
       children: [
         Expanded(flex: 3, child: Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Text('4.5', style: Theme.of(context).textTheme.displayMedium),
+          padding: const EdgeInsets.only(left: 26),
+          child: Text('4', style: Theme.of(context).textTheme.displayMedium),
         )),
         const Expanded(
           flex: 7,
           child: Column(
             children: [
-              RatingProgressIndicator(text: '5', value: 1),
-              RatingProgressIndicator(text: '4', value: 0.8),
-              RatingProgressIndicator(text: '3', value: 0.6),
-              RatingProgressIndicator(text: '2', value: 0.4),
-              RatingProgressIndicator(text: '1', value: 0.2),
+              RatingProgressIndicator(text: '5', value: 0),
+              RatingProgressIndicator(text: '4', value: 1),
+              RatingProgressIndicator(text: '3', value: 0),
+              RatingProgressIndicator(text: '2', value: 0),
+              RatingProgressIndicator(text: '1', value: 0),
             ],
           )
         

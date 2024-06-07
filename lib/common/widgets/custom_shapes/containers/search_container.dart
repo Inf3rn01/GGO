@@ -2,48 +2,70 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 
-class GSearchContainer extends StatelessWidget {
-  const GSearchContainer({
+class SearchContainer extends StatefulWidget {
+  const SearchContainer({
     super.key,
-    this.icon = Iconsax.search_normal_1_outline,
     required this.text,
     this.showBackground = true,
     this.showBorder = true,
     this.onTap,
+    required this.onChanged,
   });
 
   final String text;
-  final IconData? icon;
   final bool showBackground, showBorder;
   final VoidCallback? onTap;
+  final ValueChanged<String> onChanged;
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _SearchContainerState createState() => _SearchContainerState();
+}
+
+class _SearchContainerState extends State<SearchContainer> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      widget.onChanged(_controller.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final dark = GHelperFunctions.isDarkMode(context);
+    final darkTheme = GHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Padding(
-        padding: const EdgeInsets.only(left:  25.0, right:  25.0, top: 34, bottom: 28),
-        child: Container(
-          width: GDeviceUtils.getScreenWidth(context),
-          padding: const EdgeInsets.all(13),
-          decoration: BoxDecoration(
-            color: showBackground ? dark? GColors.dark : GColors.light : Colors.transparent,
-            borderRadius: BorderRadius.circular(GSizes.cardRadiusLg),
-            border: showBorder ? Border.all(color: const Color(0xFFB3B3B3)) : null
-          ),
-          child: Row(
-            children: [
-              Icon(icon, color: GColors.darkGrey),
-              const SizedBox(width: 14),
-              Text(text, style: const TextStyle(fontSize: 15, color: GColors.darkGrey, fontWeight: FontWeight.w500)),
-            ],
-          ),
+        padding: const EdgeInsets.only(left: 27.0, right: 27.0, top: 34, bottom: 28),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Iconsax.search_normal_1_outline, size: 18, color: GColors.darkGrey),
+                  border: InputBorder.none,
+                  hintText: widget.text,
+                  hintStyle: const TextStyle(fontSize: 15, color: GColors.darkGrey, fontWeight: FontWeight.w500),
+                  filled: true,
+                  fillColor: darkTheme ? GColors.dark : GColors.light,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 17),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

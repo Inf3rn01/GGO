@@ -64,7 +64,7 @@ class GProductCardVertical extends StatelessWidget {
                     ),
                     const SizedBox(height: 3),
                     const Flexible(
-                      child: RatingWithOneStar(rating: 4.5, reviewCount: 199)
+                      child: RatingWithOneStar(rating: 4, reviewCount: 1)
                     ),
                   ],
                 ),

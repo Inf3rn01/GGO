@@ -20,8 +20,7 @@ class ForgetPasswordScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-          FontAwesome.arrow_left_solid, color: darkTheme ? GColors.white : GColors.dark, size: 22),
+          icon: Icon(FontAwesome.arrow_left_solid, color: darkTheme ? GColors.white : GColors.dark, size: 22),
           onPressed: () => Get.back(),
         ),
       ),

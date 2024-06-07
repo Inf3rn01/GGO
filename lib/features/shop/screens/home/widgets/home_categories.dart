@@ -30,7 +30,7 @@ class GHomeCategories extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, index) {
               final category = categoryController.featuredCategories[index];
-              return GVerticalImagesTexts(image: category.image, title: category.name, onTap: () => Get.to(() => SubCategoriesScreen(category: category, products: categoryController.categoryProducts)));
+              return GVerticalImagesTexts(image: category.image, title: category.name, onTap: () => Get.to(() => SubCategoriesScreen(category: category)));
             },
           ),
         );
