@@ -22,8 +22,10 @@ class CategoryShimmer extends StatelessWidget {
         separatorBuilder: (_, __) => const SizedBox(width: GSizes.spaceBtwItems),
         itemBuilder: (_, __) {
           return const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
+              SizedBox(height: 5),
 
               ///Image
               ShimmerEffect(width: 58, height: 58, radius: 58),
@@ -31,7 +33,7 @@ class CategoryShimmer extends StatelessWidget {
               SizedBox(height: 5),
 
               /// Text
-              ShimmerEffect(width: 50, height: 8)
+              ShimmerEffect(width: 51, height: 9)
 
             ],
           );

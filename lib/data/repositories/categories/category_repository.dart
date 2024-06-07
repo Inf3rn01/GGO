@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ggo/features/shop/models/category_models.dart';
 
+import '../../../features/shop/models/product_models.dart';
 import '../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
 import '../../services/firebase_storage_service.dart';
@@ -28,54 +29,32 @@ class CategoryRepository extends GetxController {
     }
   }
 
-  // /// Функция загрузки категорий в Firebase
-  // Future<void> uploadDummyData(List<CategoryModel> categories) async {
-  //   try {
-      
-  //     // Загрузка всех категорий вместе с их изображениями
-  //     final storage = Get.put(GFirebaseStorageService());
-
-  //     for (var category in categories) {
-
-  //       // Получение ссылки ImageData из локальных ассетов
-  //       final file = await storage.getImageDataFromAssets(category.image);
-
-  //       // Загрузить изображение и получить его url
-  //       final url = await storage.uploadImageData('Category', file, category.name);
-
-  //       // Присвоение url атрибуту category.image
-  //       category.image = url;
-
-  //       // Store category in firestore
-  //       await _db.collection("Category").doc(category.id).set(category.toJson());
-  //     }
-
-  //   } on FirebaseException catch (e) {
-  //     throw GFirebaseException(e.code).message;
-  //   } on PlatformException catch (e) {
-  //     throw GPlatformException(e.code).message;
-  //   } catch (e) {
-  //     throw 'Something went wrong. Please try again.';
-  //   }
-  // }
+  Future<List<CategoryModel>> getSubCategories(String categoryId) async {
+    try {
+      final snapshot = await _db.collection('Categories').where('ParentId', isEqualTo: categoryId).get();
+      final result = snapshot.docs.map((e) => CategoryModel.fromSnapshot(e)).toList();
+      return result;
+    } on FirebaseException catch (e) {
+      throw GFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw GPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again.';
+    }
+  }
 
   /// Функция загрузки категорий в Firebase
   Future<void> uploadCategories(List<CategoryModel> categories) async {
   try {
-    // Загрузка всех категорий вместе с их изображениями
     final storage = Get.put(GFirebaseStorageService());
 
     for (var category in categories) {
-      // Получение ссылки ImageData из локальных ассетов
       final file = await storage.getImageDataFromAssets(category.image);
 
-      // Загрузить изображение и получить его url
       final url = await storage.uploadImageData('Categories', file, category.name);
 
-      // Присвоение url атрибуту category.image
       category.image = url;
 
-      // Store category in firestore
       await _db.collection("Categories").doc(category.id).set(category.toJson());
     }
 
@@ -100,6 +79,21 @@ Future<CategoryModel> getCategoryById(String categoryId) async {
     throw 'Error fetching category: $e';
   }
 }
+
+/// Функция получения продуктов по идентификатору категории
+  Future<List<ProductModel>> getProductsByCategoryId(String categoryId) async {
+    try {
+      final snapshot = await _db.collection('products').where('CategoryId', isEqualTo: categoryId).get();
+      final list = snapshot.docs.map((document) => ProductModel.fromSnapshot(document)).toList();
+      return list;
+    } on FirebaseException catch (e) {
+      throw GFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw GPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again.';
+    }
+  }
 
 //----------------------- Для панели админа -----------------------//
 

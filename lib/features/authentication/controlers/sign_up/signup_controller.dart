@@ -25,25 +25,19 @@ class SignupController extends GetxController {
   void signup() async {
     try {
 
-      //Start loading
       FullScreenLoader.openLoadingDialog('We are processing your information...', GImages.loading);
 
-      //Check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected){
-        // Remove loader
         FullScreenLoader.stopLoading();
         return;
       } 
 
-      // Form validation
       if (signupFormKey.currentState != null && !signupFormKey.currentState!.validate()){
-        // Remove loader
         FullScreenLoader.stopLoading();
         return;
       }
 
-      // Checkbox check
       if(!hideCheckbox.value) {
         Loaders.warningSnackBar(
           title: 'Accept Privacy Policy and Terms of use',
@@ -52,10 +46,8 @@ class SignupController extends GetxController {
         return;
       }
 
-      // Register user in the Firebase Authentication & Save user data in the Firebase
       final userCredential = await AuthenticationRepository.instance.registerWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      // Save Authenticated user data in the Firebase Firestore
       final newUser = UserModel(
         id: userCredential.user!.uid,
         name: name.text.trim(),
@@ -67,20 +59,14 @@ class SignupController extends GetxController {
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
 
-      // Remove loader
       FullScreenLoader.stopLoading();
 
-      //Show success message
       Loaders.successSnackBar(title: 'Congratulations!', message: 'Your account has been created! Verify email to continue');
 
-      // Move to verify email screen
       Get.to(() => VerifyEmailScreen(email: email.text.trim()));
 
     } catch (e) {
-      // Remove loader
       FullScreenLoader.stopLoading();
-
-      // Show some generic error to the user
       Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }

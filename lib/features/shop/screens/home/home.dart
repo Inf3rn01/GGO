@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Controller = Get.put(UserController());
     final controller = Get.put(ProductController());
-    final dartkTheme = GHelperFunctions.isDarkMode(context);
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     return Scaffold(
       body: ListView(
         children: [
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
 
           /// Body
            Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 15),
+             padding: const EdgeInsets.symmetric(horizontal: 10),
              child: Column(
               children: [
                 /// Promo Slider
@@ -67,13 +67,13 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 30),
 
                 /// Heading
-                const GSectionsHeading(title: 'Selected for you', textSize: 19, showActionButton: false),
+                const GSectionsHeading(title: 'Selected for you', textSize: 20, showActionButton: false),
 
                 /// Products
                 Obx(
                   (){
                     if(controller.featuredProducts.isEmpty) {
-                      return Center(child: Text('No data found!', style: TextStyle(color: dartkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
+                      return Center(child: Text('No data found!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
                     }
                     return GGridLayout(
                       itemCount: controller.featuredProducts.length,

@@ -79,4 +79,5 @@ class UpdateNameController extends GetxController{
       Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
+  
 }

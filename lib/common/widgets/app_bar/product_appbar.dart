@@ -10,12 +10,14 @@ class ProductAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.leadingIcon,
     this.leadingOnPressed,
+    this.onSharePressed,
   });
 
   final Widget? title;
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
+  final VoidCallback? onSharePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class ProductAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                 ),
+
                 /// Иконка "Поделиться" с тенью
                 Container(
                   decoration: BoxDecoration(
@@ -71,7 +74,7 @@ class ProductAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ],
                   ),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: onSharePressed,
                     icon: const Icon(
                       Icons.share,
                       color: GColors.white,

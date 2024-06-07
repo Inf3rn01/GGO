@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/tab_bar.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:ggo/features/shop/controlers/product_controller.dart';
 import 'package:ggo/features/shop/models/product_models.dart';
 import 'package:ggo/features/shop/screens/product_details/widgets/feature_product.dart';
 import 'package:ggo/features/shop/screens/product_details/widgets/product_meta_data.dart';
@@ -10,6 +11,9 @@ import 'package:ggo/utils/helpers/helper_functions.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../common/widgets/app_bar/product_appbar.dart';
+import '../../../../common/widgets/layouts/grid_layout.dart';
+import '../../../../common/widgets/products/product_cards/product_card_vertical.dart';
+import '../../../../common/widgets/texts/section_heading.dart';
 import 'widgets/bottom_add_to_cart.dart';
 import 'widgets/product_slider.dart';
 import '../product_reviews/widgets/raiting/rating_all_stars_widget.dart';
@@ -21,7 +25,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final controller = ProductController.instance;
+    final controller = ProductController.instance;
     final darkTheme = GHelperFunctions.isDarkMode(context);
     return Scaffold(
       bottomNavigationBar: const BottomAddToCart(),
@@ -37,10 +41,13 @@ class ProductDetailScreen extends StatelessWidget {
                 ProductAppBar(
                   leadingIcon: OctIcons.arrow_left,
                   leadingOnPressed: () => Get.back(),
+                  onSharePressed: ,
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+
+            const SizedBox(height: 8),
+
             GRoundedContainer(
               showBorder: true,
               borderColor: GColors.borderPrimary.withOpacity(0.1),
@@ -59,7 +66,7 @@ class ProductDetailScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
 
             GRoundedContainer(
               showBorder: true,
@@ -104,9 +111,7 @@ class ProductDetailScreen extends StatelessWidget {
                                     backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
                                     padding: const EdgeInsets.all(13.0),
                                     child: SingleChildScrollView(
-                                      child: FeaturesProduct(
-                                        features: product.productFeatures ?? [],
-                                      ),
+                                      child: FeaturesProduct(features: product.productFeatures ?? [])
                                     ),
                                   ),
                                 ),
@@ -120,9 +125,35 @@ class ProductDetailScreen extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 10),
-          ],
-        ),
+            
+            const SizedBox(height: 20),
+            
+            /// Body
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+
+                  /// Heading
+                  const GSectionsHeading(title: 'Recomended for you', textSize: 20, showActionButton: false),
+
+                  /// Products
+                  Obx(
+                    (){
+                      if(controller.featuredProducts.isEmpty) {
+                        return Center(child: Text('No data found!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
+                      }
+                      return GGridLayout(
+                        itemCount: controller.featuredProducts.length,
+                        itemBuiler: (_, index) => GProductCardVertical(product: controller.featuredProducts[index])
+                      );
+                    }
+                  )
+                ],
+              ),
+            ),
+          ]
+        )
       ),
     );
   }

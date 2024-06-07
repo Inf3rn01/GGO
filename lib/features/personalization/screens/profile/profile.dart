@@ -54,6 +54,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenu(title: 'Name', value: controller.user.value.name, onPressed: () => Get.to(() => const ChangeNameScreen())),
               ProfileMenu(title: 'E-mail', value: controller.user.value.email, onPressed: (){}),
               ProfileMenu(title: 'Phone', value: controller.user.value.phoneNumber, onPressed: (){}),
+              
               const Divider(),
               const SizedBox(height: GSizes.spaceBtwItems + 3),
 
