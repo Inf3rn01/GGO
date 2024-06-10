@@ -24,7 +24,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductController productController = Get.put(ProductController());
+    final controller = ProductController.instance;
     final CartController cartController = Get.put(CartController());
     final darkTheme = GHelperFunctions.isDarkMode(context);
 
@@ -51,7 +51,7 @@ class ProductDetailScreen extends StatelessWidget {
                       }
                     },
                   ),
-                  Obx(() => Text(cartController.productQuantityCart.value.toString(), style: const TextStyle(fontSize: 18),)),
+                  Obx(() => Text(cartController.productQuantityCart.value.toString(), style: const TextStyle(fontSize: 18))),
                   IconButton(
                     icon: Icon(FontAwesome.plus_solid, size: 21, color: darkTheme ? GColors.softGrey : GColors.dark),
                     onPressed: () {
@@ -73,123 +73,126 @@ class ProductDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: Column(
               children: [
-                GProductSlider(
-                  product: product.images!,
+                Stack(
+                  children: [
+                    GProductSlider(
+                      product: product.images!,
+                    ),
+                    ProductAppBar(
+                      leadingIcon: OctIcons.arrow_left,
+                      leadingOnPressed: () => Get.back(),
+                    ),
+                  ],
                 ),
-                ProductAppBar(
-                  leadingIcon: OctIcons.arrow_left,
-                  leadingOnPressed: () => Get.back(),
+                const SizedBox(height: 8),
+                GRoundedContainer(
+                  showBorder: true,
+                  borderColor: GColors.borderPrimary.withOpacity(0.1),
+                  backgroundColor: darkTheme ? GColors.black : GColors.grey,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        ProductMetaData(product: product),
+                        const SizedBox(height: 4),
+                        const RatingWithAllStars(rating: 4.0, reviewCount: 1, showRating: false),
+                        const SizedBox(height: 9),
+                      ],
+                    ),
+                  ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            GRoundedContainer(
-              showBorder: true,
-              borderColor: GColors.borderPrimary.withOpacity(0.1),
-              backgroundColor: darkTheme ? GColors.black : GColors.grey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                const SizedBox(height: 8),
+                GRoundedContainer(
+                  showBorder: true,
+                  borderColor: GColors.borderPrimary.withOpacity(0.1),
+                  backgroundColor: darkTheme ? GColors.black : GColors.grey,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return SizedBox(
+                        height: 250,
+                        child: DefaultTabController(
+                          length: 2,
+                          child: Column(
+                            children: [
+                              const GTabBar(
+                                tabs: [
+                                  Tab(text: 'Description'),
+                                  Tab(text: 'Features'),
+                                ],
+                              ),
+                              Expanded(
+                                child: TabBarView(
+                                  children: [
+                                    // Description
+                                    Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: GRoundedContainer(
+                                        backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
+                                        padding: const EdgeInsets.only(left: 11, right: 11, top: 6, bottom: 6),
+                                        child: SingleChildScrollView(
+                                          child: Text(
+                                            product.description ?? '',
+                                            style: const TextStyle(fontSize: 16),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // Features
+                                    Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: GRoundedContainer(
+                                        backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
+                                        padding: const EdgeInsets.all(13.0),
+                                        child: SingleChildScrollView(
+                                          child: FeaturesProduct(features: product.productFeatures ?? []),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
-                    ProductMetaData(product: product),
-                    const SizedBox(height: 4),
-                    const RatingWithAllStars(rating: 4.0, reviewCount: 1, showRating: false),
-                    const SizedBox(height: 9),
+
+                    /// Heading
+                    const GSectionsHeading(title: 'Рекомендуем для вас', textSize: 20, showActionButton: false),
+
+                    /// Products
+                    Obx(
+                      () {
+                        if (controller.featuredProducts.isEmpty) {
+                          return Center(child: Text('No data found!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
+                        }
+                        return GGridLayout(
+                          itemCount: controller.featuredProducts.length,
+                          itemBuilder: (_, index) => GProductCardVertical(product: controller.featuredProducts[index]),
+                        );
+                      },
+                    )
                   ],
                 ),
               ),
+              ],
             ),
-            const SizedBox(height: 8),
-            GRoundedContainer(
-              showBorder: true,
-              borderColor: GColors.borderPrimary.withOpacity(0.1),
-              backgroundColor: darkTheme ? GColors.black : GColors.grey,
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return SizedBox(
-                    height: 250,
-                    child: DefaultTabController(
-                      length: 2,
-                      child: Column(
-                        children: [
-                          const GTabBar(
-                            tabs: [
-                              Tab(text: 'Description'),
-                              Tab(text: 'Features'),
-                            ],
-                          ),
-                          Expanded(
-                            child: TabBarView(
-                              children: [
-                                // Description
-                                Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: GRoundedContainer(
-                                    backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
-                                    padding: const EdgeInsets.only(left: 11, right: 11, top: 6, bottom: 6),
-                                    child: SingleChildScrollView(
-                                      child: Text(
-                                        product.description ?? '',
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // Features
-                                Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: GRoundedContainer(
-                                    backgroundColor: darkTheme ? Colors.black.withOpacity(0.28) : GColors.grey,
-                                    padding: const EdgeInsets.all(13.0),
-                                    child: SingleChildScrollView(
-                                      child: FeaturesProduct(features: product.productFeatures ?? []),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            
-            /// Body
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-
-                  /// Heading
-                  const GSectionsHeading(title: 'Рекомендуем для вас', textSize: 20, showActionButton: false),
-
-                  /// Products
-                  Obx(
-                    (){
-                      if(productController.featuredProducts.isEmpty) {
-                        return Center(child: Text('No data found!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
-                      }
-                      return GGridLayout(
-                        itemCount: productController.featuredProducts.length,
-                        itemBuilder: (_, index) => GProductCardVertical(product: productController.featuredProducts[index])
-                      );
-                    }
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

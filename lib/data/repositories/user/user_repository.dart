@@ -33,7 +33,6 @@ class UserRepository extends GetxController {
     }
   }
 
-  /// Функция для получения данных о пользователе на основе его идентификатора
   Future<UserModel> fetchUserDetails() async {
     try {
       final documentSnapshot = await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).get();
@@ -51,7 +50,6 @@ class UserRepository extends GetxController {
     }
   }
 
-  /// Функция для обновления данных пользователя в Firestore
   Future<void> updateUserDetails(UserModel updatedUser) async {
     try {
       await _db.collection("Users").doc(updatedUser.id).update(updatedUser.toJson());
@@ -62,11 +60,10 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Something went wrong. Please try again. $e';
     }
   }
 
-  /// Обновление любого поля в коллекции определенных пользователей
   Future<void> updateSingleField(Map<String, dynamic> json) async {
     try {
       await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).update(json);

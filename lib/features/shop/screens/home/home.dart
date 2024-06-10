@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 /// Seachbar
                 SearchContainer(
-                  text: 'Search in store',
+                  text: 'Поиск',
                   onChanged: (value) {
                     setState(() {
                       searchQuery = value;
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       /// Heading
-                      GSectionsHeading(title: 'Popular categories', textSize: 20.5, showActionButton: false),
+                      GSectionsHeading(title: 'Популярные категории', textSize: 20.5, showActionButton: false),
 
                       SizedBox(height: 8),
 
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 30),
 
                 /// Heading
-                const GSectionsHeading(title: 'Selected for you', textSize: 20, showActionButton: false),
+                const GSectionsHeading(title: 'Выбрали для вас', textSize: 20, showActionButton: false),
 
                 /// Products
                 Obx(
