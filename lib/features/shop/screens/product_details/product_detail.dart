@@ -82,6 +82,7 @@ class ProductDetailScreen extends StatelessWidget {
                   children: [
                     GProductSlider(
                       product: product.images!,
+                      showCounter: false,
                     ),
                     ProductAppBar(
                       leadingIcon: OctIcons.arrow_left,

@@ -26,7 +26,12 @@ class WalletScreen extends StatelessWidget {
               Card(
                 child: ListTile(
                   title: const Text('Баланс'),
-                  subtitle: Text('\$${_userController.user.value.balance.toStringAsFixed(2)}'),
+                  subtitle: Text(
+                    _userController.user.value.balance.isNotEmpty &&
+                            double.tryParse(_userController.user.value.balance) != null
+                        ? '\$${double.parse(_userController.user.value.balance).toStringAsFixed(2)}'
+                        : 'Invalid balance',
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

@@ -7,7 +7,7 @@ class UserModel {
   String phoneNumber;
   final String email;
   String profilePicture;
-  double balance;
+  String balance;
 
   /// Конструктор для UserModel
   UserModel({
@@ -16,14 +16,14 @@ class UserModel {
     required this.phoneNumber,
     required this.email,
     required this.profilePicture,
-    this.balance = 0,
+    required this.balance,
   });
 
   /// Вспомогательная функция для получения номера телефона
   String get formattedPhoneNo => GFormatter.formatPhoneNumber(phoneNumber);
 
   /// Статический метод для создания пустой модели пользователя
-  static UserModel empty() => UserModel(id: '', name: '', phoneNumber: '', email: '', profilePicture: '', balance: 0);
+  static UserModel empty() => UserModel(id: '', name: '', phoneNumber: '', email: '', profilePicture: '', balance: '0');
 
   /// Преобразование модели в структуру JSON для хранения данных в Firebase
   Map<String, dynamic> toJson() {
@@ -46,7 +46,7 @@ class UserModel {
         phoneNumber: data['PhoneNumber'] ?? '',
         email: data['Email'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',
-        balance: data['Balance'] ?? 0,
+        balance: data['Balance'] ?? '0',
       );
     } else {
       return UserModel.empty();

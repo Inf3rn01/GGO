@@ -36,11 +36,8 @@ class UserRepository extends GetxController {
   Future<UserModel> fetchUserDetails() async {
     try {
       final documentSnapshot = await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).get();
-      if (documentSnapshot.exists) {
-        return UserModel.fromSnapshot(documentSnapshot);
-      } else {
-        return UserModel.empty();
-      }
+      return UserModel.fromSnapshot(documentSnapshot);
+     
     } on FirebaseException catch (e) {
       throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {

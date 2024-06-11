@@ -64,7 +64,7 @@ class UserController extends GetxController {
             phoneNumber: userCredential.user!.phoneNumber ?? '',
             email: userCredential.user!.email ?? '',
             profilePicture: userCredential.user!.photoURL ?? '',
-            balance: 0,
+            balance: '0',
           );
 
           await userRepository.saveUserRecord(user);
@@ -115,12 +115,12 @@ class UserController extends GetxController {
   }
 
   Future<void> updateBalance(double amount) async {
-  final currentBalance = user.value.balance;
+  final currentBalance = double.parse(user.value.balance);
   final newBalance = currentBalance + amount;
 
   user.update((user) {
     if (user != null) {
-      user.balance = newBalance;
+      user.balance = newBalance.toString(); // Сохраняем как строку
     }
   });
 
