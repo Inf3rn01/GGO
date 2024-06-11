@@ -43,7 +43,7 @@ class UserController extends GetxController {
       final user = await userRepository.fetchUserDetails();
       this.user(user);
     } catch (e) {
-      user(UserModel.empty());
+        user(UserModel.empty());
     } finally {
       profileLoading.value = false;
     }
@@ -53,9 +53,7 @@ class UserController extends GetxController {
   /// Сохранение записи пользователя из любого поставщика регистрации
   Future<void> saveUserRecord(UserCredential? userCredential) async {
     try {
-      
       await fetchUserRecord();
-
       if (user.value.id.isEmpty) {
         if (userCredential != null && userCredential.user != null){
           final user = UserModel(
@@ -66,21 +64,22 @@ class UserController extends GetxController {
             profilePicture: userCredential.user!.photoURL ?? '',
             balance: '0',
           );
-
           await userRepository.saveUserRecord(user);
         }
       }
     } catch (e) {
-      Loaders.warningSnackBar(title: 'Data not saved', message: 'Something went wrong while saving your information. You can re-save your data in your profile.');
+      Loaders.warningSnackBar(title: 'Данные не были сохранены', message: 'Что-то пошло не так при сохранении вашей информации. Вы можете повторно сохранить данные в своем профиле.');
     }
   }
 
+  /// Инициализация кошелька
   Future<Map<String, dynamic>> createPaymentIntent(double amount) async {
     const url = 'https://api.stripe.com/v1/payment_intents';
     final response = await http.post(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer sk_test_51PPSpoRrGht9QPvptAB8WmXBKBMQu1GsK5e3adG2J7CH046rtwXl5xTsX5EixzdiXkxUWIGAAhIQwSD42X8jdHg300QiCOTqBJ',
+        'Authorization':
+            'Bearer sk_test_51PPSpoRrGht9QPvptAB8WmXBKBMQu1GsK5e3adG2J7CH046rtwXl5xTsX5EixzdiXkxUWIGAAhIQwSD42X8jdHg300QiCOTqBJ', // Замените на ваш секретный ключ
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: {
@@ -102,32 +101,36 @@ class UserController extends GetxController {
     try {
       await Stripe.instance.confirmPayment(
         paymentIntentClientSecret: paymentIntent['client_secret'],
-        data: const PaymentMethodParams.card(
-          paymentMethodData: PaymentMethodData(),
+        data: PaymentMethodParams.card(
+          paymentMethodData: PaymentMethodData(
+            billingDetails: BillingDetails(
+              email: user.value.email,
+            ),
+          ),
         ),
       );
 
       await updateBalance(amount);
-      Get.snackbar('Успех', 'Баланс пополнен на \$${amount.toStringAsFixed(2)}');
+      Get.snackbar('Успех!', 'Баланс пополнен успешно на \$${amount.toStringAsFixed(2)}');
     } catch (e) {
-      Get.snackbar('Ошибка', 'Ошибка пополнения: $e');
+      Get.snackbar('Ошибка!', 'Ошибка пополнения: $e');
     }
   }
 
   Future<void> updateBalance(double amount) async {
-  final currentBalance = double.parse(user.value.balance);
-  final newBalance = currentBalance + amount;
+    final currentBalance = double.tryParse(user.value.balance) ?? 0.0;
+    final newBalance = currentBalance + amount;
 
-  user.update((user) {
-    if (user != null) {
-      user.balance = newBalance.toString(); // Сохраняем как строку
-    }
-  });
+    user.update((user) {
+      if (user != null) {
+        user.balance = newBalance.toString();
+      }
+    });
 
-  await userRepository.updateUserDetails(user.value);
-}
+    await userRepository.updateUserDetails(user.value);
+  }
 
-  void topUpBalance(double amount) async {
+  Future<void> topUpBalance(double amount) async {
     if (amount > 0 && cardFieldInputDetails?.complete == true) {
       try {
         final paymentIntent = await createPaymentIntent(amount);
@@ -144,13 +147,12 @@ class UserController extends GetxController {
     cardFieldInputDetails = details;
   }
 
-
   /// Delete account warning
   void deleteAccountWarningPopup() {
     Get.defaultDialog(
       contentPadding: const EdgeInsets.all(GSizes.md),
-      title: 'Delete account',
-      middleText: 'Are you sure you want to delete your account permanently? This action is not reversible and all of your data will be removed permanently.',
+      title: 'Удалить аккаунт',
+      middleText: 'Вы уверены, что хотите удалить свою учетную запись навсегда? Это действие не обратимо, и все ваши данные будут удалены навсегда.',
       confirm: ElevatedButton(
         onPressed: () async => deleteUserAccount(),
         style: ElevatedButton.styleFrom(
@@ -172,7 +174,7 @@ class UserController extends GetxController {
   /// Удаление аккаунта пользователя
   void deleteUserAccount () async {
     try {
-      FullScreenLoader.openLoadingDialog('Processing...', GImages.loading);
+      FullScreenLoader.openLoadingDialog('Обработка...', GImages.loading);
 
       final auth = AuthenticationRepository.instance;
       final provider = auth.authUser!.providerData.map((e) => e.providerId).first;
@@ -189,7 +191,7 @@ class UserController extends GetxController {
   /// Re-authenticate before deleting
   Future<void> reAuthenticateEmailAndPasswordUser() async {
     try {
-      FullScreenLoader.openLoadingDialog('Processing...', GImages.loading);
+      FullScreenLoader.openLoadingDialog('Обработка...', GImages.loading);
 
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected){
@@ -207,10 +209,10 @@ class UserController extends GetxController {
       await AuthenticationRepository.instance.deleteAccount();
       FullScreenLoader.stopLoading();
       Get.offAll(() => const LoginScreen());
-      Loaders.successSnackBar(title: 'Account deleted', message: 'Your account successfully deleted');
+      Loaders.successSnackBar(title: 'Аккаунт удалён', message: 'Ваша учетная запись успешно удалена.');
     } catch (e) {
       FullScreenLoader.stopLoading();
-      Loaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.warningSnackBar(title: 'Ой!', message: e.toString());
     }
   }
 
@@ -229,10 +231,10 @@ class UserController extends GetxController {
         user.value.profilePicture = imageUrl;
         user.refresh();
 
-        Loaders.successSnackBar(title: 'Congratulations', message: 'Your profile image has been updated.');
+        Loaders.successSnackBar(title: 'Поздравляю', message: 'Изображение вашего профиля было обновлено.');
       }
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: 'something went wrong: $e');
+      Loaders.errorSnackBar(title: 'Ой!', message: 'Что-то пошло не так: $e');
     } finally {
       imageUploading.value = false;
     }   

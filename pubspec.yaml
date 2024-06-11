@@ -93,7 +93,6 @@ flutter:
     - assets/images/users/
     - assets/images/payment_methods/
     - assets/download_files/
-    - assets/gifs/
     - assets/json/
 
 #-------- LOCAL FONTS -------#

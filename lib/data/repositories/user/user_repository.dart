@@ -29,7 +29,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -37,13 +37,12 @@ class UserRepository extends GetxController {
     try {
       final documentSnapshot = await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).get();
       return UserModel.fromSnapshot(documentSnapshot);
-     
     } on FirebaseException catch (e) {
       throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
       throw const GFormatException();
     } catch (e) {
-      throw 'Failed to fetch user details. Please try again.';
+      throw 'Не удалось получить данные о пользователе. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -57,7 +56,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again. $e';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -71,7 +70,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -86,7 +85,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -104,7 +103,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 }

@@ -8,9 +8,6 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../../common/widgets/app_bar/product_appbar.dart';
 import '../../../../common/widgets/app_bar/tab_bar.dart';
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../../common/widgets/layouts/grid_layout.dart';
-import '../../../../common/widgets/products/product_cards/product_card_vertical.dart';
-import '../../../../common/widgets/texts/section_heading.dart';
 import '../../controlers/cart_controller.dart';
 import '../../controlers/product_controller.dart';
 import '../product_reviews/widgets/raiting/rating_all_stars_widget.dart';
@@ -123,8 +120,8 @@ class ProductDetailScreen extends StatelessWidget {
                             children: [
                               const GTabBar(
                                 tabs: [
-                                  Tab(text: 'Description'),
-                                  Tab(text: 'Features'),
+                                  Tab(text: 'Описание'),
+                                  Tab(text: 'Особенности'),
                                 ],
                               ),
                               Expanded(
@@ -166,30 +163,8 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                 ),
 
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: [
-
-                    /// Heading
-                    const GSectionsHeading(title: 'Рекомендуем для вас', textSize: 20, showActionButton: false),
-
-                    /// Products
-                    Obx(
-                      () {
-                        if (controller.featuredProducts.isEmpty) {
-                          return Center(child: Text('No data found!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
-                        }
-                        return GGridLayout(
-                          itemCount: controller.featuredProducts.length,
-                          itemBuilder: (_, index) => GProductCardVertical(product: controller.featuredProducts[index]),
-                        );
-                      },
-                    )
-                  ],
-                ),
-              ),
+              const SizedBox(height: 8),
+              
               ],
             ),
           );
