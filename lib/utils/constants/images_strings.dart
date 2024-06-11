@@ -32,6 +32,7 @@ class GImages {
   static const String loading = "assets/json/loader.json";
   static const String emailSend = "assets/json/email_sent.json";
   static const String checkRegister = "assets/json/check_register.json";
+  static const String deliveryTruck = "assets/json/delivery_truck.json";
   //static const String resetAndLoginPassword = "assets/json/reset_password.json";
   
   static const String resetAndLoginPassword = "assets/images/verify_email/reset_password.png";

@@ -21,8 +21,8 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
-        actions: [
+        title: const Text('Корзина'),
+         actions: [
           IconButton(
             icon: Icon(EvaIcons.trash_2_outline, color: darkTheme ? GColors.light : GColors.dark),
             onPressed: () {
@@ -32,81 +32,92 @@ class CartScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(7),
-        child: Obx(
-          () => cartController.cartItems.isEmpty
-              ? const Center(child: Text('Your cart is empty'))
-              : ListView.builder(
-                  itemCount: cartController.cartItems.length,
-                  itemBuilder: (context, index) {
-                    final cartItem = cartController.cartItems[index];
-                    return ListTile(
-                      onTap: () {
-                        final ProductController productController = ProductController.instance;
-                        final ProductModel product = productController.getProductById(cartItem.productId);
-                        Get.to(() => ProductDetailScreen(product: product));
+       body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Padding(
+            padding: const EdgeInsets.all(7),
+            child: Obx(
+              () => cartController.cartItems.isEmpty
+                  ? const Center(child: Text('Корзина пуста'))
+                  : ListView.builder(
+                      itemCount: cartController.cartItems.length,
+                      itemBuilder: (context, index) {
+                        final cartItem = cartController.cartItems[index];
+                        return Card(
+                          color: Colors.transparent,
+                          elevation: 0,
+                          margin: const EdgeInsets.all(5),
+                          child: ListTile(
+                            onTap: () {
+                              final ProductController productController = ProductController.instance;
+                              final ProductModel product = productController.getProductById(cartItem.productId);
+                              Get.to(() => ProductDetailScreen(product: product));
+                            },
+                            leading: GRoundedImage(
+                              imageUrl: cartItem.image ?? '',
+                              borderRadius: 10,
+                            ),
+                            title: Text(cartItem.title, style: TextStyle(fontSize: 16, color: darkTheme ? GColors.light : GColors.dark)),
+                            subtitle: Text('\$${cartItem.price} x ${cartItem.quantity}', style: TextStyle(fontSize: 14.5, color: darkTheme ? GColors.light : GColors.dark)),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.remove_circle, size: 20, color: darkTheme ? GColors.light : GColors.dark),
+                                  onPressed: () => cartController.decreaseQuantity(cartItem),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.add_circle, size: 20, color: darkTheme ? GColors.light : GColors.dark),
+                                  onPressed: () => cartController.increaseQuantity(cartItem),
+                                ),
+                              ],
+),
+                          ),
+                        );
                       },
-                      leading: GRoundedImage(
-                        imageUrl: cartItem.image ?? '',
-                        borderRadius: 10,
-                      ),
-                      title: Text(cartItem.title, style: TextStyle(fontSize: 16, color: darkTheme ? GColors.light : GColors.dark)),
-                      subtitle: Text('\$${cartItem.price} x ${cartItem.quantity}', style: TextStyle(fontSize: 14.5, color: darkTheme ? GColors.light : GColors.dark)),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.remove_circle, size: 20, color: darkTheme ? GColors.light : GColors.dark),
-                            onPressed: () => cartController.decreaseQuantity(cartItem),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.add_circle, size: 20, color: darkTheme ? GColors.light : GColors.dark),
-                            onPressed: () => cartController.increaseQuantity(cartItem),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-        ),
+                    ),
+            ),
+          );
+        },
       ),
-      bottomNavigationBar: Obx(
-        () => cartController.cartItems.isEmpty
-            ? const SizedBox.shrink()
-            : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-                child: SizedBox(
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () => Get.to(() => const CheckoutScreen()),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'Checkout',
-                          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          '\$${cartController.totalCartPrice.value.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: GColors.grey.withOpacity(0.8),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+bottomNavigationBar: Obx(
+  () => cartController.cartItems.isEmpty
+      ? const SizedBox.shrink()
+      : Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+          child: SizedBox(
+            height: 56,
+            child: ElevatedButton(
+              onPressed: () => Get.to(() => const CheckoutScreen()),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
                 ),
               ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Checkout',
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 2),
+                  Obx(
+                    () => Text(
+                      '\$${cartController.totalCartPrice.value.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: GColors.grey.withOpacity(0.8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

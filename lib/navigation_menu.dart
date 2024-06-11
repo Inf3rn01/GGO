@@ -1,14 +1,12 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icons_plus/icons_plus.dart';
-import 'package:ggo/features/shop/screens/cart/cart.dart';
-import 'package:ggo/features/shop/screens/home/home.dart';
-import 'package:ggo/features/personalization/screens/settings/settings.dart';
-import 'package:ggo/utils/constants/colors.dart';
-import 'package:ggo/utils/helpers/helper_functions.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:icons_plus/icons_plus.dart';
+
+import 'features/shop/controlers/navigation_controller.dart';
+import 'utils/constants/colors.dart';
+import 'utils/helpers/helper_functions.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -17,6 +15,7 @@ class NavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
     final darkMode = GHelperFunctions.isDarkMode(context);
+
     return Scaffold(
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
@@ -36,30 +35,24 @@ class NavigationMenu extends StatelessWidget {
                   : const Icon(Iconsax.home_outline),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Stack(
                 children: [
-                  controller.selectedIndex.value == 1
-                      ? const Icon(CupertinoIcons.shopping_cart)
-                      : Icon(CupertinoIcons.shopping_cart, color: Colors.white.withOpacity(0)),
-                  if (controller.cartItemCount.value > 0)
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: badges.Badge(
-                        position: BadgePosition.topEnd(top: -11, end: -7),
-                        badgeContent: Text(
-                          controller.cartItemCount.value.toString(),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        badgeStyle: const badges.BadgeStyle(
-                          badgeColor: GColors.primary,
-                        ),
-                        child: const Icon(CupertinoIcons.shopping_cart),
-                      ),
-                    ),
-                  if (controller.cartItemCount.value == 0)
-                    const Icon(CupertinoIcons.shopping_cart),
+                  Icon(CupertinoIcons.shopping_cart),
+                  // if (controller.cartItemCount.value > 0)
+                  //   Positioned(
+                  //     left: 10,
+                  //     top: -10,
+                  //     child: badges.Badge(
+                  //       badgeContent: Text(
+                  //         controller.cartItemCount.value.toString(),
+                  //         style: const TextStyle(color: Colors.white),
+                  //       ),
+                  //       badgeStyle: const badges.BadgeStyle(
+                  //         badgeColor: GColors.primary,
+                  //       ),
+                  //     ),
+                  //   ),
                 ],
               ),
               label: 'Cart',
@@ -68,22 +61,12 @@ class NavigationMenu extends StatelessWidget {
               icon: controller.selectedIndex.value == 2
                   ? const Icon(Iconsax.more_2_outline)
                   : const Icon(Iconsax.more_outline),
-              label: 'Account',
+              label: 'More',
             ),
           ],
         ),
       ),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );
-  }
-}
-
-class NavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
-  final Rx<int> cartItemCount = 0.obs;
-  final screens = [const HomeScreen(), const CartScreen(), const SettingsScreen()];
-
-  void updateCartItemCount(int count) {
-    cartItemCount.value = count;
   }
 }

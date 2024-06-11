@@ -8,6 +8,7 @@ import 'package:ggo/features/shop/screens/checkout/widgets/billing_address_secti
 import 'package:ggo/features/shop/screens/checkout/widgets/billing_payment_section.dart';
 import 'package:ggo/navigation_menu.dart';
 import 'package:ggo/utils/constants/colors.dart';
+import 'package:ggo/utils/constants/images_strings.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/sizes.dart';
 import 'widgets/billling_amount_section.dart';
@@ -69,7 +70,7 @@ class CheckoutScreen extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () => Get.to(
                               () => SuccessScreen(
-                                image: 'assets/gifs/delivery_truck.gif',
+                                image: GImages.deliveryTruck,
                                 title: 'Payment Success!',
                                 subTitle: 'Your item will be shipped soon!',
                                 onPressed: () => Get.offAll(()=> const NavigationMenu())

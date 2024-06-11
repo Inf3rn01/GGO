@@ -8,28 +8,31 @@ class CartController extends GetxController {
 
   RxInt noOfCartItems = 0.obs;
   RxDouble totalCartPrice = 0.0.obs;
-  RxInt productQuantityCart = 0.obs;
+  RxInt productQuantityCart = 1.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
+
+  int get totalQuantity => cartItems.fold(0, (sum, item) => sum + item.quantity);
 
   void addToCart(ProductModel product) {
     if (productQuantityCart.value < 1) {
-      Loaders.customToast(message: 'Выберите количество товара');
+      Loaders.customToast(message: 'Select the quantity of the product');
       return;
     }
 
-    final cartItem = convertToCartItem(product, productQuantityCart.value);
-    final existingItem = cartItems.firstWhereOrNull((item) => item.productId == cartItem.productId);
+    final existingItem = cartItems.firstWhereOrNull((item) => item.productId == product.id);
 
     if (existingItem != null) {
-      existingItem.quantity += cartItem.quantity;
+      existingItem.quantity += productQuantityCart.value;
     } else {
+      final cartItem = convertToCartItem(product, productQuantityCart.value);
       cartItems.add(cartItem);
     }
 
+    cartItems.refresh();
     calculateTotalCartPrice();
     noOfCartItems.value = cartItems.length;
-    productQuantityCart.value = 0;
-    Loaders.customToast(message: 'Продукт добавлен в корзину');
+    productQuantityCart.value = 1;
+    Loaders.customToast(message: 'Product added to cart');
   }
 
   CartItemModel convertToCartItem(ProductModel product, int quantity) {
@@ -46,10 +49,12 @@ class CartController extends GetxController {
     cartItems.remove(cartItem);
     calculateTotalCartPrice();
     noOfCartItems.value = cartItems.length;
+    cartItems.refresh();
   }
 
   void increaseQuantity(CartItemModel cartItem) {
     cartItem.quantity++;
+    cartItems.refresh();
     calculateTotalCartPrice();
   }
 
@@ -59,6 +64,7 @@ class CartController extends GetxController {
     } else {
       cartItems.remove(cartItem);
     }
+    cartItems.refresh();
     calculateTotalCartPrice();
     noOfCartItems.value = cartItems.length;
   }

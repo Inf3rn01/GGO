@@ -29,29 +29,23 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
-  /// Функция для получения данных о пользователе на основе его идентификатора
   Future<UserModel> fetchUserDetails() async {
     try {
       final documentSnapshot = await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).get();
-      if (documentSnapshot.exists) {
-        return UserModel.fromSnapshot(documentSnapshot);
-      } else {
-        return UserModel.empty();
-      }
+      return UserModel.fromSnapshot(documentSnapshot);
     } on FirebaseException catch (e) {
       throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
       throw const GFormatException();
     } catch (e) {
-      throw 'Failed to fetch user details. Please try again.';
+      throw 'Не удалось получить данные о пользователе. Пожалуйста, попробуйте еще раз.';
     }
   }
 
-  /// Функция для обновления данных пользователя в Firestore
   Future<void> updateUserDetails(UserModel updatedUser) async {
     try {
       await _db.collection("Users").doc(updatedUser.id).update(updatedUser.toJson());
@@ -62,11 +56,10 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
-  /// Обновление любого поля в коллекции определенных пользователей
   Future<void> updateSingleField(Map<String, dynamic> json) async {
     try {
       await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).update(json);
@@ -77,7 +70,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -92,7 +85,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -110,7 +103,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 }

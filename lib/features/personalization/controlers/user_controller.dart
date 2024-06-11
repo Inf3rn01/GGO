@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:ggo/data/repositories/authentication/authentication_repository.dart';
 import 'package:ggo/data/repositories/user/user_repository.dart';
@@ -25,12 +29,12 @@ class UserController extends GetxController {
   final verifyPassword = TextEditingController();
   final userRepository = Get.put(UserRepository());
   GlobalKey<FormState> reAuthFormKey = GlobalKey<FormState>();
-
+  CardFieldInputDetails? cardFieldInputDetails;
 
   @override
   void onInit() {
-    super.onInit();
     fetchUserRecord();
+    super.onInit();
   }
 
   Future<void> fetchUserRecord() async {
@@ -39,7 +43,7 @@ class UserController extends GetxController {
       final user = await userRepository.fetchUserDetails();
       this.user(user);
     } catch (e) {
-      user(UserModel.empty());
+        user(UserModel.empty());
     } finally {
       profileLoading.value = false;
     }
@@ -49,61 +53,129 @@ class UserController extends GetxController {
   /// Сохранение записи пользователя из любого поставщика регистрации
   Future<void> saveUserRecord(UserCredential? userCredential) async {
     try {
-      
-      // Сначала обновляет пользователя Rx, а затем проверяет, сохранены ли уже данные пользователя. Если нет, сохраняет новые данные.
       await fetchUserRecord();
-
-      // Если записи ещё не сохранены
       if (user.value.id.isEmpty) {
         if (userCredential != null && userCredential.user != null){
-          // Map data
           final user = UserModel(
             id: userCredential.user!.uid,
             name: userCredential.user!.displayName ?? '',
             phoneNumber: userCredential.user!.phoneNumber ?? '',
             email: userCredential.user!.email ?? '',
             profilePicture: userCredential.user!.photoURL ?? '',
+            balance: '0',
           );
-
-          // Сохранение данных пользователя
           await userRepository.saveUserRecord(user);
         }
       }
     } catch (e) {
-      Loaders.warningSnackBar(title: 'Data not saved', message: 'Something went wrong while saving your information. You can re-save your data in your profile.');
+      Loaders.warningSnackBar(title: 'Данные не были сохранены', message: 'Что-то пошло не так при сохранении вашей информации. Вы можете повторно сохранить данные в своем профиле.');
     }
+  }
+
+  /// Инициализация кошелька
+  Future<Map<String, dynamic>> createPaymentIntent(double amount) async {
+    const url = 'https://api.stripe.com/v1/payment_intents';
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Authorization':
+            'Bearer sk_test_51PPSpoRrGht9QPvptAB8WmXBKBMQu1GsK5e3adG2J7CH046rtwXl5xTsX5EixzdiXkxUWIGAAhIQwSD42X8jdHg300QiCOTqBJ', // Замените на ваш секретный ключ
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: {
+        'amount': (amount * 100).toInt().toString(),
+        'currency': 'usd',
+        'payment_method_types[]': 'card',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to create PaymentIntent: ${response.body}');
+    }
+  }
+
+  Future<void> confirmPayment(
+      Map<String, dynamic> paymentIntent, double amount) async {
+    try {
+      await Stripe.instance.confirmPayment(
+        paymentIntentClientSecret: paymentIntent['client_secret'],
+        data: PaymentMethodParams.card(
+          paymentMethodData: PaymentMethodData(
+            billingDetails: BillingDetails(
+              email: user.value.email,
+            ),
+          ),
+        ),
+      );
+
+      await updateBalance(amount);
+      Get.snackbar('Успех!', 'Баланс пополнен успешно на \$${amount.toStringAsFixed(2)}');
+    } catch (e) {
+      Get.snackbar('Ошибка!', 'Ошибка пополнения: $e');
+    }
+  }
+
+  Future<void> updateBalance(double amount) async {
+    final currentBalance = double.tryParse(user.value.balance) ?? 0.0;
+    final newBalance = currentBalance + amount;
+
+    user.update((user) {
+      if (user != null) {
+        user.balance = newBalance.toString();
+      }
+    });
+
+    await userRepository.updateUserDetails(user.value);
+  }
+
+  Future<void> topUpBalance(double amount) async {
+    if (amount > 0 && cardFieldInputDetails?.complete == true) {
+      try {
+        final paymentIntent = await createPaymentIntent(amount);
+        await confirmPayment(paymentIntent, amount);
+      } catch (e) {
+        Get.snackbar('Ошибка', 'Ошибка пополнения: $e');
+      }
+    } else {
+      Get.snackbar('Ошибка', 'Пожалуйста, введите корректные данные карты.');
+    }
+  }
+
+  void setCardFieldInputDetails(CardFieldInputDetails details) {
+    cardFieldInputDetails = details;
   }
 
   /// Delete account warning
   void deleteAccountWarningPopup() {
-  Get.defaultDialog(
-    contentPadding: const EdgeInsets.all(GSizes.md),
-    title: 'Delete account',
-    middleText: 'Are you sure you want to delete your account permanently? This action is not reversible and all of your data will be removed permanently.',
-    confirm: ElevatedButton(
-      onPressed: () async => deleteUserAccount(),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.red,
-        side: const BorderSide(color: Colors.red),
+    Get.defaultDialog(
+      contentPadding: const EdgeInsets.all(GSizes.md),
+      title: 'Удалить аккаунт',
+      middleText: 'Вы уверены, что хотите удалить свою учетную запись навсегда? Это действие не обратимо, и все ваши данные будут удалены навсегда.',
+      confirm: ElevatedButton(
+        onPressed: () async => deleteUserAccount(),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red,
+          side: const BorderSide(color: Colors.red),
+        ),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: GSizes.lg),
+          child: Text('Delete', style: TextStyle(fontSize: 13.2),),
+        ),
       ),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: GSizes.lg),
-        child: Text('Delete', style: TextStyle(fontSize: 13.2),),
+      cancel: OutlinedButton(
+        onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+        child: const Text('Cancel'),
       ),
-    ),
-    cancel: OutlinedButton(
-      onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-      child: const Text('Cancel'),
-    ),
-  );
-}
+    );
+  }
 
   /// Удаление аккаунта пользователя
   void deleteUserAccount () async {
     try {
-      FullScreenLoader.openLoadingDialog('Processing...', GImages.loading);
+      FullScreenLoader.openLoadingDialog('Обработка...', GImages.loading);
 
-      // First re-authenticate user
       final auth = AuthenticationRepository.instance;
       final provider = auth.authUser!.providerData.map((e) => e.providerId).first;
       if (provider == 'password') {
@@ -119,19 +191,16 @@ class UserController extends GetxController {
   /// Re-authenticate before deleting
   Future<void> reAuthenticateEmailAndPasswordUser() async {
     try {
-      FullScreenLoader.openLoadingDialog('Processing...', GImages.loading);
+      FullScreenLoader.openLoadingDialog('Обработка...', GImages.loading);
 
-      //Check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected){
-        // Remove loader
+
         FullScreenLoader.stopLoading();
         return;
       } 
 
-      // Form validation
       if (reAuthFormKey.currentState != null && !reAuthFormKey.currentState!.validate()){
-        // Remove loader
         FullScreenLoader.stopLoading();
         return;
       }
@@ -140,10 +209,10 @@ class UserController extends GetxController {
       await AuthenticationRepository.instance.deleteAccount();
       FullScreenLoader.stopLoading();
       Get.offAll(() => const LoginScreen());
-      Loaders.successSnackBar(title: 'Account deleted', message: 'Your account successfully deleted');
+      Loaders.successSnackBar(title: 'Аккаунт удалён', message: 'Ваша учетная запись успешно удалена.');
     } catch (e) {
       FullScreenLoader.stopLoading();
-      Loaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.warningSnackBar(title: 'Ой!', message: e.toString());
     }
   }
 
@@ -154,20 +223,18 @@ class UserController extends GetxController {
       if(image != null) {
         imageUploading.value = true;
 
-        // Upload image
         final imageUrl = await userRepository.uploadImage('Users/Images/Profile/', image);
-      
-        // Update user image record
+
         Map<String, dynamic> json = {'ProfilePicture': imageUrl};
         await userRepository.updateSingleField(json);
 
         user.value.profilePicture = imageUrl;
         user.refresh();
 
-        Loaders.successSnackBar(title: 'Congratulations', message: 'Your profile image has been updated.');
+        Loaders.successSnackBar(title: 'Поздравляю', message: 'Изображение вашего профиля было обновлено.');
       }
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: 'something went wrong: $e');
+      Loaders.errorSnackBar(title: 'Ой!', message: 'Что-то пошло не так: $e');
     } finally {
       imageUploading.value = false;
     }   

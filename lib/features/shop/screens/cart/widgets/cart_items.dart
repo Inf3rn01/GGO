@@ -7,9 +7,9 @@ import '../../../../../common/widgets/custom_shapes/containers/rounded_container
 import '../../../../../common/widgets/images/rounded_image.dart';
 import '../../../../../common/widgets/texts/product_price_text.dart';
 import '../../../../../common/widgets/texts/product_title_text.dart';
-import '../../../../../navigation_menu.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/images_strings.dart';
+import '../../../controlers/navigation_controller.dart';
 import '../../checkout/checkout.dart';
 
 class CartItems extends StatelessWidget {
@@ -18,7 +18,7 @@ class CartItems extends StatelessWidget {
   final bool showAddRemoveButtons;
 
   void updateCartItemCount(int newCount) {
-    final navigationController = Get.find<NavigationController>();
+    final navigationController = NavigationController.instance;
     navigationController.updateCartItemCount(newCount);
   }
 
