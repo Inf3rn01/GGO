@@ -11,7 +11,6 @@ import 'package:ggo/features/personalization/screens/profile/widgets/profile_men
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/images_strings.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../authentication/screens/login/login.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -61,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
 
               Center(
                 child: TextButton(
-                  onPressed: () => Get.to(() => const LoginScreen()),
+                  onPressed: controller.logout,
                   child: const Text('Выйти из аккаунта', style: TextStyle(fontSize: 14, color: Colors.red)),
                 ),
               ),

@@ -147,6 +147,21 @@ class UserController extends GetxController {
     cardFieldInputDetails = details;
   }
 
+  Future<void> logout() async {
+    try {
+      // Очищаем данные пользователя
+      user.value = UserModel.empty();
+
+      // Удаляем токен аутентификации или другую информацию из хранилища
+      await AuthenticationRepository.instance.logout();
+
+      // Перенаправляем пользователя на экран входа
+      Get.offAll(() => const LoginScreen());
+    } catch (e) {
+      Loaders.warningSnackBar(title: 'Ошибка', message: 'Не удалось выйти из аккаунта: $e');
+    }
+  }
+
   /// Delete account warning
   void deleteAccountWarningPopup() {
     Get.defaultDialog(
