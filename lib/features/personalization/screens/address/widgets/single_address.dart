@@ -60,6 +60,10 @@ class SingleAddress extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
+                IconButton(
+                  icon: Icon(EvaIcons.trash_2_outline, size: 21, color: darkTheme ? GColors.light : GColors.dark),
+                  onPressed: () => controller.deleteAddress(address.id),
+                ),
               ],
             ),
           ),

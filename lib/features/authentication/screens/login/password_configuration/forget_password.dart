@@ -25,33 +25,54 @@ class ForgetPasswordScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(GSizes.defaultSpace),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ///Headings
-              Text(GTexts.forgetPasswordTitle, style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500, color: darkTheme ? GColors.white : GColors.dark)),
-              const SizedBox(height: GSizes.spaceBtwItems/1.5),
-              const Text(GTexts.forgetPasswordSubTitle, style: TextStyle(fontSize: 13, color: GColors.darkGrey), textAlign: TextAlign.center),
-              const SizedBox(height: 25),
-        
-              /// Text Field
-              Form(
-                key: controller.forgetPasswordFormKey,
-                child: TextFormField(
-                  controller: controller.email,
-                  validator: GValidator.validateEmail,
-                  decoration: const InputDecoration(labelText: GTexts.email, prefixIcon: Icon(EvaIcons.email_outline)),
-                ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double horizontalPadding = constraints.maxWidth < 600 ? 16 : GSizes.defaultSpace;
+            double titleFontSize = constraints.maxWidth < 600 ? 23 : 25;
+            double subTitleFontSize = constraints.maxWidth < 600 ? 13 : 13;
+            double spacingBetweenItems = constraints.maxWidth < 600 ? 16 : GSizes.spaceBtwItems / 1.5;
+            double formSpacing = constraints.maxWidth < 600 ? 20 : GSizes.spaceBtwSections;
+
+            return Padding(
+              padding: EdgeInsets.all(horizontalPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Headings
+                  Text(
+                    GTexts.forgetPasswordTitle,
+                    style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.w500, color: darkTheme ? GColors.white : GColors.dark),
+                  ),
+                  SizedBox(height: spacingBetweenItems),
+                  Text(
+                    GTexts.forgetPasswordSubTitle,
+                    style: TextStyle(fontSize: subTitleFontSize, color: GColors.darkGrey),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 22),
+
+                  // Text Field
+                  Form(
+                    key: controller.forgetPasswordFormKey,
+                    child: TextFormField(
+                      controller: controller.email,
+                      validator: GValidator.validateEmail,
+                      decoration: const InputDecoration(labelText: GTexts.email, prefixIcon: Icon(EvaIcons.email_outline)),
+                    ),
+                  ),
+                  SizedBox(height: formSpacing),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => controller.sendPasswordResetEmail(),
+                      child: const Text(GTexts.submit),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: GSizes.spaceBtwSections),
-              
-              /// Submit Button
-              SizedBox(width: double.infinity ,child: ElevatedButton(onPressed: () => controller.sendPasswordResetEmail(), child: const Text(GTexts.submit)))
-        
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

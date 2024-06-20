@@ -24,7 +24,7 @@ class UserController extends GetxController {
   Rx<UserModel> user = UserModel.empty().obs; 
 
   final imageUploading = false.obs;
-  final hidePassword = false.obs;
+  final hidePassword = true.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
   final userRepository = Get.put(UserRepository());
@@ -161,60 +161,83 @@ class UserController extends GetxController {
         ),
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: GSizes.lg),
-          child: Text('Delete', style: TextStyle(fontSize: 13.2),),
+          child: Text('Удалить', style: TextStyle(fontSize: 13.2),),
         ),
       ),
       cancel: OutlinedButton(
         onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-        child: const Text('Cancel'),
+        child: const Text('Вернуться'),
       ),
     );
   }
 
-  /// Удаление аккаунта пользователя
-  void deleteUserAccount () async {
-    try {
-      FullScreenLoader.openLoadingDialog('Обработка...', GImages.loading);
-
-      final auth = AuthenticationRepository.instance;
-      final provider = auth.authUser!.providerData.map((e) => e.providerId).first;
-      if (provider == 'password') {
-        FullScreenLoader.stopLoading();
-        Get.to(() => const ReAuthLoginForm());
-      } 
-    } catch (e) {
-      FullScreenLoader.stopLoading();
-      Loaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
+  Future<void> deductBalance(double amount) async {
+    final currentBalance = double.tryParse(user.value.balance) ?? 0.0;
+    if (currentBalance < amount) {
+      throw Exception('Недостаточно средств на балансе');
     }
-  }
+    final newBalance = currentBalance - amount;
 
-  /// Re-authenticate before deleting
-  Future<void> reAuthenticateEmailAndPasswordUser() async {
-    try {
-      FullScreenLoader.openLoadingDialog('Обработка...', GImages.loading);
-
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected){
-
-        FullScreenLoader.stopLoading();
-        return;
-      } 
-
-      if (reAuthFormKey.currentState != null && !reAuthFormKey.currentState!.validate()){
-        FullScreenLoader.stopLoading();
-        return;
+    user.update((user) {
+      if (user != null) {
+        user.balance = newBalance.toString();
       }
+    });
 
-      await AuthenticationRepository.instance.reAuthenticateWithEmailAndPassword(verifyEmail.text.trim(), verifyPassword.text.trim());
-      await AuthenticationRepository.instance.deleteAccount();
-      FullScreenLoader.stopLoading();
-      Get.offAll(() => const LoginScreen());
-      Loaders.successSnackBar(title: 'Аккаунт удалён', message: 'Ваша учетная запись успешно удалена.');
-    } catch (e) {
-      FullScreenLoader.stopLoading();
-      Loaders.warningSnackBar(title: 'Ой!', message: e.toString());
-    }
+    await userRepository.updateUserDetails(user.value);
   }
+
+
+  /// Удаление аккаунта пользователя 
+void deleteUserAccount() async { 
+  try { 
+    FullScreenLoader.openLoadingDialog('Обработка...', GImages.loading); 
+
+    final auth = AuthenticationRepository.instance; 
+    final provider = auth.authUser!.providerData.map((e) => e.providerId).first; 
+    if (provider == 'password') { 
+      FullScreenLoader.stopLoading(); 
+      Get.to(() => const ReAuthLoginForm()); 
+    }  
+  } catch (e) { 
+    FullScreenLoader.stopLoading(); 
+    Loaders.warningSnackBar(title: 'Ошибка!', message: e.toString()); 
+  } 
+}
+
+/// Re-authenticate before deleting 
+Future<void> reAuthenticateEmailAndPasswordUser() async { 
+  try { 
+    FullScreenLoader.openLoadingDialog('Обработка...', GImages.loading); 
+
+    final isConnected = await NetworkManager.instance.isConnected(); 
+    if (!isConnected){ 
+      FullScreenLoader.stopLoading(); 
+      return; 
+    }  
+
+    if (reAuthFormKey.currentState != null && !reAuthFormKey.currentState!.validate()){ 
+      FullScreenLoader.stopLoading(); 
+      return; 
+    } 
+
+    final userId = AuthenticationRepository.instance.authUser!.uid;
+    
+    await AuthenticationRepository.instance.reAuthenticateWithEmailAndPassword(verifyEmail.text.trim(), verifyPassword.text.trim()); 
+    await AuthenticationRepository.instance.deleteAccount(); 
+
+    // Удаляем корзину пользователя из базы данных
+    await UserRepository.instance.deleteCart(userId);
+
+    FullScreenLoader.stopLoading(); 
+    Get.offAll(() => const LoginScreen()); 
+    Loaders.successSnackBar(title: 'Аккаунт удалён', message: 'Ваша учетная запись успешно удалена.'); 
+  } catch (e) { 
+    FullScreenLoader.stopLoading(); 
+    Loaders.warningSnackBar(title: 'Ой!', message: e.toString()); 
+  } 
+}
+
 
   /// Upload profile image
   uploadUserProfilePicture() async {

@@ -38,7 +38,7 @@ class GTexts {
   static const String changeYourPasswordTitle = "письмо для сброса пароля отправлено";
   static const String changeYourPasswordSubTitle = "Безопасность вашего аккаунта - наш приоритет! Мы отправили вам ссылку для безопасной смены пароля и защиты вашего аккаунта";
   static const String confirmEmail = "Проверьте вашу электронную почту!";
-  static const String confirmEmailSubTitle = "Поздравляем! Ваша учетная запись ждет: Подтвердите свой адрес электронной почты, чтобы начать покупки и познакомиться с миром оружия";
+  static const String confirmEmailSubTitle = "Поздравляем! Ваша учетная запись ждёт. Подтвердите свой адрес электронной почты, чтобы начать покупки и познакомиться с миром оружия";
   static const String emailNotReceivedMessage = "Не получили письмо? Проверьте вкладку спам или отправьте его повторно";
   static const String yourAccountCreatedTitle = "Ваша учетная запись успешно создана!";
   static const String yourAccountCreatedSubTitle = "Добро пожаловать в Gun Gale Online: откройте для себя радость онлайн-покупок!";

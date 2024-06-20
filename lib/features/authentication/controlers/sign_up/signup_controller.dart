@@ -25,8 +25,7 @@ class SignupController extends GetxController {
   void signup() async {
     try {
 
-      FullScreenLoader.openLoadingDialog('We are processing your information...', GImages.loading);
-
+      
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected){
         FullScreenLoader.stopLoading();
@@ -40,11 +39,13 @@ class SignupController extends GetxController {
 
       if(!hideCheckbox.value) {
         Loaders.warningSnackBar(
-          title: 'Accept Privacy Policy and Terms of use',
-          message: 'In order to create account, you must have to read and accept the Privacy Policy and Terms of use.'
+          title: 'Примите политику конфиденциальности и условия использования',
+          message: 'Чтобы создать учетную запись, вы должны прочитать и принять Политику конфиденциальности и Условия использования.'
         );
         return;
       }
+
+      FullScreenLoader.openLoadingDialog('Обрабатываю вашу информацию...', GImages.loading);
 
       final userCredential = await AuthenticationRepository.instance.registerWithEmailAndPassword(email.text.trim(), password.text.trim());
 
@@ -62,13 +63,13 @@ class SignupController extends GetxController {
 
       FullScreenLoader.stopLoading();
 
-      Loaders.successSnackBar(title: 'Congratulations!', message: 'Your account has been created! Verify email to continue');
+      Loaders.successSnackBar(title: 'Поздравляю!', message: 'Ваша учетная запись создана! Подтвердите адрес электронной почты для продолжения');
 
       Get.to(() => VerifyEmailScreen(email: email.text.trim()));
 
     } catch (e) {
       FullScreenLoader.stopLoading();
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     }
   }
 }

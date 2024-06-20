@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:icons_plus/icons_plus.dart';
 
 import 'features/shop/controlers/navigation_controller.dart';
@@ -39,20 +38,6 @@ class NavigationMenu extends StatelessWidget {
               icon: Stack(
                 children: [
                   Icon(CupertinoIcons.shopping_cart),
-                  // if (controller.cartItemCount.value > 0)
-                  //   Positioned(
-                  //     left: 10,
-                  //     top: -10,
-                  //     child: badges.Badge(
-                  //       badgeContent: Text(
-                  //         controller.cartItemCount.value.toString(),
-                  //         style: const TextStyle(color: Colors.white),
-                  //       ),
-                  //       badgeStyle: const badges.BadgeStyle(
-                  //         badgeColor: GColors.primary,
-                  //       ),
-                  //     ),
-                  //   ),
                 ],
               ),
               label: 'Cart',

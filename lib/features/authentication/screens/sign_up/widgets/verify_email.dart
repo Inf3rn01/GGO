@@ -2,7 +2,6 @@ import 'package:ggo/data/repositories/authentication/authentication_repository.d
 import 'package:ggo/features/authentication/controlers/sign_up/verify_email_controller.dart';
 import 'package:ggo/utils/constants/images_strings.dart';
 import 'package:ggo/utils/constants/text_strings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
@@ -21,26 +20,27 @@ class VerifyEmailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(VerifyEmailController());
-    final darkTheme = GHelperFunctions.isDarkMode(context);
+    //final darkTheme = GHelperFunctions.isDarkMode(context);
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () => AuthenticationRepository.instance.logout(),
-            icon: const Icon(CupertinoIcons.clear),
-            color: darkTheme ? GColors.white : GColors.dark
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   actions: [
+      //     IconButton(
+      //       onPressed: () => AuthenticationRepository.instance.logout(),
+      //       icon: const Icon(CupertinoIcons.clear),
+      //       color: darkTheme ? GColors.white : GColors.dark
+      //     )
+      //   ],
+      // ),
       body: Padding(
           padding: const EdgeInsets.all(GSizes.defaultSpace),
           child: Column(
             children: [
+              const SizedBox(height: GSizes.spaceBtwSections/3),
               /// Image
               Lottie.asset(GImages.emailSend, width: GHelperFunctions.screenWidth() * 0.6),
-              const SizedBox(height: GSizes.spaceBtwSections),
+              const SizedBox(height: GSizes.spaceBtwSections/10),
       
               /// Title & SubTitle
               Text(GTexts.confirmEmail, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),

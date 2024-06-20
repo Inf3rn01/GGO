@@ -17,7 +17,7 @@ class AddNewAddressScreen extends StatelessWidget {
     return Scaffold(
       appBar: const AuthAppBar(
         showBackArrow: true, 
-        title: Text('Add new address'),
+        title: Text('Новый адрес доставки'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,10 +33,10 @@ class AddNewAddressScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: controller.country,
-                            validator: (value) => GValidator.validateEmptyText('Country', value),
+                            validator: (value) => GValidator.validateEmptyText('страну', value),
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Iconsax.global_outline), 
-                              labelText: 'Country',
+                              labelText: 'Страна',
                             ),
                           ),
                         ),
@@ -49,10 +49,10 @@ class AddNewAddressScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: controller.city,
-                            validator: (value) => GValidator.validateEmptyText('City', value),
+                            validator: (value) => GValidator.validateEmptyText('город', value),
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Iconsax.building_outline), 
-                              labelText: 'City',
+                              labelText: 'Город',
                             ),
                           ),
                         ),
@@ -60,10 +60,10 @@ class AddNewAddressScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: controller.street,
-                            validator: (value) => GValidator.validateEmptyText('Street', value),
+                            validator: (value) => GValidator.validateEmptyText('улицу', value),
                             decoration: const InputDecoration(
                               prefixIcon: Icon(BoxIcons.bx_building), 
-                              labelText: 'Street',
+                              labelText: 'Улица',
                             ),
                           ),
                         ),
@@ -77,10 +77,10 @@ class AddNewAddressScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: controller.house,
-                            validator: (value) => GValidator.validateEmptyText('House', value),
+                            validator: (value) => GValidator.validateEmptyText('дом', value),
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Iconsax.house_outline), 
-                              labelText: 'House',
+                              labelText: 'Дом',
                             ),
                           ),
                         ),
@@ -88,10 +88,9 @@ class AddNewAddressScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: controller.apartament,
-                            validator: (value) => GValidator.validateEmptyText('Apartament', value),
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Iconsax.activity_outline), 
-                              labelText: 'Apartament',
+                              labelText: 'Квартира',
                             ),
                           ),
                         ),
@@ -104,7 +103,7 @@ class AddNewAddressScreen extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () => controller.addNewAddress(), 
-                        child: const Text('Save'),
+                        child: const Text('Добавить'),
                       ),
                     ),
                   ],

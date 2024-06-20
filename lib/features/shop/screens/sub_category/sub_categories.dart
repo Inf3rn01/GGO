@@ -20,46 +20,58 @@ class SubCategoriesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AuthAppBar(showBackArrow: true, title: Text(category.name)),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                DropdownButtonFormField(
-                  decoration: const InputDecoration(prefixIcon: Icon(Iconsax.sort_outline)),
-                  onChanged: (value) {
-                    controller.filterProductsByOption(value);
-                  },
-                  items: ['Name', 'Higher price', 'Lower price']
-                      .map((option) => DropdownMenuItem(value: option, child: Text(option)))
-                      .toList(),
-                ),
-                const SizedBox(height: 30),
-                Obx(
-                  () {
-                    if (controller.isLoading.value) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          // Determine if the screen is small or large
+          bool isLargeScreen = constraints.maxWidth > 600;
 
-                    if (controller.filteredProducts.isEmpty) {
-                      return Center(
-                        child: Text('No data found!', style: Theme.of(context).textTheme.bodyLarge),
-                      );
-                    }
+          // Adjust padding based on screen size
+          EdgeInsets responsivePadding = isLargeScreen
+              ? const EdgeInsets.symmetric(horizontal: 30)
+              : const EdgeInsets.symmetric(horizontal: 13);
 
-                    return GGridLayout(
-                      itemCount: controller.filteredProducts.length,
-                      itemBuilder: (_, index) =>
-                          GProductCardVertical(product: controller.filteredProducts[index]),
-                    );
-                  },
+          return ListView(
+            children: [
+              Padding(
+                padding: responsivePadding,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    DropdownButtonFormField(
+                      decoration: const InputDecoration(prefixIcon: Icon(Iconsax.sort_outline)),
+                      onChanged: (value) {
+                        controller.filterProductsByOption(value);
+                      },
+                      items: ['По алфавиту', 'Высокая - Низкая цена', 'Низкая - Высокая цена']
+                          .map((option) => DropdownMenuItem(value: option, child: Text(option)))
+                          .toList(),
+                    ),
+                    const SizedBox(height: 20),
+                    Obx(
+                      () {
+                        if (controller.isLoading.value) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+
+                        if (controller.filteredProducts.isEmpty) {
+                          return Center(
+                            child: Text('Продукты не найдены!', style: Theme.of(context).textTheme.bodyLarge),
+                          );
+                        }
+                        return GGridLayout(
+                          itemCount: controller.filteredProducts.length,
+                          itemBuilder: (_, index) => GProductCardVertical(
+                            product: controller.filteredProducts[index],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

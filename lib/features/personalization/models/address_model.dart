@@ -7,7 +7,6 @@ class AddressModel {
   final String street;
   final String house;
   final String apartment;
-  final DateTime? dateTime;
   bool selectedAddress;
 
   AddressModel({
@@ -17,7 +16,6 @@ class AddressModel {
     required this.street,
     required this.house,
     required this.apartment,
-    this.dateTime,
     this.selectedAddress = true,
   });
   
@@ -30,7 +28,6 @@ class AddressModel {
       'Street': street,
       'House': house,
       'Apartment': apartment,
-      'DateTime': DateTime.now(),
       'SelectedAddress': selectedAddress,
     };
   }
@@ -44,7 +41,6 @@ class AddressModel {
       house: data['House'] as String,
       apartment: data['Apartment'] as String,
       selectedAddress: data['SelectedAddress'] as bool,
-      dateTime: (data['DateTime'] as Timestamp).toDate(),
     );
   }
 
@@ -59,7 +55,6 @@ class AddressModel {
       house: data['House'] ?? '',
       apartment: data['Apartment'] ?? '',
       selectedAddress: data['SelectedAddress'] as bool,
-      dateTime: (data['DateTime'] as Timestamp).toDate(), 
     );
   }
 

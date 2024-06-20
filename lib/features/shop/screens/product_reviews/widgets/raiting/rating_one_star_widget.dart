@@ -8,63 +8,72 @@ class RatingWithOneStar extends StatelessWidget {
     super.key,
     required this.rating,
     required this.reviewCount,
-    this.showRating = true, // Параметр для контроля отображения рейтинга
-    this.showIcon = true, // Параметр для контроля отображения иконки
+    this.showRating = true,
+    this.showIcon = true,
   });
 
   final double rating;
   final int reviewCount;
-  final bool showRating; // Параметр для контроля отображения рейтинга
-  final bool showIcon; // Параметр для контроля отображения иконки
+  final bool showRating;
+  final bool showIcon;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (showRating) // Отображаем рейтинг только при showRating == true
-                  Row(
-                    children: [
-                      const Icon(
-                        HeroIcons.star,
-                        color: Colors.amber,
-                        size: 14,
+                Row(
+                  children: [
+                    if (showRating)
+                      Row(
+                        children: [
+                          const Icon(
+                            HeroIcons.star,
+                            color: Colors.amber,
+                            size: 15,
+                          ),
+                          const SizedBox(width: 2),
+                          Text(
+                            rating.toStringAsFixed(1),
+                            style: TextStyle(fontSize: screenWidth < 600 ? 14 : 16),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 2),
-                      Text(
-                        rating.toStringAsFixed(1),
-                        style: const TextStyle(fontSize: 14),
+                    if (showIcon)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 3.0),
+                        child: Icon(
+                          Iconsax.more_circle_bulk,
+                          color: GColors.darkGrey.withOpacity(0.6),
+                          size: screenWidth < 600 ? 5 : 6,
+                        ),
                       ),
-                    ],
-                  ),
-                if (showIcon) // Отображаем иконку только при showIcon == true
-                  Padding(
-                    padding: const EdgeInsets.only(left: 3.0),
-                    child: Icon(
-                      Iconsax.more_circle_bulk,
-                      color: GColors.darkGrey.withOpacity(0.6),
-                      size: 5,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 3.0),
+                      child: Text(
+                        '$reviewCount reviews',
+                        style: TextStyle(
+                          fontSize: screenWidth < 600 ? 13 : 15,
+                          color: GColors.grey.withOpacity(0.6),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 3.0),
-                  child: Text(
-                    '$reviewCount reviews',
-                    style: TextStyle(fontSize: 14, color: GColors.grey.withOpacity(0.6)),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  ],
                 ),
               ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }

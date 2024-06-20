@@ -25,6 +25,8 @@ class RatingWithAllStars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -32,13 +34,18 @@ class RatingWithAllStars extends StatelessWidget {
           onTap: () => Get.to(() => const ProductReviewsScreen()),
           child: GRoundedContainer(
             height: 33,
-            width: 156,
+            width: screenWidth < 600 ? 131 : 156,
             backgroundColor: Colors.black.withOpacity(0.2),
             showBorder: true,
             borderColor: GColors.borderPrimary.withOpacity(0.1),
             radius: 12,
             child: Padding(
-              padding: const EdgeInsets.only(top: 4, right: 4.5, left: 6.5, bottom: 5),
+              padding: EdgeInsets.only(
+                top: 4,
+                right: screenWidth < 600 ? 3.5 : 4.5,
+                left: screenWidth < 600 ? 5.5 : 6.5,
+                bottom: 5,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -51,7 +58,10 @@ class RatingWithAllStars extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                               rating.toStringAsFixed(1),
-                              style: TextStyle(fontSize: 14.5, color: GColors.grey.withOpacity(0.9)),
+                              style: TextStyle(
+                                fontSize: screenWidth < 600 ? 13 : 14.5,
+                                color: GColors.grey.withOpacity(0.9),
+                              ),
                             ),
                           ),
                         if (showReviewCount)
@@ -59,7 +69,10 @@ class RatingWithAllStars extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                               '$reviewCount',
-                              style: TextStyle(fontSize: 14.5, color: GColors.grey.withOpacity(0.9)),
+                              style: TextStyle(
+                                fontSize: screenWidth < 600 ? 13 : 14.5,
+                                color: GColors.grey.withOpacity(0.9),
+                              ),
                             ),
                           ),
                       ],

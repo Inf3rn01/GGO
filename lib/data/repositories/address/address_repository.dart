@@ -12,13 +12,13 @@ class AddressRepository extends GetxController {
   Future<List<AddressModel>> fetchUserAddress() async {
     try {
       final userId = AuthenticationRepository.instance.authUser!.uid;
-      if (userId.isEmpty) throw 'Unable to find user information. Try again in few minutes.';
+      if (userId.isEmpty) throw 'Невозможно найти информацию о пользователе. Повторите попытку через несколько минут.';
 
       final result = await _db.collection('Users').doc(userId).collection('Addresses').get();
       return result.docs.map((documentSnapshot) => AddressModel.fromDocumentSnaphot(documentSnapshot)).toList();
       
     } catch (e) {
-      throw 'Something went wrong while fetching address information. Try again later';
+      throw 'Что-то пошло не так при получении информации об адресе. Повторите попытку позже.';
     }
   }
 
@@ -28,7 +28,7 @@ class AddressRepository extends GetxController {
       await _db.collection('Users').doc(userId).collection('Addresses').doc(addressId).update({'SelectedAddress': selected});
 
     } catch (e) {
-      throw 'Unable to update your address selectrion. Try again later';
+      throw 'Невозможно обновить выбранный адрес. Повторите попытку позже.';
     }
   }
 
@@ -38,8 +38,16 @@ class AddressRepository extends GetxController {
       final currentAddress = await _db.collection('Users').doc(userId).collection('Addresses').add(address.toJson());
       return currentAddress.id;
     } catch (e) {
-      throw 'Something went wrong while saving address information. Try again later.';
+      throw 'При сохранении информации об адресе что-то пошло не так. Повторите попытку позже.';
     }
   }
 
+  Future<void> deleteAddress(String addressId) async {
+    try {
+      final userId = AuthenticationRepository.instance.authUser!.uid;
+      await _db.collection('Users').doc(userId).collection('Addresses').doc(addressId).delete();
+    } catch (e) {
+      throw 'Невозможно удалить адрес. Повторите попытку позже.';
+    }
+  }
 }

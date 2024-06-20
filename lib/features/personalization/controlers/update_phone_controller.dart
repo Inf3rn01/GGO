@@ -9,32 +9,31 @@ import '../../../utils/constants/images_strings.dart';
 import '../../../utils/popups/loaders.dart';
 import '../screens/profile/profile.dart';
 
-class UpdateNameController extends GetxController{
-  static UpdateNameController get instance => Get.find();
+class UpdatePhoneController extends GetxController {
+  static UpdatePhoneController get instance => Get.find();
 
-  final name = TextEditingController();
+  final phone = TextEditingController();
   final userController = UserController.instance;
   final userRepository = Get.put(UserRepository());
-  GlobalKey<FormState> updateUserNameFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> updatePhoneFormKey = GlobalKey<FormState>();
 
-  /// init user data when home Screen appears
   @override
   void onInit() {
-    initializeNames();
+    initializePhone();
     super.onInit();
   }
 
-  Future<void> initializeNames() async {
-    name.text = userController.user.value.name;
+  Future<void> initializePhone() async {
+    phone.text = userController.user.value.phoneNumber;
   }
 
-  TextEditingController get nameController => name;
+  TextEditingController get phoneController => phone;
 
-  void setName(String newName) {
-    name.text = newName;
+  void setPhone(String newPhone) {
+    phone.text = newPhone;
   }
 
-  Future<void> updateUserName() async {
+  Future<void> updatePhone() async {
     try {
       FullScreenLoader.openLoadingDialog('Обрабатываю ваши данные...', GImages.loading);
 
@@ -44,19 +43,19 @@ class UpdateNameController extends GetxController{
         return;
       }
 
-      if (updateUserNameFormKey.currentState != null && !updateUserNameFormKey.currentState!.validate()) {
+      if (updatePhoneFormKey.currentState != null && !updatePhoneFormKey.currentState!.validate()) {
         FullScreenLoader.stopLoading();
         return;
       }
 
-      Map<String, dynamic> nameMap = {'Name': name.text.trim()};
-      await userRepository.updateSingleField(nameMap);
+      Map<String, dynamic> phoneMap = {'Phone': phone.text.trim()};
+      await userRepository.updateSingleField(phoneMap);
 
-      userController.user.value.name = name.text.trim();
+      userController.user.value.phoneNumber = phone.text.trim();
 
       FullScreenLoader.stopLoading();
 
-      Loaders.successSnackBar(title: 'Поздравляю!', message: 'Ваше имя было изменено.');
+      Loaders.successSnackBar(title: 'Поздравляю!', message: 'Ваш номер телефона был изменен.');
 
       Get.off(() => const ProfileScreen());
     } catch (e) {
@@ -64,5 +63,4 @@ class UpdateNameController extends GetxController{
       Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     }
   }
-  
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ggo/features/shop/models/product_models.dart';
+import 'package:ggo/features/personalization/controlers/user_controller.dart';
 import 'package:ggo/utils/constants/colors.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -16,23 +16,31 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = UserController.instance;
     final CartController cartController = Get.put(CartController());
     final darkTheme = GHelperFunctions.isDarkMode(context);
+    final productController = ProductController.instance;
+    final userId = userController.user.value.id;
+
+    if (userId.isNotEmpty) {
+      cartController.fetchCartItems(userId);
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Корзина'),
-         actions: [
+        actions: [
           IconButton(
-            icon: Icon(EvaIcons.trash_2_outline, color: darkTheme ? GColors.light : GColors.dark),
-            onPressed: () {
-              cartController.cartItems.clear();
+            icon: Icon(EvaIcons.trash_2_outline, size: 23, color: darkTheme ? GColors.light : GColors.dark),
+            onPressed: () async {
+              await cartController.clearCart(userId);
               cartController.calculateTotalCartPrice();
+              cartController.fetchCartItems(userId);
             },
           ),
         ],
       ),
-       body: LayoutBuilder(
+      body: LayoutBuilder(
         builder: (context, constraints) {
           return Padding(
             padding: const EdgeInsets.all(7),
@@ -40,38 +48,47 @@ class CartScreen extends StatelessWidget {
               () => cartController.cartItems.isEmpty
                   ? const Center(child: Text('Корзина пуста'))
                   : ListView.builder(
-                      itemCount: cartController.cartItems.length,
+                      itemCount: cartController.cartItems.first.productId!.length,
                       itemBuilder: (context, index) {
-                        final cartItem = cartController.cartItems[index];
+                        final cartItem = cartController.cartItems.first;
+                        final productId = cartItem.productId![index];
+                        final product = productController.getProductById(productId);
+
                         return Card(
                           color: Colors.transparent,
                           elevation: 0,
                           margin: const EdgeInsets.all(5),
                           child: ListTile(
                             onTap: () {
-                              final ProductController productController = ProductController.instance;
-                              final ProductModel product = productController.getProductById(cartItem.productId);
                               Get.to(() => ProductDetailScreen(product: product));
                             },
-                            leading: GRoundedImage(
-                              imageUrl: cartItem.image ?? '',
-                              borderRadius: 10,
+                            leading: SizedBox(
+                              width: 56,
+                              height: 56,
+                              child: GRoundedImage(
+                                imageUrl: product.images?.isNotEmpty == true ? product.images!.first : '',
+                                borderRadius: 10,
+                              ),
                             ),
-                            title: Text(cartItem.title, style: TextStyle(fontSize: 16, color: darkTheme ? GColors.light : GColors.dark)),
-                            subtitle: Text('\$${cartItem.price} x ${cartItem.quantity}', style: TextStyle(fontSize: 14.5, color: darkTheme ? GColors.light : GColors.dark)),
+                            title: Text(product.title, style: TextStyle(fontSize: 16, color: darkTheme ? GColors.light : GColors.dark)),
+                            subtitle: Text('\$${product.price} x ${cartItem.quantity![index]}', style: TextStyle(fontSize: 14.5, color: darkTheme ? GColors.light : GColors.dark)),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 IconButton(
                                   icon: Icon(Icons.remove_circle, size: 20, color: darkTheme ? GColors.light : GColors.dark),
-                                  onPressed: () => cartController.decreaseQuantity(cartItem),
+                                  onPressed: () {
+                                    cartController.decreaseQuantity(userId, productId);
+                                  },
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.add_circle, size: 20, color: darkTheme ? GColors.light : GColors.dark),
-                                  onPressed: () => cartController.increaseQuantity(cartItem),
+                                  onPressed: () {
+                                    cartController.increaseQuantity(userId, productId);
+                                  },
                                 ),
                               ],
-),
+                            ),
                           ),
                         );
                       },
@@ -99,7 +116,7 @@ bottomNavigationBar: Obx(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    'Checkout',
+                    'Оформить',
                     style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 2),

@@ -15,7 +15,7 @@ class ReAuthLoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = UserController.instance;
     return Scaffold(
-      appBar: const AuthAppBar(showBackArrow: true, title: Text('Re-authenticate user')),
+      appBar: const AuthAppBar(showBackArrow: true, title: Text('Повторная аутентификация пользователя')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(GSizes.defaultSpace),
@@ -39,16 +39,16 @@ class ReAuthLoginForm extends StatelessWidget {
                   () => TextFormField(
                     obscureText: controller.hidePassword.value,
                     controller: controller.verifyPassword,
-                    validator: (value) => GValidator.validateEmptyText('Password',value),
+                    validator: (value) => GValidator.validateEmptyText('пароль', value),
                     decoration: InputDecoration(
                       labelText: GTexts.password,
                       prefixIcon: const Icon(Iconsax.password_check_outline),
                       suffixIcon: IconButton(
                         onPressed: () => controller.hidePassword.value = !controller.hidePassword.value,
                         icon: Icon(controller.hidePassword.value ? Iconsax.eye_slash_outline : Iconsax.eye_outline),
-                      )
+                      ),
                     ),
-                  )
+                  ),
                 ),
 
                 const SizedBox(height: 17),
@@ -58,7 +58,7 @@ class ReAuthLoginForm extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () => controller.reAuthenticateEmailAndPasswordUser(),
-                    child: const Text('verify') 
+                    child: const Text('Подтвердить') 
                   ),
                 )
               ],

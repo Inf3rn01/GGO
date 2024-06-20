@@ -22,13 +22,19 @@ class AddressController extends GetxController {
   final Rx<AddressModel> selectedAddress = AddressModel.empty().obs;
   final addressRepository = Get.put(AddressRepository());
 
+  @override
+  void onInit () {
+    super.onInit();
+    getAllUserAddresses();
+  }
+
   Future<List<AddressModel>> getAllUserAddresses() async {
     try {
       final addresses = await addressRepository.fetchUserAddress();
       selectedAddress.value = addresses.firstWhere((element) => element.selectedAddress, orElse: () => AddressModel.empty());
       return addresses;
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Address not found', message: e.toString());
+      Loaders.errorSnackBar(title: 'Адрес не найден', message: e.toString());
       return [];
     }
   }
@@ -45,13 +51,13 @@ class AddressController extends GetxController {
       await addressRepository.updateSelectedField(selectedAddress.value.id, true);
 
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Error in selection', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка выбора', message: e.toString());
     }
   }
 
   Future addNewAddress() async {
     try {
-      FullScreenLoader.openLoadingDialog('Storing address...', GImages.loading);
+      FullScreenLoader.openLoadingDialog('Сохранение адреса...', GImages.loading);
 
       final isConnected = await NetworkManager.instance.isConnected();
 
@@ -81,7 +87,7 @@ class AddressController extends GetxController {
 
       FullScreenLoader.stopLoading();
 
-      Loaders.successSnackBar(title: 'Congratulations', message: 'Your address has been saved successfully.');
+      Loaders.successSnackBar(title: 'Поздравляю!', message: 'Ваш адрес был успешно сохранён');
 
       refreshData.toggle();
 
@@ -91,7 +97,16 @@ class AddressController extends GetxController {
 
     } catch (e) {
       FullScreenLoader.stopLoading();
-      Loaders.errorSnackBar(title: 'Address not found', message: e.toString());
+      Loaders.errorSnackBar(title: 'Адрес не найден', message: e.toString());
+    }
+  }
+
+  Future<void> deleteAddress(String addressId) async {
+    try {
+      await addressRepository.deleteAddress(addressId);
+      refreshData.toggle();
+    } catch (e) {
+      Loaders.errorSnackBar(title: 'Ошибка удаления', message: e.toString());
     }
   }
 

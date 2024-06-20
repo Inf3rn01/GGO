@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:get/get.dart';
 import 'package:ggo/common/widgets/texts/section_heading.dart';
-import 'package:ggo/utils/constants/images_strings.dart';
-import 'package:ggo/utils/helpers/helper_functions.dart';
+import 'package:ggo/features/shop/screens/wallet/wallet.dart';
 
-import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../personalization/controlers/user_controller.dart';
 
 class BillingPaymentSection extends StatelessWidget {
   const BillingPaymentSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final darkTheme = GHelperFunctions.isDarkMode(context);
+    final UserController userController = Get.find<UserController>();
     return Column(
       children: [
-        GSectionsHeading(title: 'Payment Methods', textSize: 20, buttonTitle: 'change', onPressed: (){}),
-        const SizedBox(height: GSizes.spaceBtwItems),
-        Row(
-          children: [
-            GRoundedContainer(
-              width: 60,
-              height: 35,
-              backgroundColor: darkTheme ? GColors.light : GColors.white,
-              padding: const EdgeInsets.all(GSizes.sm),
-              child: const Image(image: AssetImage(GImages.paypal), fit: BoxFit.contain),
-            ),
-            const SizedBox(width: GSizes.spaceBtwItems / 2),
-            const Text('Paypal', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
-
-          ],
-        )
+        GSectionsHeading(title: 'Баланс в кошельке', textSize: 20, buttonTitle: 'пополнить', onPressed: () => Get.to(() => WalletScreen())),
+        const SizedBox(height: GSizes.spaceBtwItems / 4),
+        Obx(() {
+          return Row(
+            children: [
+              Text(
+                '\$${double.tryParse(userController.user.value.balance)?.toStringAsFixed(2) ?? "0.00"}',
+                style: const TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.bold),
+              ),
+            ],
+          );
+        }),
       ],
     );
   }

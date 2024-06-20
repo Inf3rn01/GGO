@@ -25,7 +25,7 @@ class CategoryRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -39,7 +39,7 @@ class CategoryRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -63,7 +63,7 @@ class CategoryRepository extends GetxController {
   } on PlatformException catch (e) {
     throw GPlatformException(e.code).message;
   } catch (e) {
-    throw 'Something went wrong. Please try again.';
+    throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
   }
 }
 
@@ -76,7 +76,7 @@ Future<CategoryModel> getCategoryById(String categoryId) async {
       throw 'Category not found';
     }
   } catch (e) {
-    throw 'Error fetching category: $e';
+    throw 'Ошибка при получении категории: $e';
   }
 }
 
@@ -91,7 +91,7 @@ Future<CategoryModel> getCategoryById(String categoryId) async {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
 
@@ -102,7 +102,7 @@ Future<CategoryModel> getCategoryById(String categoryId) async {
     try {
       await _db.collection('Categories').doc(categoryId).delete();
     } catch (e) {
-      throw 'Error deleting category: $e';
+      throw 'Ошибка при удалении категории: $e';
     }
   }
 

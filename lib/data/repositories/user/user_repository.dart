@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -88,6 +89,18 @@ class UserRepository extends GetxController {
       throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
+  Future<void> deleteCart(String userId) async {
+  try {
+    await _db.collection('Cart').doc(userId).delete();
+    if (kDebugMode) {
+      print('User cart deleted successfully.');
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error deleting user cart: $e');
+    }
+  }
+}
 
   /// Функция загрузки любого изображения
   Future<String> uploadImage(String path, XFile image) async {

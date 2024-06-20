@@ -24,9 +24,9 @@ class NetworkManager extends GetxController {
   final ConnectivityResult result = resultList.last;
   _connectionStatus.value = result;
   if (result == ConnectivityResult.none) {
-    Loaders.errorSnackBar(title: 'No Internet Connection', message: 'Please check your internet connection and try again.');
+    Loaders.errorSnackBar(title: 'Нет подключения к интернету!', message: 'Пожалуйста, проверьте подключение к Интернету и повторите попытку.');
   } else {
-    Loaders.successSnackBar(title: 'Alright, you have ethernet connection!');
+    Loaders.successSnackBar(title: 'Всё в порядке', message: 'У вас есть подключение к интернету.');
   }
 }
 
@@ -40,13 +40,11 @@ class NetworkManager extends GetxController {
       return true;
     }
   } on PlatformException catch (e) {
-    // Обработка ошибки платформы
     if (kDebugMode) {
       print('PlatformException: ${e.message}');
     }
     return false;
   } catch (e) {
-    // Обработка других ошибок
     if (kDebugMode) {
       print('Exception: ${e.toString()}');
     }

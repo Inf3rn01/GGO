@@ -6,6 +6,7 @@ import 'package:ggo/common/widgets/shimmers/shimmer.dart';
 import 'package:ggo/common/widgets/texts/section_heading.dart';
 import 'package:ggo/features/personalization/controlers/user_controller.dart';
 import 'package:ggo/features/personalization/screens/profile/widgets/change_name_widget.dart';
+import 'package:ggo/features/personalization/screens/profile/widgets/change_phone_widget.dart';
 import 'package:ggo/features/personalization/screens/profile/widgets/profile_menu.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/images_strings.dart';
@@ -19,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = UserController.instance;
     return Scaffold(
-      appBar: const AuthAppBar(showBackArrow: true, title: Text('Profile')),
+      appBar: const AuthAppBar(showBackArrow: true, title: Text('Профиль')),
       /// Body
       body: SingleChildScrollView(
         child: Padding(
@@ -52,8 +53,8 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: GSizes.spaceBtwItems),
 
               ProfileMenu(title: 'Имя', value: controller.user.value.name, onPressed: () => Get.to(() => const ChangeNameScreen())),
-              ProfileMenu(title: 'Почта', value: controller.user.value.email, onPressed: (){}),
-              ProfileMenu(title: 'Телефон', value: controller.user.value.phoneNumber, onPressed: (){}),
+              //ProfileMenu(title: 'Почта', value: controller.user.value.email, onPressed: (){}),
+              ProfileMenu(title: 'Телефон', value: controller.user.value.phoneNumber, onPressed: () => Get.to(() => const ChangePhoneScreen())),
               
               const Divider(),
               const SizedBox(height: GSizes.spaceBtwItems + 3),

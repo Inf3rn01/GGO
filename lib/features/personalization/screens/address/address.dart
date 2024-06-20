@@ -23,7 +23,7 @@ class UserAddressScreen extends StatelessWidget {
       ),
       appBar: AuthAppBar(
         showBackArrow: true,
-        title: Text('Addresses', style: Theme.of(context).textTheme.headlineSmall),
+        title: Text('Выбор места доставки', style: Theme.of(context).textTheme.headlineSmall),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -34,7 +34,7 @@ class UserAddressScreen extends StatelessWidget {
               future: controller.getAllUserAddresses(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator(color: GColors.primary);
+                  return const Center(child: CircularProgressIndicator(color: GColors.primary));
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (snapshot.hasData) {
@@ -48,7 +48,7 @@ class UserAddressScreen extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Container();
+                  return const Center(child: Text('Aдрес не найден'));
                 }
               },
             ),

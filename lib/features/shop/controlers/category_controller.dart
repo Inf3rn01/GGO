@@ -30,9 +30,9 @@ class CategoryController extends GetxController {
 
       allCategories.assignAll(categories);
 
-      featuredCategories.assignAll(allCategories.where((category) => category.isFeatured && category.parentId.isEmpty).take(5).toList());
+      featuredCategories.assignAll(allCategories.where((category) => category.isFeatured).take(5).toList());
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     } finally {
       // Remove loader
       isLoading.value = false;
@@ -49,7 +49,7 @@ class CategoryController extends GetxController {
 
       selectedCategory.value = category;
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     } finally {
       isLoading.value = false;
     }
@@ -65,7 +65,7 @@ class CategoryController extends GetxController {
 
       categoryProducts.assignAll(products);
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     } finally {
       // Remove loader
       isLoading.value = false;
@@ -82,9 +82,8 @@ class CategoryController extends GetxController {
 
       await fetchCategories();
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     } finally {
-      // Remove loader
       isLoading.value = false;
     }
   }

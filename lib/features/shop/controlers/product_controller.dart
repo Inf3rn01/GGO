@@ -7,7 +7,7 @@ import '../models/product_models.dart';
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
   final isLoading = false.obs;
-  RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
+  RxList<ProductModel> product = <ProductModel>[].obs;
   final productRepository = Get.put(ProductRepository());
 
   RxList<ProductModel> allProducts = <ProductModel>[].obs;
@@ -25,11 +25,11 @@ class ProductController extends GetxController {
 
       final products = await productRepository.getFeaturedProducts();
 
-      featuredProducts.assignAll(products);
+      product.assignAll(products);
       allProducts.assignAll(products);
 
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     } finally {
       isLoading.value = false;
     }
@@ -50,7 +50,7 @@ class ProductController extends GetxController {
       allProducts.assignAll(products);
       filteredProducts.assignAll(products);
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     } finally {
       isLoading.value = false;
     }
@@ -58,11 +58,9 @@ class ProductController extends GetxController {
 
   void filterProducts(String query) {
     if (query.isEmpty) {
-      // If the query is empty, show all products
-      featuredProducts.assignAll(allProducts);
+      product.assignAll(allProducts);
     } else {
-      // Filter the products based on the query
-      featuredProducts.assignAll(
+      product.assignAll(
         allProducts.where((product) =>
           product.title.toLowerCase().contains(query.toLowerCase())
         ).toList()
@@ -77,13 +75,13 @@ class ProductController extends GetxController {
     }
 
     switch (option) {
-      case 'Name':
+      case 'По алфавиту':
         filteredProducts.sort((a, b) => a.title.compareTo(b.title));
         break;
-      case 'Higher price':
+      case 'Высокая - Низкая цена':
         filteredProducts.sort((a, b) => b.price.compareTo(a.price));
         break;
-      case 'Lower price':
+      case 'Низкая - Высокая цена':
         filteredProducts.sort((a, b) => a.price.compareTo(b.price));
         break;
       default:

@@ -20,7 +20,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again. $e';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз. $e';
     }
   }
 
@@ -35,7 +35,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again. $e';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз. $e';
     }
   }
 }

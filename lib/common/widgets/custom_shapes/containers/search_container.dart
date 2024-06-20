@@ -20,7 +20,6 @@ class SearchContainer extends StatefulWidget {
   final ValueChanged<String> onChanged;
 
   @override
-  // ignore: library_private_types_in_public_api
   _SearchContainerState createState() => _SearchContainerState();
 }
 
@@ -47,26 +46,49 @@ class _SearchContainerState extends State<SearchContainer> {
 
     return GestureDetector(
       onTap: widget.onTap,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 27.0, right: 27.0, top: 34, bottom: 28),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _controller,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Iconsax.search_normal_1_outline, size: 18, color: GColors.darkGrey),
-                  border: InputBorder.none,
-                  hintText: widget.text,
-                  hintStyle: const TextStyle(fontSize: 15, color: GColors.darkGrey, fontWeight: FontWeight.w500),
-                  filled: true,
-                  fillColor: darkTheme ? GColors.dark : GColors.light,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 17),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          // Determine if the screen is small or large
+          bool isLargeScreen = constraints.maxWidth > 600;
+
+          // Adjust padding based on screen size
+          EdgeInsets responsivePadding = isLargeScreen
+              ? const EdgeInsets.symmetric(horizontal: 50.0, vertical: 25.0)
+              : const EdgeInsets.symmetric(horizontal: 27.0, vertical: 20.0);
+
+          // Adjust hint text style based on screen size
+          TextStyle hintStyle = TextStyle(
+            fontSize: isLargeScreen ? 16 : 14,
+            color: GColors.darkGrey,
+            fontWeight: FontWeight.w500,
+          );
+
+          return Padding(
+            padding: responsivePadding,
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(
+                        Iconsax.search_normal_1_outline,
+                        size: 18,
+                        color: GColors.darkGrey,
+                      ),
+                      border: widget.showBorder ? const OutlineInputBorder() : InputBorder.none,
+                      hintText: widget.text,
+                      hintStyle: hintStyle,
+                      filled: widget.showBackground,
+                      fillColor: darkTheme ? GColors.dark : GColors.light,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 17.0),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

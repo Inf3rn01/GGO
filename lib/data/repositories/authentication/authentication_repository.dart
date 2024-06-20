@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:get/get.dart';
+import 'package:flutter/services.dart';import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ggo/data/repositories/user/user_repository.dart';
 import 'package:ggo/features/authentication/screens/login/login.dart';
@@ -28,7 +26,7 @@ class AuthenticationRepository extends GetxController{
   /// Called from main.dart on app launch
   @override
   void onReady() {
-    FlutterNativeSplash.remove();
+    //FlutterNativeSplash.remove();
     screenRedirect();
   }
   
@@ -64,7 +62,7 @@ class AuthenticationRepository extends GetxController{
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Somethink went wrong. Please try again';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз';
     }
   }
 
@@ -81,7 +79,7 @@ class AuthenticationRepository extends GetxController{
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Somethink went wrong. Please try again';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз';
     }
   }
 
@@ -98,7 +96,7 @@ class AuthenticationRepository extends GetxController{
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Somethink went wrong. Please try again';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз';
     }
   }
 
@@ -115,7 +113,7 @@ class AuthenticationRepository extends GetxController{
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Somethink went wrong. Please try again';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз';
     }
   }
 
@@ -136,7 +134,7 @@ class AuthenticationRepository extends GetxController{
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Somethink went wrong. Please try again';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз';
     }
   }
 
@@ -154,7 +152,7 @@ class AuthenticationRepository extends GetxController{
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Somethink went wrong. Please try again';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз';
     }
   }
 
@@ -172,7 +170,7 @@ class AuthenticationRepository extends GetxController{
     } on PlatformException catch (e) {
       throw GPlatformException(e.code).message;
     } catch (e) {
-      throw 'Somethink went wrong. Please try again';
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз';
     }
   }
 }

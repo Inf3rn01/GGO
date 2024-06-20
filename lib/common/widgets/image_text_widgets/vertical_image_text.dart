@@ -44,17 +44,20 @@ class GVerticalImagesTexts extends StatelessWidget {
                 isNetworkImage: isNetworkImage,
               ),
               const SizedBox(height: 3),
-              /// Text
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 13.4,
-                  fontWeight: FontWeight.w600,
-                  color: darkTheme ? GColors.white : GColors.dark,
+              /// Text with SizedBox to limit width
+              SizedBox(
+                width: width,
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 13.4,
+                    fontWeight: FontWeight.w600,
+                    color: darkTheme ? GColors.white : GColors.dark,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
               ),
             ],
           ),

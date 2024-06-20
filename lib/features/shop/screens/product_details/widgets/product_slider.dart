@@ -38,7 +38,7 @@ class GProductSlider extends StatelessWidget {
                   fit: BoxFit.cover,
               )).toList(),
             ),
-            if (showCounter) // Проверка на видимость счётчика
+            if (showCounter)
               Positioned(
                 bottom: 8.0,
                 left: 8.0,

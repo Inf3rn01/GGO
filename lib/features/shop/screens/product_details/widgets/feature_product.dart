@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
-
-import '../../../models/product_features_model.dart';
+import 'package:ggo/features/shop/models/product_features_model.dart';
 
 class FeaturesProduct extends StatelessWidget {
   const FeaturesProduct({super.key, required this.features});
-
-  final List<ProductFeaturesModel> features;
+  final ProductFeaturesModel features;
 
   @override
   Widget build(BuildContext context) {
-    print('Features: $features');
     return Column(
-      children: features.map((feature) {
+      children: features.features.entries.map((entry) {
         return Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${feature.id}:', // id в качестве названия характеристики
-                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                  '${entry.key}:',
+                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                 ),
                 Text(
-                  feature.features.values.first.toString(), // первое значение из Map в качестве значения характеристики
-                  style: const TextStyle(fontSize: 16),
+                  entry.value.toString(),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),

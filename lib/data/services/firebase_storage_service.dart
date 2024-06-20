@@ -18,7 +18,7 @@ class GFirebaseStorageService extends GetxController {
       final imageData = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
       return imageData;
     } catch (e) {
-      throw 'Error loading image data: $e';
+      throw 'Ошибка при загрузке данных изображения: $e';
     }
   }
   
@@ -34,11 +34,11 @@ class GFirebaseStorageService extends GetxController {
       if (e is FirebaseException) {
         throw 'Firebase exception: ${e.message}';
       } else if (e is SocketException) {
-        throw 'Network error: ${e.message}';
+        throw 'Ошибка сети: ${e.message}';
       } else if (e is PlatformException) {
-        throw 'Platform exception: ${e.message}';
+        throw 'Исключение для платформы: ${e.message}';
       } else {
-        throw 'Something went wrong. Please try again';
+        throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
       }
     }
   }
@@ -55,11 +55,11 @@ class GFirebaseStorageService extends GetxController {
       if (e is FirebaseException) {
         throw 'Firebase exception: ${e.message}';
       } else if (e is SocketException) {
-        throw 'Network error: ${e.message}';
+        throw 'Ошибка сети: ${e.message}';
       } else if (e is PlatformException) {
-        throw 'Platform exception: ${e.message}';
+        throw 'Исключение для платформы: ${e.message}';
       } else {
-        throw 'Something went wrong. Please try again';
+        throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
       }
     }
   }

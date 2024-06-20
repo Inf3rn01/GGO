@@ -32,7 +32,7 @@ class ProductAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 13, top: 13, right: 5),
+        padding: const EdgeInsets.only(left: 13, top: 20, right: 5),
         child: Column(
           children: [
             Row(
@@ -46,9 +46,9 @@ class ProductAppBar extends StatelessWidget implements PreferredSizeWidget {
                       borderRadius: BorderRadius.circular(100),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withOpacity(0.15),
                           offset: const Offset(0, 0),
-                          blurRadius: 20,
+                          blurRadius: 25,
                         ),
                       ],
                     ),

@@ -16,7 +16,6 @@ class ResetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final darkTheme = GHelperFunctions.isDarkMode(context);
 
     return Scaffold(
@@ -31,28 +30,53 @@ class ResetPasswordScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(GSizes.defaultSpace),
-        child: Column(
-          children: [
-
-            /// Title & SubTitle
-            Text(GTexts.changeYourPasswordTitle, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
-            const SizedBox(height: GSizes.spaceBtwItems),
-            const Text(GTexts.changeYourPasswordSubTitle, style: TextStyle(fontSize: 13, color: GColors.darkGrey), textAlign: TextAlign.center),
-            const SizedBox(height: 27),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            // Determine if the screen is small or large
+            bool isLargeScreen = constraints.maxWidth > 600;
             
-            /// Buttons
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(onPressed: ()=> Get.offAll(() => const LoginScreen()), child: const Text('Done')),
-            ),
-          
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(onPressed: () => ForgetPasswordController.instance.resendPasswordResetEmail(email), child: const Text(GTexts.resendEmail, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 14.5)))
-            ),
-          ],
-        ),
-        ),
+            return Column(
+              children: [
+                // Title & SubTitle
+                Text(
+                  GTexts.changeYourPasswordTitle, 
+                  style: Theme.of(context).textTheme.headlineMedium, 
+                  textAlign: TextAlign.center
+                ),
+                const SizedBox(height: GSizes.spaceBtwItems),
+                const Text(
+                  GTexts.changeYourPasswordSubTitle, 
+                  style: TextStyle(fontSize: 13, color: GColors.darkGrey), 
+                  textAlign: TextAlign.center
+                ),
+                const SizedBox(height: 27),
+                
+                // Buttons with responsive width
+                SizedBox(
+                  width: isLargeScreen ? 400 : double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Get.offAll(() => const LoginScreen()), 
+                    child: const Text('Готово')
+                  ),
+                ),
+              
+                const SizedBox(height: 12), // Adjust spacing between buttons
+                
+                SizedBox(
+                  width: isLargeScreen ? 400 : double.infinity,
+                  child: TextButton(
+                    onPressed: () => ForgetPasswordController.instance.resendPasswordResetEmail(email), 
+                    child: const Text(
+                      GTexts.resendEmail, 
+                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 14.5)
+                    )
+                  )
+                ),
+              ],
+            );
+          }
+        )
+      ),
     );
   }
 }

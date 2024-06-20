@@ -7,7 +7,7 @@ import 'package:ggo/features/shop/screens/order/order.dart';
 import 'package:icons_plus/icons_plus.dart';
 import '../../../../common/widgets/app_bar/market_appbar.dart';
 import '../../../shop/screens/wallet/wallet.dart';
-import '../tip_how_get_a_gun/get_gun.dart';
+import '../tip_how_get_a_gun/tips_get_gun.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

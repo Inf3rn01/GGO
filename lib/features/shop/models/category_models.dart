@@ -4,7 +4,6 @@ class CategoryModel {
   String id;
   String name;
   String image;
-  String parentId;
   bool isFeatured;
   
   ///Конструктор для CategoryModel
@@ -13,7 +12,6 @@ class CategoryModel {
     required this.name,
     required this.image,
     required this.isFeatured,
-    this.parentId = '',
   });
 
   /// метод для создания пустой модели пользователя
@@ -24,7 +22,6 @@ class CategoryModel {
     return {
       'Name': name,
       'Image': image,
-      'ParentId': parentId,
       'IsFeatured': isFeatured,
     };
   } 
@@ -37,7 +34,6 @@ class CategoryModel {
         id: document.id,
         name: data['Name'] ?? '',
         image: data['Image'] ?? '',
-        parentId: data['ParentId'] ?? '',
         isFeatured: data['IsFeatured'] ?? false,
       );
     } else {

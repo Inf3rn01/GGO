@@ -20,7 +20,7 @@ class ForgetPasswordController extends GetxController{
     try {
       
       // Start loading
-      FullScreenLoader.openLoadingDialog('Processing your request...', GImages.loading);
+      FullScreenLoader.openLoadingDialog('Обрабатываю ваши данные...', GImages.loading);
 
       //Check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
@@ -44,7 +44,7 @@ class ForgetPasswordController extends GetxController{
       FullScreenLoader.stopLoading();
 
       // Show success screen
-      Loaders.successSnackBar(title: 'Email sent', message: 'Email link sent to reset your password'.tr);
+      Loaders.successSnackBar(title: 'Письмо отправлено', message: 'На вашу электронную почту отправлена ссылка для сброса пароля'.tr);
 
       // Redirect
       Get.to(() => ResetPasswordScreen(email: email.text.trim() ));
@@ -54,7 +54,7 @@ class ForgetPasswordController extends GetxController{
       FullScreenLoader.stopLoading();
 
       // Show some generic error to the user
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     }
   }
 
@@ -63,7 +63,7 @@ class ForgetPasswordController extends GetxController{
     try {
 
       // Start loading
-      FullScreenLoader.openLoadingDialog('Processing your request...', GImages.loading);
+      FullScreenLoader.openLoadingDialog('Обрабатываю ваши данные...', GImages.loading);
 
       //Check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
@@ -80,14 +80,14 @@ class ForgetPasswordController extends GetxController{
       FullScreenLoader.stopLoading();
 
       // Show success screen
-      Loaders.successSnackBar(title: 'Email sent', message: 'Email link sent to reset your password'.tr);
+      Loaders.successSnackBar(title: 'Письмо отправлено', message: 'На вашу электронную почту отправлена ссылка для сброса пароля'.tr);
 
     } catch (e) {
       // Remove loader
       FullScreenLoader.stopLoading();
 
       // Show some generic error to the user
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     }
   }
 

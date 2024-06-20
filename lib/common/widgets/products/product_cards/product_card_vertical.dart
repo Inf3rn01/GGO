@@ -22,6 +22,7 @@ class GProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
     final dark = GHelperFunctions.isDarkMode(context);
+    final screenWidth = GHelperFunctions.screenWidth();
 
     return GestureDetector(
       onTap: () => Get.to(() => ProductDetailScreen(product: product)),
@@ -29,48 +30,53 @@ class GProductCardVertical extends StatelessWidget {
         showBorder: true,
         borderColor: GColors.borderPrimary.withOpacity(0.02),
         backgroundColor: dark ? const Color(0xFF202020) : const Color(0xFFF0F0F0),
-        child: Stack(
-          children: [
-            Positioned.fill(
-              bottom: 88,
-              child: GProductSlider(product: product.images!, showCounter: false),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 7.5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 10),
-                    Flexible(
-                      child: ProductPriceText(
-                        price: controller.getProductPrice(product),
-                        size: 19,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Flexible(
-                      child: ProductTitleText(
-                        title: product.title,
-                        smallSize: true,
-                        maxLines: 1,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    const Flexible(
-                      child: RatingWithOneStar(rating: 4, reviewCount: 1)
-                    ),
-                  ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final imageHeight = constraints.maxHeight * 0.3;
+            return Stack(
+              children: [
+                Positioned.fill(
+                  bottom: imageHeight,
+                  child: GProductSlider(product: product.images!, showCounter: false),
                 ),
-              ),
-            ),
-          ],
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7.5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(height: 10),
+                        Flexible(
+                          child: ProductPriceText(
+                            price: controller.getProductPrice(product),
+                            size: 19,
+                            maxLines: 1,
+                          ),
+                        ),
+                        Flexible(
+                          child: ProductTitleText(
+                            title: product.title,
+                            smallSize: screenWidth < 600,
+                            maxLines: 1,
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        const Flexible(
+                          child: RatingWithOneStar(rating: 4, reviewCount: 1)
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

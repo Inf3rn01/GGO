@@ -19,47 +19,56 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
-    if (localStorage.read('REMEMBER_ME_EMAIL') != null && localStorage.read('REMEMBER_ME_PASSWORD') != null) {
-      email.text = localStorage.read('REMEMBER_ME_EMAIL');
-      password.text = localStorage.read('REMEMBER_ME_PASSWORD');
+    super.onInit();
+    String? savedEmail = localStorage.read('REMEMBER_ME_EMAIL');
+    String? savedPassword = localStorage.read('REMEMBER_ME_PASSWORD');
+    if (savedEmail != null && savedPassword != null) {
+      email.text = savedEmail;
+      password.text = savedPassword;
       rememberMe.value = true;
     }
-    super.onInit();
   }
 
   /// SignIn
   void signIn() async {
-    try {
-      FullScreenLoader.openLoadingDialog('Logging you in...', GImages.loading);
+  try {
+    FullScreenLoader.openLoadingDialog('Вход в систему...', GImages.loading);
 
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) {
-        FullScreenLoader.stopLoading();
-        return;
-      }
-
-      if (loginFormKey.currentState != null && !loginFormKey.currentState!.validate()) {
-        FullScreenLoader.stopLoading();
-        return;
-      }
-
-      if (rememberMe.value) {
-        localStorage.write('REMEMBER_ME_EMAIL', email.text.trim());
-        localStorage.write('REMEMBER_ME_PASSWORD', password.text.trim());
-      } else {
-        localStorage.remove('REMEMBER_ME_EMAIL');
-        localStorage.remove('REMEMBER_ME_PASSWORD');
-      }
-
-      final userCredential = await AuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
-
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (!isConnected) {
       FullScreenLoader.stopLoading();
-
-      AuthenticationRepository.instance.screenRedirect();
-
-    } catch (e) {
-      FullScreenLoader.stopLoading();
-      Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.errorSnackBar(
+          title: 'Нет интернета', 
+          message: 'Пожалуйста, проверьте подключение к Интернету и повторите попытку'
+      );
+      return;
     }
+
+    if (loginFormKey.currentState != null && !loginFormKey.currentState!.validate()) {
+      FullScreenLoader.stopLoading();
+      return;
+    }
+
+    if (rememberMe.value) {
+      localStorage.write('REMEMBER_ME_EMAIL', email.text.trim());
+      localStorage.write('REMEMBER_ME_PASSWORD', password.text.trim());
+    } else {
+      localStorage.remove('REMEMBER_ME_EMAIL');
+      localStorage.remove('REMEMBER_ME_PASSWORD');
+    }
+
+    final userCredential = await AuthenticationRepository.instance.loginWithEmailAndPassword(
+        email.text.trim(), password.text.trim()
+    );
+
+    FullScreenLoader.stopLoading();
+
+    AuthenticationRepository.instance.screenRedirect();
+
+  } catch (e) {
+    FullScreenLoader.stopLoading();
+    Loaders.errorSnackBar(title: 'Ошибка!', message: 'Не верный логин или пароль');
   }
+}
+
 }

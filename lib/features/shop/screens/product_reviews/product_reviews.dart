@@ -12,33 +12,36 @@ class ProductReviewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final screenWidth = MediaQuery.of(context).size.width;
 
+    return Scaffold(
       /// Appbar
-      appBar: AuthAppBar(title: Text('Reviews & Ratings'), showBackArrow: true),
+      appBar: const AuthAppBar(title: Text('Отзывы'), showBackArrow: true),
 
       /// Body
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(screenWidth < 600 ? 16 : 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Leave your feedback. We hope you like our product!', style: TextStyle(fontSize: 14.5)),
-              SizedBox(height: GSizes.spaceBtwItems / 1.5),
+              Text(
+                'Оставьте свой отзыв. Мы надеемся, что вам нравится наш продукт!',
+                style: TextStyle(fontSize: screenWidth < 600 ? 14.5 : 15.5),
+              ),
+              const SizedBox(height: GSizes.spaceBtwItems / 1.5),
 
               /// overall product ratings
-              OverallProductRaiting(),
-              GRaitingBarIndicator(raiting: 4),
-              SizedBox(height: 2),
-              RatingWithOneStar(showRating: false, showIcon: false, rating: 4, reviewCount: 1),
-              SizedBox(height: GSizes.spaceBtwSections / 5),
-              Divider(thickness: 1.5),
-              SizedBox(height: GSizes.spaceBtwSections / 1.5),
+              const OverallProductRaiting(),
+              const GRaitingBarIndicator(raiting: 4),
+              const SizedBox(height: 2),
+              const RatingWithOneStar(showRating: false, showIcon: false, rating: 4, reviewCount: 1),
+              const SizedBox(height: GSizes.spaceBtwSections / 5),
+              const Divider(thickness: 1.5),
+              const SizedBox(height: GSizes.spaceBtwSections / 1.5),
 
               /// User reviews list
-              UserReviewCard(),
-              
+              const UserReviewCard(),
             ],
           ),
         ),
@@ -46,3 +49,4 @@ class ProductReviewsScreen extends StatelessWidget {
     );
   }
 }
+

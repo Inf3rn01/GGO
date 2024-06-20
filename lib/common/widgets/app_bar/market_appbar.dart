@@ -20,44 +20,58 @@ class MarketAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return Padding(
       padding: const EdgeInsets.all(0),
-      child: Stack(
-        children: [
-          AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: dark ? const Color(0xFF111111) : GColors.white,
-            title: Padding(
-              padding: const EdgeInsets.all(0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    imageAssetPath,
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
-                    color: dark ? GColors.white : const Color(0xFF101010),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          // Determine if the screen is small or large
+          bool isLargeScreen = constraints.maxWidth > 600;
+
+          // Adjust font size and image size based on screen size
+          double fontSize = isLargeScreen ? 20 : 16;
+          double imageSize = isLargeScreen ? 50 : 40;
+
+          return Stack(
+            children: [
+              AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: dark ? const Color(0xFF111111) : GColors.white,
+                title: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        imageAssetPath,
+                        width: imageSize,
+                        height: imageSize,
+                        fit: BoxFit.cover,
+                        color: dark ? GColors.white : const Color(0xFF101010),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Text(
-                      title,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              height: 0.5,
-              color: const Color(0xFF949494)
-            ),
-          ),
-        ],
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  height: 0.5,
+                  color: const Color(0xFF949494),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final user_controller = Get.put(UserController());
+  final userController = Get.put(UserController());
   final controller = Get.put(ProductController());
   String searchQuery = '';
 
@@ -38,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 /// Appbar
                 const MarketAppBar(),
+
+                const SizedBox(height: 10),
 
                 /// Seachbar
                 SearchContainer(
@@ -56,10 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       /// Heading
-                      GSectionsHeading(title: 'Популярные категории', textSize: 20.5, showActionButton: false),
-
+                      GSectionsHeading(title: 'Популярные категории', textSize: 23.5, showActionButton: false),
                       SizedBox(height: 8),
-
                       /// Categories
                       GHomeCategories(),
                     ],
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           /// Body
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Column(
               children: [
                 /// Promo Slider
@@ -81,17 +81,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 30),
 
                 /// Heading
-                const GSectionsHeading(title: 'Выбрали для вас', textSize: 20, showActionButton: false),
+                const GSectionsHeading(title: 'Выбрали для вас', textSize: 23, showActionButton: false),
 
                 /// Products
                 Obx(
                   () {
-                    if (controller.featuredProducts.isEmpty) {
-                      return Center(child: Text('No data found!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
+                    if (controller.product.isEmpty) {
+                      return Center(child: Text('Товары не найдены!', style: TextStyle(color: darkTheme ? Colors.white.withOpacity(0.65) : Colors.white.withOpacity(0.65))));
                     }
                     return GGridLayout(
-                      itemCount: controller.featuredProducts.length,
-                      itemBuilder: (_, index) => GProductCardVertical(product: controller.featuredProducts[index]),
+                      itemCount: controller.product.length,
+                      itemBuilder: (_, index) => GProductCardVertical(product: controller.product[index]),
                     );
                   },
                 )
