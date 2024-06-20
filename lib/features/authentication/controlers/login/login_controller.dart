@@ -61,9 +61,9 @@ class LoginController extends GetxController {
         email.text.trim(), password.text.trim()
     );
 
-    FullScreenLoader.stopLoading();
-
     AuthenticationRepository.instance.screenRedirect();
+    
+    FullScreenLoader.stopLoading();
 
   } catch (e) {
     FullScreenLoader.stopLoading();
