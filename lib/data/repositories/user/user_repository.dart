@@ -89,6 +89,7 @@ class UserRepository extends GetxController {
       throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
+  
   Future<void> deleteCart(String userId) async {
   try {
     await _db.collection('Cart').doc(userId).delete();

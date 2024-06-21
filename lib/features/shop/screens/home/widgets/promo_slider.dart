@@ -7,6 +7,7 @@ import 'package:ggo/utils/constants/colors.dart';
 
 import '../../../controlers/banner_controller.dart';
 
+
 class GPromoSlider extends StatefulWidget {
   const GPromoSlider({
     super.key,
@@ -29,6 +30,14 @@ class _GPromoSliderState extends State<GPromoSlider> {
   Widget build(BuildContext context) {
     return Obx(
       () {
+        if (controller.isLoading.value) {
+          return const Center(child: LinearProgressIndicator());
+        }
+
+        if (controller.banners.isEmpty) {
+          return const Center(child: Text('Нет доступных баннеров'));
+        }
+
         return Column(
           children: [
             CarouselSlider.builder(

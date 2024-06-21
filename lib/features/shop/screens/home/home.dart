@@ -53,15 +53,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 /// Categories
-                const Padding(
-                  padding: EdgeInsets.only(left: GSizes.defaultSpace),
+                Padding(
+                  padding: const EdgeInsets.only(left: GSizes.defaultSpace),
                   child: Column(
                     children: [
                       /// Heading
-                      GSectionsHeading(title: 'Популярные категории', textSize: 23.5, showActionButton: false),
-                      SizedBox(height: 8),
+                      const GSectionsHeading(title: 'Популярные категории', textSize: 23.5, showActionButton: false),
+                      const SizedBox(height: 8),
                       /// Categories
-                      GHomeCategories(),
+                      GestureDetector(
+                        onTap: () {
+                          controller.resetFilter();
+                        },
+                        child: const GHomeCategories(),
+                      ),
                     ],
                   ),
                 ),

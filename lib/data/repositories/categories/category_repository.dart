@@ -14,26 +14,14 @@ class CategoryRepository extends GetxController {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  /// Функция получения всех категорий
-  Future<List<CategoryModel>> getAllCategories() async {
+  /// Функция получения всех категорий в реальном времени
+  Stream<List<CategoryModel>> getAllCategories() {
     try {
-      final snapshot = await _db.collection('Category').get();
-      final list = snapshot.docs.map((document) => CategoryModel.fromSnapshot(document)).toList();
-      return list;
-    } on FirebaseException catch (e) {
-      throw GFirebaseException(e.code).message;
-    } on PlatformException catch (e) {
-      throw GPlatformException(e.code).message;
-    } catch (e) {
-      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
-    }
-  }
-
-  Future<List<CategoryModel>> getSubCategories(String categoryId) async {
-    try {
-      final snapshot = await _db.collection('Categories').where('ParentId', isEqualTo: categoryId).get();
-      final result = snapshot.docs.map((e) => CategoryModel.fromSnapshot(e)).toList();
-      return result;
+      return _db.collection('Category').snapshots().map(
+            (querySnapshot) => querySnapshot.docs
+                .map((documentSnapshot) => CategoryModel.fromSnapshot(documentSnapshot))
+                .toList(),
+          );
     } on FirebaseException catch (e) {
       throw GFirebaseException(e.code).message;
     } on PlatformException catch (e) {
@@ -55,7 +43,7 @@ class CategoryRepository extends GetxController {
 
       category.image = url;
 
-      await _db.collection("Categories").doc(category.id).set(category.toJson());
+      await _db.collection("Category").doc(category.id).set(category.toJson());
     }
 
   } on FirebaseException catch (e) {
@@ -69,7 +57,7 @@ class CategoryRepository extends GetxController {
 
 Future<CategoryModel> getCategoryById(String categoryId) async {
   try {
-    final snapshot = await _db.collection('Categories').doc(categoryId).get();
+    final snapshot = await _db.collection('Category').doc(categoryId).get();
     if (snapshot.exists) {
       return CategoryModel.fromSnapshot(snapshot);
     } else {

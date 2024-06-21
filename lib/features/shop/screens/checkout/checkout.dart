@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/auth_appbar.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:ggo/features/personalization/controlers/address_controller.dart';
 import 'package:ggo/features/personalization/controlers/order_controller.dart';
 import 'package:ggo/features/personalization/controlers/user_controller.dart';
 import 'package:ggo/features/shop/controlers/cart_controller.dart';
@@ -70,6 +71,12 @@ class CheckoutScreen extends StatelessWidget {
                               final totalCartPrice = cartController.totalCartPrice.value;
                               if (userBalance < totalCartPrice) {
                                 Loaders.errorSnackBar(title: 'Недостаточно средств', message: 'На вашем балансе недостаточно средств для оформления заказа.');
+                                return;
+                              }
+
+                              final addressController = AddressController.instance;
+                              if (addressController.selectedAddress.value.id.isEmpty) {
+                                Loaders.errorSnackBar(title: 'Адрес не выбран', message: 'Пожалуйста, выберите адрес доставки.');
                                 return;
                               }
 

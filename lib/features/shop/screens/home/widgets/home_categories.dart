@@ -4,7 +4,6 @@ import 'package:ggo/common/widgets/shimmers/category_shimmer.dart';
 import 'package:ggo/features/shop/controlers/category_controller.dart';
 import 'package:ggo/features/shop/screens/sub_category/sub_categories.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
-import 'package:readmore/readmore.dart';
 import '../../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
 import '../../../../../utils/constants/colors.dart';
 
@@ -35,7 +34,8 @@ class GHomeCategories extends StatelessWidget {
                 child: Text(
                   'Нет категорий!',
                   style: Theme.of(context).textTheme.bodyLarge!.apply(
-                      color: darkTheme ? Colors.white : GColors.dark),
+                        color: darkTheme ? Colors.white : GColors.dark,
+                      ),
                   overflow: TextOverflow.ellipsis,
                 ),
               );
@@ -59,6 +59,7 @@ class GHomeCategories extends StatelessWidget {
             );
           },
         );
+
       },
     );
   }

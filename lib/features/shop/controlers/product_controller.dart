@@ -15,7 +15,7 @@ class ProductController extends GetxController {
 
   @override
   void onInit() {
-     fetchFeaturedProducts();
+    fetchFeaturedProducts();
     super.onInit();
   }
 
@@ -36,8 +36,8 @@ class ProductController extends GetxController {
   }
 
   ProductModel getProductById(String productId) {
-  return allProducts.firstWhere((product) => product.id == productId, orElse: () => ProductModel.empty());
-}
+    return allProducts.firstWhere((product) => product.id == productId, orElse: () => ProductModel.empty());
+  }
 
   String getProductPrice(ProductModel product) {
     return product.price.toStringAsFixed(2);
@@ -67,7 +67,7 @@ class ProductController extends GetxController {
       );
     }
   }
-  
+
   void filterProductsByOption(String? option) {
     if (option == null || option.isEmpty) {
       filteredProducts.assignAll(allProducts);
@@ -88,5 +88,9 @@ class ProductController extends GetxController {
         filteredProducts.assignAll(allProducts);
         break;
     }
+  }
+
+  void resetFilter() {
+    product.assignAll(allProducts);
   }
 }

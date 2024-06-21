@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:ggo/data/repositories/categories/category_repository.dart';
 import 'package:ggo/features/shop/models/category_models.dart';
@@ -14,6 +16,7 @@ class CategoryController extends GetxController {
   RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
   Rx<CategoryModel> selectedCategory = CategoryModel(id: '', name: '', image: '', isFeatured: false).obs;
   RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
+  StreamSubscription<List<CategoryModel>>? _categoriesSubscription;
 
   @override
   void onInit() {
@@ -21,20 +24,24 @@ class CategoryController extends GetxController {
     fetchCategories();
   }
 
-  /// Load category data
-  Future<void> fetchCategories() async {
+  @override
+  void onClose() {
+    _categoriesSubscription?.cancel();
+    super.onClose();
+  }
+
+  /// Подписка на поток категорий в реальном времени
+  void fetchCategories() {
     try {
       isLoading.value = true;
 
-      final categories = await _categoryRepository.getAllCategories();
-
-      allCategories.assignAll(categories);
-
-      featuredCategories.assignAll(allCategories.where((category) => category.isFeatured).take(5).toList());
+      _categoriesSubscription = _categoryRepository.getAllCategories().listen((categories) {
+        allCategories.assignAll(categories);
+        featuredCategories.assignAll(allCategories.where((category) => category.isFeatured).toList());
+        isLoading.value = false;
+      });
     } catch (e) {
       Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
-    } finally {
-      // Remove loader
       isLoading.value = false;
     }
   }
@@ -42,7 +49,6 @@ class CategoryController extends GetxController {
   /// Load selected category data
   Future<void> loadSelectedCategoryData(String categoryId) async {
     try {
-
       isLoading.value = true;
 
       final category = await _categoryRepository.getCategoryById(categoryId);
@@ -58,7 +64,6 @@ class CategoryController extends GetxController {
   /// Get category or sub-category products
   Future<void> getCategoryOrSubCategoryProducts(String categoryId) async {
     try {
-
       isLoading.value = true;
 
       final products = await _categoryRepository.getProductsByCategoryId(categoryId);
@@ -67,25 +72,7 @@ class CategoryController extends GetxController {
     } catch (e) {
       Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
     } finally {
-      // Remove loader
       isLoading.value = false;
     }
   }
-
-  /// Удаление категории
-  Future<void> removeCategory(String categoryId) async {
-    try {
-
-      isLoading.value = true;
-
-      await _categoryRepository.removeCategoryById(categoryId);
-
-      await fetchCategories();
-    } catch (e) {
-      Loaders.errorSnackBar(title: 'Ошибка!', message: e.toString());
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
 }
