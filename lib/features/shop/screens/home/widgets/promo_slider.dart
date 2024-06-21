@@ -7,7 +7,7 @@ import 'package:ggo/utils/constants/colors.dart';
 
 import '../../../controlers/banner_controller.dart';
 
-class GPromoSlider extends StatelessWidget {
+class GPromoSlider extends StatefulWidget {
   const GPromoSlider({
     super.key,
     this.applyImageRadius = true,
@@ -18,36 +18,61 @@ class GPromoSlider extends StatelessWidget {
   final Function(int)? onPressed;
 
   @override
+  _GPromoSliderState createState() => _GPromoSliderState();
+}
+
+class _GPromoSliderState extends State<GPromoSlider> {
+  final BannerController controller = Get.put(BannerController());
+  final CarouselController _carouselController = CarouselController();
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.put(BannerController());
     return Obx(
       () {
-          return Column(
-            children: [
-              CarouselSlider(
-                options: CarouselOptions(viewportFraction: 1.05, onPageChanged: (index, _) => controller.updatePageIndicator(index)),
-                items: controller.banners.map((banner) => GRoundedImage(imageUrl: banner.imageUrl, isNetworkImage: true, onPressed: () {})).toList(),
+        return Column(
+          children: [
+            CarouselSlider.builder(
+              itemCount: controller.banners.length,
+              itemBuilder: (context, index, realIndex) {
+                final banner = controller.banners[index];
+                return GRoundedImage(
+                  imageUrl: banner.imageUrl,
+                  isNetworkImage: true,
+                  onPressed: () {},
+                );
+              },
+              options: CarouselOptions(
+                viewportFraction: 1.05,
+                onPageChanged: (index, _) {
+                  controller.updatePageIndicator(index);
+                },
+                initialPage: controller.carouselCurrentIndex.value,
+                pageSnapping: true,
               ),
-              const SizedBox(height: 10),
-              Center(
-                child: Obx(
-                  () => Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (int i = 0; i < controller.banners.length; i++)
-                        GCircularContainer(
-                          width: 17,
-                          height: 6,
-                          margin: const EdgeInsets.only(right: 10),
-                          backgroundColor: controller.carouselCurrentIndex.value == i ? GColors.primary : GColors.grey,
-                        ),
-                    ],
-                  ),
+              carouselController: _carouselController,
+            ),
+            const SizedBox(height: 10),
+            Center(
+              child: Obx(
+                () => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (var banner in controller.banners)
+                      GCircularContainer(
+                        width: 17,
+                        height: 6,
+                        margin: const EdgeInsets.only(right: 10),
+                        backgroundColor: controller.carouselCurrentBannerId.value == banner.id
+                            ? GColors.primary
+                            : GColors.grey,
+                      ),
+                  ],
                 ),
-              )
-            ],
-          );
-        }
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -12,11 +12,12 @@ class BannerRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
-  /// получение всех банеров
-  Future<List<BannerModel>> fetchBanners() async {
+  /// получение всех банеров в реальном времени
+  Stream<List<BannerModel>> fetchBanners() {
     try {
-      final result = await _db.collection('Banners').where('Active', isEqualTo: true).get();
-      return result.docs.map((documentSnapshot) => BannerModel.fromSnapshot(documentSnapshot)).toList();
+      return _db.collection('Banners').where('Active', isEqualTo: true).snapshots().map(
+        (querySnapshot) => querySnapshot.docs.map((documentSnapshot) => BannerModel.fromSnapshot(documentSnapshot)).toList(),
+      );
     } on FirebaseException catch (e) {
       throw GFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -27,5 +28,4 @@ class BannerRepository extends GetxController {
       throw 'Что-то пошло не так при получении баннеров.';
     }
   }
-
 }
