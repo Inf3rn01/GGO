@@ -94,16 +94,4 @@ Future<CategoryModel> getCategoryById(String categoryId) async {
       throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз.';
     }
   }
-
-//----------------------- Для панели админа -----------------------//
-
-  /// Удаление категорий по id
-  Future<void> removeCategoryById(String categoryId) async {
-    try {
-      await _db.collection('Categories').doc(categoryId).delete();
-    } catch (e) {
-      throw 'Ошибка при удалении категории: $e';
-    }
-  }
-
 }
