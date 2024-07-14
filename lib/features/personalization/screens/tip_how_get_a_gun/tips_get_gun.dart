@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:ggo/common/widgets/app_bar/auth_appbar.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ggo/utils/constants/colors.dart';
+import 'package:ggo/utils/helpers/helper_functions.dart';
 
 class GetGunScreen extends StatelessWidget {
   const GetGunScreen({super.key});
@@ -13,8 +14,9 @@ class GetGunScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final  darkTheme = GHelperFunctions.isDarkMode(context);
     return Scaffold(
-      appBar: const AuthAppBar(showBackArrow: true, title: Text('How can I get a gun?')),
+      appBar: const AuthAppBar(showBackArrow: true, title: Text('Как получить оружие?')),
       body: FutureBuilder<String>(
         future: loadTextFile(),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -29,7 +31,7 @@ class GetGunScreen extends StatelessWidget {
                 children: [
                   GRoundedContainer(
                     padding: const EdgeInsets.all(10),
-                    backgroundColor: GColors.dark,
+                    backgroundColor: darkTheme ? GColors.dark : GColors.grey,
                     child: Text(
                       snapshot.data ?? '',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),

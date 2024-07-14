@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ggo/utils/constants/colors.dart';
+import 'package:ggo/utils/helpers/helper_functions.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../product_reviews.dart';
@@ -25,8 +26,8 @@ class RatingWithAllStars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
+    final screenWidth = GHelperFunctions.screenWidth();
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -35,7 +36,7 @@ class RatingWithAllStars extends StatelessWidget {
           child: GRoundedContainer(
             height: 33,
             width: screenWidth < 600 ? 131 : 156,
-            backgroundColor: Colors.black.withOpacity(0.2),
+            backgroundColor: darkTheme ? Colors.black.withOpacity(0.2) : GColors.darkGrey.withOpacity(0.20),
             showBorder: true,
             borderColor: GColors.borderPrimary.withOpacity(0.1),
             radius: 12,
@@ -60,7 +61,7 @@ class RatingWithAllStars extends StatelessWidget {
                               rating.toStringAsFixed(1),
                               style: TextStyle(
                                 fontSize: screenWidth < 600 ? 13 : 14.5,
-                                color: GColors.grey.withOpacity(0.9),
+                                color: GColors.grey.withOpacity(0.7),
                               ),
                             ),
                           ),
@@ -71,7 +72,7 @@ class RatingWithAllStars extends StatelessWidget {
                               '$reviewCount',
                               style: TextStyle(
                                 fontSize: screenWidth < 600 ? 13 : 14.5,
-                                color: GColors.grey.withOpacity(0.9),
+                                color: darkTheme ? GColors.grey.withOpacity(0.9) : GColors.dark.withOpacity(0.8),
                               ),
                             ),
                           ),

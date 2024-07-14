@@ -17,7 +17,7 @@ class UserReviewCard extends StatelessWidget {
     final screenWidth = GHelperFunctions.screenWidth();
 
     return GRoundedContainer(
-      backgroundColor: GColors.darkerGrey.withOpacity(0.55),
+      backgroundColor: darkTheme ? GColors.darkerGrey.withOpacity(0.55) : GColors.grey.withOpacity(0.6),
       child: Padding(
         padding: EdgeInsets.all(screenWidth < 600 ? 9.0 : 10),
         child: Column(
@@ -62,7 +62,7 @@ class UserReviewCard extends StatelessWidget {
 
             /// Company Review
             GRoundedContainer(
-              backgroundColor: darkTheme ? GColors.dark : GColors.darkerGrey,
+              backgroundColor: darkTheme ? GColors.dark : GColors.darkGrey.withOpacity(0.23),
               child: Padding(
                 padding: EdgeInsets.all(screenWidth < 600 ? 10.0 : GSizes.md),
                 child: Column(

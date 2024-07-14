@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ggo/features/personalization/controlers/user_controller.dart';
+import 'package:ggo/utils/helpers/helper_functions.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../../common/widgets/texts/section_heading.dart';
@@ -14,6 +15,7 @@ class BillingAddressSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     final UserController userController = UserController.instance;
     final AddressController addressController = Get.put(AddressController());
     return Column(
@@ -25,9 +27,9 @@ class BillingAddressSection extends StatelessWidget {
 
         Row(
           children: [
-            const Icon(Clarity.user_line, color: GColors.grey, size: 19),
+            Icon(Clarity.user_line, color: darkTheme ? GColors.grey : GColors.darkerGrey, size: 19),
             const SizedBox(width: GSizes.spaceBtwItems / 2),
-            Text(userController.user.value.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+            Text(userController.user.value.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
           ],
         ),
 
@@ -35,7 +37,7 @@ class BillingAddressSection extends StatelessWidget {
       
         Row(
           children: [
-            const Icon(Clarity.phone_handset_line, color: GColors.grey, size: 19),
+            Icon(Clarity.phone_handset_line, color: darkTheme ? GColors.grey : GColors.darkerGrey, size: 19),
             const SizedBox(width: GSizes.spaceBtwItems / 2),
             Text(userController.user.value.phoneNumber, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400),)
           ],
@@ -45,7 +47,7 @@ class BillingAddressSection extends StatelessWidget {
 
         Row(
           children: [
-            const Icon(Iconsax.truck_outline, color: GColors.grey, size: 20),
+            Icon(Iconsax.truck_outline, color: darkTheme ? GColors.grey : GColors.darkerGrey.withOpacity(0.95), size: 20),
             const SizedBox(width: GSizes.spaceBtwItems / 2),
             Expanded(
               child: Obx(() {

@@ -9,6 +9,7 @@ import 'package:ggo/firebase_options.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'data/repositories/authentication/authentication_repository.dart';
+import 'utils/constants/api_constants.dart';
 
 Future<void> main() async {
 
@@ -27,7 +28,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  Stripe.publishableKey = 'pk_test_51PPSpoRrGht9QPvptYVb5KziatbSZF8OV7NQuTp3qLzRrA2N04Vd5w23ThqszgMvdPCcnb1wMnoWFci17hsu3Esm00SvA9EFyK';
+  Stripe.publishableKey = APIConstants.publicAPIkey;
 
   runApp(const App());
 }

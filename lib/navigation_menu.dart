@@ -24,7 +24,7 @@ class NavigationMenu extends StatelessWidget {
           showUnselectedLabels: false,
           selectedItemColor: GColors.primary,
           unselectedItemColor: darkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
-          backgroundColor: darkMode ? GColors.black : Colors.white,
+          backgroundColor: darkMode ? GColors.black.withOpacity(0.85) : Colors.white,
           currentIndex: controller.selectedIndex.value,
           onTap: (index) => controller.selectedIndex.value = index,
           items: [

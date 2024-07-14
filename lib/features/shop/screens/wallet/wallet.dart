@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' as stripe;
 import 'package:get/get.dart';
+import 'package:ggo/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/app_bar/auth_appbar.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../personalization/controlers/user_controller.dart';
@@ -12,10 +13,11 @@ class WalletScreen extends StatelessWidget {
   final UserController _userController = UserController.instance;
 
   void _showBottomSheet(BuildContext context) {
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    backgroundColor: GColors.dark.withOpacity(0.7),
+    backgroundColor: darkTheme ? GColors.dark.withOpacity(0.7) : GColors.white,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
@@ -24,14 +26,14 @@ class WalletScreen extends StatelessWidget {
         bottom: MediaQuery.of(context).viewInsets.bottom,
         left: 16,
         right: 16,
-        top: 16,
+        top: 10,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             'Введите данные карты',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: darkTheme ? Colors.white : Colors.black),
           ),
           const SizedBox(height: 20),
           stripe.CardField(
@@ -46,7 +48,7 @@ class WalletScreen extends StatelessWidget {
               labelText: 'Сумма пополнения',
               border: const OutlineInputBorder(),
               filled: true,
-              fillColor: GColors.dark.withOpacity(0.5),
+              fillColor: darkTheme ? GColors.dark.withOpacity(0.5) : GColors.white,
             ),
             keyboardType: TextInputType.number,
           ),
@@ -73,7 +75,7 @@ class WalletScreen extends StatelessWidget {
             ),
             child: const Text('Пополнить'),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
         ],
       ),
     ),
@@ -84,6 +86,7 @@ class WalletScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: const AuthAppBar(title: Text('Кошелёк'), showBackArrow: true),
       body: Padding(
@@ -96,12 +99,12 @@ class WalletScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Card(
-                elevation: 4,
+                elevation: 7,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                   side: BorderSide(color: Colors.amber.withOpacity(0.55), width: 0.55),
                 ),
-                color: GColors.dark.withOpacity(0.75),
+                color: darkTheme ? GColors.dark.withOpacity(0.75) : GColors.dark.withOpacity(0.9),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -121,7 +124,7 @@ class WalletScreen extends StatelessWidget {
                         onPressed: () => _showBottomSheet(context),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.amber.withOpacity(0.8),
-                          foregroundColor: GColors.dark,
+                          foregroundColor: GColors.dark.withOpacity(0.9),
                           side: BorderSide(color: Colors.black.withOpacity(0.5)),
                         ),
                         child: const Padding(

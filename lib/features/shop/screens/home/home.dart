@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 30),
 
                 /// Heading
-                const GSectionsHeading(title: 'Выбрали для вас', textSize: 23, showActionButton: false),
+                const GSectionsHeading(title: 'Подобрали для вас', textSize: 23, showActionButton: false),
 
                 /// Products
                 Obx(

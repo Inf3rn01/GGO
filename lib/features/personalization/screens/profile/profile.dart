@@ -8,6 +8,7 @@ import 'package:ggo/features/personalization/controlers/user_controller.dart';
 import 'package:ggo/features/personalization/screens/profile/widgets/change_name_widget.dart';
 import 'package:ggo/features/personalization/screens/profile/widgets/change_phone_widget.dart';
 import 'package:ggo/features/personalization/screens/profile/widgets/profile_menu.dart';
+import 'package:ggo/utils/helpers/helper_functions.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/images_strings.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -17,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     final controller = UserController.instance;
     return Scaffold(
       appBar: const AuthAppBar(showBackArrow: true, title: Text('Профиль')),
@@ -39,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                           ? const ShimmerEffect(width: 90, height: 90, radius: 90)
                           : GCircularImage(image: image, width: 90, height: 90, padding: 4.5, isNetworkImage: networkImage.isNotEmpty);
                     }),
-                    TextButton(onPressed: () => controller.uploadUserProfilePicture(), child: const Text('Изменить фотографию', style: TextStyle(fontSize: 14, color: GColors.grey))),
+                    TextButton(onPressed: () => controller.uploadUserProfilePicture(), child: Text('Изменить фотографию', style: TextStyle(fontSize: 14, color: darkTheme ? GColors.grey : GColors.dark))),
                   ],
                 ),
               ),

@@ -99,28 +99,28 @@ class CartController extends GetxController {
 }
 
   Future<void> fetchCartItems(String userId) async {
-  final docRef = _firestore.collection('Cart').doc(userId);
-  final docSnapshot = await docRef.get();
+    final docRef = _firestore.collection('Cart').doc(userId);
+    final docSnapshot = await docRef.get();
 
-  if (docSnapshot.exists) {
-    final cart = CartModel.fromJson(docSnapshot.data()!);
-    
-    // Проверяем, что массивы не только существуют, но и содержат элементы
-    if (cart.productId != null && cart.productId!.isNotEmpty) {
-      cartItems.value = [cart];
-      noOfCartItems.value = cart.productId!.length;
-      calculateTotalCartPrice();
+    if (docSnapshot.exists) {
+      final cart = CartModel.fromJson(docSnapshot.data()!);
+      
+      // Проверяем, что массивы не только существуют, но и содержат элементы
+      if (cart.productId != null && cart.productId!.isNotEmpty) {
+        cartItems.value = [cart];
+        noOfCartItems.value = cart.productId!.length;
+        calculateTotalCartPrice();
+      } else {
+        cartItems.clear();
+        noOfCartItems.value = 0;
+        totalCartPrice.value = 0.0;
+      }
     } else {
       cartItems.clear();
       noOfCartItems.value = 0;
       totalCartPrice.value = 0.0;
     }
-  } else {
-    cartItems.clear();
-    noOfCartItems.value = 0;
-    totalCartPrice.value = 0.0;
   }
-}
 
   void calculateTotalCartPrice() {
     totalCartPrice.value = cartItems.fold(0.0, (sum, cart) {

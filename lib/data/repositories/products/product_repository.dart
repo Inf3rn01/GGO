@@ -38,4 +38,21 @@ class ProductRepository extends GetxController {
       throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз. $e';
     }
   }
+
+  Future<List<ProductModel>> getFeaturedProductsByCategory(String categoryId) async {
+    try {
+      final snapshot = await _db.collection('Products')
+          .where('CategoryId', isEqualTo: categoryId)
+          .where('IsFeatured', isEqualTo: true) // Добавляем условие для избранных товаров
+          .get();
+      return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+    } on FirebaseException catch (e) {
+      throw GFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw GPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Что-то пошло не так. Пожалуйста, попробуйте еще раз. $e';
+    }
+  }
+
 }

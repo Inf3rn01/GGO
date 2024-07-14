@@ -80,7 +80,7 @@ class _SearchContainerState extends State<SearchContainer> {
                       hintText: widget.text,
                       hintStyle: hintStyle,
                       filled: widget.showBackground,
-                      fillColor: darkTheme ? GColors.dark : GColors.light,
+                      fillColor: darkTheme ? GColors.dark : GColors.white.withOpacity(0.9),
                       contentPadding: const EdgeInsets.symmetric(vertical: 17.0),
                     ),
                   ),

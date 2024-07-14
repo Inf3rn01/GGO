@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/auth_appbar.dart';
 import 'package:ggo/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ggo/features/personalization/controlers/address_controller.dart';
-import 'package:ggo/features/personalization/controlers/order_controller.dart';
+import 'package:ggo/features/shop/controlers/order_controller.dart';
 import 'package:ggo/features/personalization/controlers/user_controller.dart';
 import 'package:ggo/features/shop/controlers/cart_controller.dart';
 import 'package:ggo/features/shop/screens/checkout/widgets/billing_address_section.dart';
@@ -40,7 +40,7 @@ class CheckoutScreen extends StatelessWidget {
                 showBorder: true,
                 borderColor: GColors.borderPrimary.withOpacity(0.2),
                 padding: const EdgeInsets.all(GSizes.md),
-                backgroundColor: darkTheme ? GColors.black : GColors.grey,
+                backgroundColor: darkTheme ? GColors.black : GColors.grey.withOpacity(0.6),
                 child: Column(
                   children: [
 

@@ -14,7 +14,7 @@ class SubCategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductController controller = Get.put(ProductController());
+    final ProductController controller = Get.find<ProductController>();
 
     controller.fetchProductsByCategory(category.id);
 

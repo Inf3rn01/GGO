@@ -46,7 +46,7 @@ class ProductController extends GetxController {
   void fetchProductsByCategory(String categoryId) async {
     try {
       isLoading.value = true;
-      final products = await productRepository.getProductsByCategory(categoryId);
+      final products = await productRepository.getFeaturedProductsByCategory(categoryId);
       allProducts.assignAll(products);
       filteredProducts.assignAll(products);
     } catch (e) {
@@ -92,5 +92,9 @@ class ProductController extends GetxController {
 
   void resetFilter() {
     product.assignAll(allProducts);
+  }
+
+  void reset() {
+    fetchFeaturedProducts();
   }
 }

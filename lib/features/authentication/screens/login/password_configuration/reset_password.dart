@@ -24,7 +24,7 @@ class ResetPasswordScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () => Get.back(),
-            icon: const Icon(CupertinoIcons.clear),
+            icon: const Icon(CupertinoIcons.clear, size: 20),
             color: darkTheme ? GColors.white : GColors.dark)
           ],
       ),

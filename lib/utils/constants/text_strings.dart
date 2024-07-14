@@ -35,7 +35,7 @@ class GTexts {
   static const String singupTitle = "Давайте создадим вашу учетную запись";
   static const String forgetPasswordTitle = "Забыли пароль";
   static const String forgetPasswordSubTitle = "Не волнуйтесь, иногда люди тоже могут забыть, введите свою электронную почту, и мы вышлем вам ссылку для сброса пароля";
-  static const String changeYourPasswordTitle = "письмо для сброса пароля отправлено";
+  static const String changeYourPasswordTitle = "Письмо для сброса пароля отправлено";
   static const String changeYourPasswordSubTitle = "Безопасность вашего аккаунта - наш приоритет! Мы отправили вам ссылку для безопасной смены пароля и защиты вашего аккаунта";
   static const String confirmEmail = "Проверьте вашу электронную почту!";
   static const String confirmEmailSubTitle = "Поздравляем! Ваша учетная запись ждёт. Подтвердите свой адрес электронной почты, чтобы начать покупки и познакомиться с миром оружия";

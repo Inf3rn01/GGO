@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ggo/common/widgets/app_bar/auth_appbar.dart';
 import 'package:ggo/features/personalization/controlers/address_controller.dart';
 import 'package:ggo/features/personalization/screens/address/widgets/single_address.dart';
+import 'package:ggo/utils/helpers/helper_functions.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../utils/constants/colors.dart';
@@ -14,11 +15,12 @@ class UserAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     final controller = Get.put(AddressController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.to(() => const AddNewAddressScreen()),
-        backgroundColor: GColors.dark,
+        backgroundColor: darkTheme ? GColors.dark : GColors.lightGrey.withOpacity(0.9),
         child: const Icon(FontAwesome.plus_solid, color: GColors.primary),
       ),
       appBar: AuthAppBar(

@@ -21,7 +21,7 @@ class BillingPaymentSection extends StatelessWidget {
             children: [
               Text(
                 '\$${double.tryParse(userController.user.value.balance)?.toStringAsFixed(2) ?? "0.00"}',
-                style: const TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
               ),
             ],
           );

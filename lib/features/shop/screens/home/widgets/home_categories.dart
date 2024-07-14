@@ -6,6 +6,7 @@ import 'package:ggo/features/shop/screens/sub_category/sub_categories.dart';
 import 'package:ggo/utils/helpers/helper_functions.dart';
 import '../../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
 import '../../../../../utils/constants/colors.dart';
+import '../../../controlers/product_controller.dart';
 
 class GHomeCategories extends StatelessWidget {
   const GHomeCategories({super.key});
@@ -52,7 +53,11 @@ class GHomeCategories extends StatelessWidget {
                   return GVerticalImagesTexts(
                     image: category.image,
                     title: category.name,
-                    onTap: () => Get.to(() => SubCategoriesScreen(category: category)),
+                      onTap: () {
+                      Get.to(() => SubCategoriesScreen(category: category))?.then((_) {
+                        Get.find<ProductController>().reset();
+                      });
+                    },
                   );
                 },
               ),

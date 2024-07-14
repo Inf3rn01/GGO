@@ -21,7 +21,7 @@ class GProductCardVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
-    final dark = GHelperFunctions.isDarkMode(context);
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     final screenWidth = GHelperFunctions.screenWidth();
 
     return GestureDetector(
@@ -29,7 +29,7 @@ class GProductCardVertical extends StatelessWidget {
       child: GRoundedContainer(
         showBorder: true,
         borderColor: GColors.borderPrimary.withOpacity(0.02),
-        backgroundColor: dark ? const Color(0xFF202020) : const Color(0xFFF0F0F0),
+        backgroundColor: darkTheme? const Color(0xFF202020) : GColors.grey.withOpacity(0.6),
         child: LayoutBuilder(
           builder: (context, constraints) {
             final imageHeight = constraints.maxHeight * 0.3;

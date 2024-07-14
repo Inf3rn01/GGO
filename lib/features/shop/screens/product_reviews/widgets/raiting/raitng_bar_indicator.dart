@@ -14,7 +14,7 @@ class GRaitingBarIndicator extends StatelessWidget {
     return RatingBarIndicator(
             rating: raiting,
             itemSize: 17,
-            unratedColor: GColors.grey,
+            unratedColor: GColors.softGrey,
             itemBuilder: (_, __) => const Icon(HeroIcons.star, color: Colors.amber)
     );
   }

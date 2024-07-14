@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ggo/utils/helpers/helper_functions.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import 'package:ggo/utils/constants/colors.dart';
@@ -19,7 +20,8 @@ class RatingWithOneStar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final darkTheme = GHelperFunctions.isDarkMode(context);
+    final screenWidth = GHelperFunctions.screenWidth();
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -51,17 +53,17 @@ class RatingWithOneStar extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 3.0),
                         child: Icon(
                           Iconsax.more_circle_bulk,
-                          color: GColors.darkGrey.withOpacity(0.6),
+                          color: darkTheme ? GColors.grey.withOpacity(0.6) : GColors.darkGrey.withOpacity(0.8),
                           size: screenWidth < 600 ? 5 : 6,
                         ),
                       ),
                     Padding(
                       padding: const EdgeInsets.only(left: 3.0),
                       child: Text(
-                        '$reviewCount reviews',
+                        '$reviewCount отзыв',
                         style: TextStyle(
                           fontSize: screenWidth < 600 ? 13 : 15,
-                          color: GColors.grey.withOpacity(0.6),
+                          color: darkTheme ? GColors.grey.withOpacity(0.6) : GColors.darkerGrey,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

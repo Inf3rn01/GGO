@@ -12,6 +12,7 @@ import 'package:ggo/features/personalization/screens/profile/widgets/re_authenti
 import 'package:ggo/utils/popups/full_screen_loader.dart';
 import 'package:ggo/utils/popups/loaders.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../utils/constants/api_constants.dart';
 import '../../../utils/constants/images_strings.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/network_manager.dart';
@@ -78,8 +79,7 @@ class UserController extends GetxController {
     final response = await http.post(
       Uri.parse(url),
       headers: {
-        'Authorization':
-            'Bearer sk_test_51PPSpoRrGht9QPvptAB8WmXBKBMQu1GsK5e3adG2J7CH046rtwXl5xTsX5EixzdiXkxUWIGAAhIQwSD42X8jdHg300QiCOTqBJ', // Замените на ваш секретный ключ
+        'Authorization': APIConstants.secretAPIkey,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: {

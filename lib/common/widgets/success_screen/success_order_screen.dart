@@ -4,6 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/constants/text_strings.dart';
+import '../../../utils/helpers/helper_functions.dart';
 
 class SuccessOrderScreen extends StatelessWidget {
   const SuccessOrderScreen({super.key, required this.title, required this.subTitle, required this.onPressed});
@@ -13,6 +14,7 @@ class SuccessOrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkTheme = GHelperFunctions.isDarkMode(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -21,7 +23,7 @@ class SuccessOrderScreen extends StatelessWidget {
             children: [
 
               /// Image
-              const Icon(Iconsax.truck_outline, color: GColors.grey, size: 42),
+              Icon(Iconsax.truck_outline, color: darkTheme ? GColors.grey : GColors.dark, size: 42),
               const SizedBox(height: 6),
 
               /// Title & SubTitle

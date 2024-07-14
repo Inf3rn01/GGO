@@ -35,7 +35,7 @@ class SingleAddress extends StatelessWidget {
             width: double.infinity,
             showBorder: true,
             padding: const EdgeInsets.all(10),
-            backgroundColor: selectedAddress ? GColors.primary.withOpacity(0.5) : Colors.transparent,
+            backgroundColor: selectedAddress ? darkTheme ? GColors.primary.withOpacity(0.6) : GColors.primary.withOpacity(0.9) : Colors.transparent,
             borderColor: selectedAddress
                 ? Colors.transparent
                 : darkTheme

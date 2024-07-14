@@ -31,44 +31,54 @@ class LoginController extends GetxController {
 
   /// SignIn
   void signIn() async {
-  try {
-    FullScreenLoader.openLoadingDialog('Вход в систему...', GImages.loading);
+    try {
+      FullScreenLoader.openLoadingDialog('Вход в систему...', GImages.loading);
 
-    final isConnected = await NetworkManager.instance.isConnected();
-    if (!isConnected) {
-      FullScreenLoader.stopLoading();
-      Loaders.errorSnackBar(
-          title: 'Нет интернета', 
-          message: 'Пожалуйста, проверьте подключение к Интернету и повторите попытку'
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        FullScreenLoader.stopLoading();
+        Loaders.errorSnackBar(
+            title: 'Нет интернета', 
+            message: 'Пожалуйста, проверьте подключение к Интернету и повторите попытку'
+        );
+        return;
+      }
+
+      if (loginFormKey.currentState != null && !loginFormKey.currentState!.validate()) {
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+      if (rememberMe.value) {
+        localStorage.write('REMEMBER_ME_EMAIL', email.text.trim());
+        localStorage.write('REMEMBER_ME_PASSWORD', password.text.trim());
+      } else {
+        localStorage.remove('REMEMBER_ME_EMAIL');
+        localStorage.remove('REMEMBER_ME_PASSWORD');
+      }
+
+      final userCredential = await AuthenticationRepository.instance.loginWithEmailAndPassword(
+          email.text.trim(), password.text.trim()
       );
-      return;
-    }
 
-    if (loginFormKey.currentState != null && !loginFormKey.currentState!.validate()) {
+
+      if (userCredential.user != null && !userCredential.user!.emailVerified) {
+        FullScreenLoader.stopLoading();
+        Loaders.warningSnackBar(
+          title: 'Email не подтвержден',
+          message: 'Пожалуйста, подтвердите ваш email для продолжения'
+        );
+        return;
+      }
+
+      AuthenticationRepository.instance.screenRedirect();
+      
       FullScreenLoader.stopLoading();
-      return;
+
+    } catch (e) {
+      FullScreenLoader.stopLoading();
+      Loaders.errorSnackBar(title: 'Ошибка!', message: 'Не верный логин или пароль');
     }
-
-    if (rememberMe.value) {
-      localStorage.write('REMEMBER_ME_EMAIL', email.text.trim());
-      localStorage.write('REMEMBER_ME_PASSWORD', password.text.trim());
-    } else {
-      localStorage.remove('REMEMBER_ME_EMAIL');
-      localStorage.remove('REMEMBER_ME_PASSWORD');
-    }
-
-    final userCredential = await AuthenticationRepository.instance.loginWithEmailAndPassword(
-        email.text.trim(), password.text.trim()
-    );
-
-    AuthenticationRepository.instance.screenRedirect();
-    
-    FullScreenLoader.stopLoading();
-
-  } catch (e) {
-    FullScreenLoader.stopLoading();
-    Loaders.errorSnackBar(title: 'Ошибка!', message: 'Не верный логин или пароль');
   }
-}
 
 }

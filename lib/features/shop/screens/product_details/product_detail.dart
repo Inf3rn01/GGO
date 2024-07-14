@@ -41,9 +41,9 @@ class ProductDetailScreen extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            color: darkTheme ? GColors.dark : GColors.softGrey,
+            color: darkTheme ? GColors.dark : GColors.darkGrey.withOpacity(0.31),
             border: Border(
-              top: BorderSide(color: GColors.borderPrimary.withOpacity(0.2), width: 1),
+              top: BorderSide(color: darkTheme ? GColors.borderPrimary.withOpacity(0.2) : GColors.white.withOpacity(0.7), width: 1),
             ),
           ),
           child: Padding(
@@ -54,7 +54,7 @@ class ProductDetailScreen extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(FontAwesome.minus_solid, size: 22, color: darkTheme ? GColors.softGrey : GColors.dark),
+                      icon: Icon(FontAwesome.minus_solid, size: 22, color: darkTheme ? GColors.softGrey : GColors.darkerGrey.withOpacity(0.85)),
                       onPressed: () {
                         if (cartController.productQuantityCart.value > 1) {
                           cartController.productQuantityCart.value--;
@@ -63,7 +63,7 @@ class ProductDetailScreen extends StatelessWidget {
                     ),
                     Obx(() => Text(cartController.productQuantityCart.value.toString(), style: const TextStyle(fontSize: 18))),
                     IconButton(
-                      icon: Icon(FontAwesome.plus_solid, size: 21, color: darkTheme ? GColors.softGrey : GColors.dark),
+                      icon: Icon(FontAwesome.plus_solid, size: 21, color: darkTheme ? GColors.softGrey : GColors.darkerGrey.withOpacity(0.85)),
                       onPressed: () {
                         cartController.productQuantityCart.value++;
                       },
@@ -109,7 +109,7 @@ class ProductDetailScreen extends StatelessWidget {
                   GRoundedContainer(
                     showBorder: true,
                     borderColor: GColors.borderPrimary.withOpacity(0.1),
-                    backgroundColor: darkTheme ? GColors.black : GColors.grey,
+                    backgroundColor: darkTheme ? GColors.black : GColors.grey.withOpacity(0.7),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                       child: Column(
@@ -125,7 +125,7 @@ class ProductDetailScreen extends StatelessWidget {
                   GRoundedContainer(
                     showBorder: true,
                     borderColor: GColors.borderPrimary.withOpacity(0.1),
-                    backgroundColor: darkTheme ? GColors.black : GColors.grey,
+                    backgroundColor: darkTheme ? GColors.black : GColors.grey.withOpacity(0.7),
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return SizedBox(
